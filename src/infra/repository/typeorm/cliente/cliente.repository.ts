@@ -29,6 +29,9 @@ export class ClienteRepositoryTypeOrm implements IClienteRepository {
     const data = await this.clienteRepository.findOneBy({
       documento: params.document,
     });
+    if (!data) {
+      return null;
+    }
     const result = adapter.result(data);
     return result;
   }

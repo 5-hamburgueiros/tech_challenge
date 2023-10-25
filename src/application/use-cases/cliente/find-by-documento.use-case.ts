@@ -1,33 +1,25 @@
 import { ClienteEntity } from '@/domain/entities';
 import { DocumentoCadastradoException } from '@/domain/exceptions';
 import { IClienteRepository } from '@/domain/repository';
-import { ICreateCliente } from '@/domain/use-cases';
+import { IFindByDocumento } from '@/domain/use-cases';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class CreateClienteUseCase implements ICreateCliente {
+export class FindByDocumentUseCase implements IFindByDocumento {
   constructor(
     @Inject(IClienteRepository)
     private readonly clienteRepository: IClienteRepository,
   ) {}
 
-  async execute(params: ICreateCliente.Params): Promise<ClienteEntity> {
+  async execute(params: IFindByDocumento.Params): Promise<ClienteEntity> {
     const exists = await this.clienteRepository.findByDocument({
       document: params.documento,
     });
-    if (exists) {
+    if (!exists) {
       throw new DocumentoCadastradoException(
-        'Documento já cadastrado no sistema',
+        'Documento não cadastrado no sistema',
       );
     }
-    const clienteModel = new ClienteEntity({
-      id: undefined,
-      email: params.email,
-      nome: params.nome,
-      documento: params.documento,
-    });
-    return this.clienteRepository.create({
-      cliente: clienteModel,
-    });
+    return exists;
   }
 }
