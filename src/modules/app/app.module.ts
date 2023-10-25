@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClienteModule } from '../cliente/cliente.module';
+import { ComboModule } from '../combo/combo.module';
 import { DatabaseModule } from '../database/database.module';
 import { HealthModule } from '../health/health.module';
 import { IngredienteModule } from '../ingrediente/ingrediente.module';
@@ -34,6 +35,7 @@ import { ItemModule } from '../item/item.module';
     ClienteModule,
     IngredienteModule,
     ItemModule,
+    ComboModule,
   ],
   providers: [
     CorrelationService,

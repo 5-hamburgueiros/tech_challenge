@@ -8,8 +8,8 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { IngredienteModelTypeOrm } from './';
 import { AbstractModel } from './abstract.typeorm.model';
-import { IngredienteModelTypeOrm } from './ingrediente.typeorm.model';
 
 @Entity({ name: 'Item' })
 @Index(['id'])

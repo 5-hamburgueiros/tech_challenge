@@ -35,7 +35,7 @@ export namespace ItemModel {
     nome: string;
     valor: number;
     categoria: CategoriaItem;
-    ingredientes: Array<IngredienteEntity>;
+    ingredientes?: Array<IngredienteEntity>;
     createdAt?: string;
     updatedAt?: string;
   };
