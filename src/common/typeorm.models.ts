@@ -1,3 +1,6 @@
-import { ExampleModelTypeOrm } from '@/infra/database/typerom/model';
+import {
+  ClienteModelTypeOrm,
+  ExampleModelTypeOrm,
+} from '@/infra/database/typerom/model';
 
-export const typeOrmEntities = [ExampleModelTypeOrm];
+export const typeOrmEntities = [ClienteModelTypeOrm, ExampleModelTypeOrm];
