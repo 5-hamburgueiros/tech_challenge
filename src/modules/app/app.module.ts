@@ -14,6 +14,7 @@ import { ClienteModule } from '../cliente/cliente.module';
 import { DatabaseModule } from '../database/database.module';
 import { HealthModule } from '../health/health.module';
 import { IngredienteModule } from '../ingrediente/ingrediente.module';
+import { ItemModule } from '../item/item.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { IngredienteModule } from '../ingrediente/ingrediente.module';
     },
     ClienteModule,
     IngredienteModule,
+    ItemModule,
   ],
   providers: [
     CorrelationService,
