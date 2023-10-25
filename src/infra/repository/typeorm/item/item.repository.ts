@@ -1,9 +1,10 @@
-import { IngredienteEntity, ItemEntity } from '@/domain/entities';
+import { ItemEntity } from '@/domain/entities';
 import { IItemRepository } from '@/domain/repository';
 import { ItemModelTypeOrm } from '@/infra/database/typerom/model';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
+import { CreateTypeOrmAdapter, FindAllItensTypeOrmAdapter } from './adapter';
 
 @Injectable()
 export class ItemRepositoryTypeOrm implements IItemRepository {
@@ -15,6 +16,7 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
     params: IItemRepository.FindAll.Params,
   ): Promise<IItemRepository.FindAll.Result> {
     const { nome, categoria } = params;
+    const adapter = new FindAllItensTypeOrmAdapter();
     const where = {};
     if (nome) {
       Object.assign(where, {
@@ -30,20 +32,13 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
       where,
       relations: ['ingredientes'],
     });
-    return result.map((item) =>
-      ItemEntity.FromTypeOrmModel({
-        categoria: item.categoria,
-        id: item.id,
-        nome: item.nome,
-        valor: item.valor,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-        ingredientes: item.ingredientes.map(IngredienteEntity.FromTypeOrmModel),
-      }),
-    );
+    return adapter.result(result);
   }
 
   async create(params: IItemRepository.Create.Params): Promise<ItemEntity> {
-    return this.itemRepository.save(params.item);
+    const adapter = new CreateTypeOrmAdapter();
+    const data = adapter.command(params);
+    const result = await this.itemRepository.save(data);
+    return adapter.result(result);
   }
 }
