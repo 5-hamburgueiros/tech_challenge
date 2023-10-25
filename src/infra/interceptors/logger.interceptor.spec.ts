@@ -1,10 +1,9 @@
 import { CorrelationService } from '@/infra/correlation/correlation-service';
 import { createMock } from '@golevelup/nestjs-testing';
-import { ExecutionContext } from '@nestjs/common';
+import { ExecutionContext, Logger } from '@nestjs/common';
 import { CallHandler, HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { Request, Response } from 'express';
 import { Observable, of } from 'rxjs';
-import { HttpLogger } from '../loggers';
 import { LoggerInterceptor } from './logger.interceptor';
 
 const mockRequest = createMock<Request>();
@@ -49,7 +48,7 @@ const callHandlerMockFactory = (
   });
 };
 
-const loggerMock = createMock<HttpLogger>({
+const loggerMock = createMock<Logger>({
   log: () => Promise.resolve(),
 });
 const correlationMock = createMock<CorrelationService>();
