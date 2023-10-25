@@ -29,7 +29,7 @@ export class ItemModelTypeOrm extends AbstractModel {
   categoria: CategoriaItem;
 
   @ManyToMany(() => IngredienteModelTypeOrm)
-  @JoinTable()
+  @JoinTable({ name: 'Item_Ingrediente' })
   public ingredientes: IngredienteModelTypeOrm[];
 
   static FromEntity(params: ItemEntity): ItemModelTypeOrm {
