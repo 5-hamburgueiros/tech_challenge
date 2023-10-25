@@ -1,11 +1,9 @@
 import { typeOrmEntities } from '@/common/typeorm.models';
-import { IExampleRepository } from '@/domain/repository';
 import { Config } from '@/infra/configs/config';
 import { CorrelationService } from '@/infra/correlation/correlation-service';
 import { HttpExceptionFilter } from '@/infra/exception-filters/http-exception-filter';
 import { ValidatorExceptionFilter } from '@/infra/exception-filters/validator-exception-filter';
 import { CorrelationIdMiddleware } from '@/infra/middlewares/correlation/correlation.middleware';
-import { ExampleRepositoryTypeOrm } from '@/infra/repository/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
@@ -47,10 +45,6 @@ import { ItemModule } from '../item/item.module';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
-    },
-    {
-      provide: IExampleRepository,
-      useClass: ExampleRepositoryTypeOrm,
     },
   ],
   exports: [CorrelationService],
