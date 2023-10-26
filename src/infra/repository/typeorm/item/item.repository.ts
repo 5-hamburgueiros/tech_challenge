@@ -3,7 +3,7 @@ import { IItemRepository } from '@/domain/repository';
 import { ItemModelTypeOrm } from '@/infra/database/typerom/model';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CreateTypeOrmAdapter, FindAllItensTypeOrmAdapter } from './adapter';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
   async findAll(
     params: IItemRepository.FindAll.Params,
   ): Promise<IItemRepository.FindAll.Result> {
-    const { nome, categoria } = params;
+    const { nome, categoria, ids } = params;
     const adapter = new FindAllItensTypeOrmAdapter();
     const where = {};
     if (nome) {
@@ -28,6 +28,12 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
         categoria,
       });
     }
+    if (ids?.length) {
+      Object.assign(where, {
+        id: In(ids),
+      });
+    }
+
     const result = await this.itemRepository.find({
       where,
       relations: ['ingredientes'],
