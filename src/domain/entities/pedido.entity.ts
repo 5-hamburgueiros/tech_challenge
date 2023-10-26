@@ -44,6 +44,11 @@ export class PedidoEntity extends AbstractEntity {
     this.valor = valor;
   }
 
+  public fecharPedido(): void {
+    this.calcularValor();
+    this.status = StatusPedido.EM_ANDAMENTO;
+  }
+
   public pagar(): void {
     if (this.status !== StatusPedido.EM_ANDAMENTO) {
       throw new Error('Pedido não está em andamento');

@@ -59,7 +59,7 @@ describe('CreatePedidoUseCase', () => {
     expect(mockClienteRepositorySpy).toHaveBeenCalledTimes(1);
   });
 
-  it('deve criar um pedido apenas com itens e com cliente informado e calcular o valor do pedido', async () => {
+  it('deve criar um pedido apenas com itens e com cliente informado', async () => {
     const mockCliente = new ClienteEntity({
       documento: '12345678900',
       email: 'teste@example.com',
@@ -79,7 +79,7 @@ describe('CreatePedidoUseCase', () => {
     });
     mockPedido.addCliente(mockCliente);
     mockPedido.addItem([mockItem]);
-    mockPedido.calcularValor();
+    mockPedido.fecharPedido();
     const createParams: ICreatePedido.Params = {
       cliente: mockCliente.documento,
       itens: [mockItem.id],
@@ -98,7 +98,8 @@ describe('CreatePedidoUseCase', () => {
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
-    expect(result.valor).toBe(5.99);
+    expect(result.valor).toEqual(mockPedido.valor);
+    expect(result.status).toEqual(mockPedido.status);
     expect(result).toBeInstanceOf(PedidoEntity);
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
@@ -117,7 +118,7 @@ describe('CreatePedidoUseCase', () => {
       numero: 1234,
     });
     mockPedido.addItem([mockItem]);
-    mockPedido.calcularValor();
+    mockPedido.fecharPedido();
 
     const createParams: ICreatePedido.Params = {
       itens: [mockItem.id],
@@ -134,6 +135,8 @@ describe('CreatePedidoUseCase', () => {
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
+    expect(result.valor).toEqual(mockPedido.valor);
+    expect(result.status).toEqual(mockPedido.status);
     expect(result).toBeInstanceOf(PedidoEntity);
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
@@ -171,7 +174,7 @@ describe('CreatePedidoUseCase', () => {
       numero: 1234,
     });
     mockPedido.addCombos([mockCombo]);
-    mockPedido.calcularValor();
+    mockPedido.fecharPedido();
 
     const createParams: ICreatePedido.Params = {
       combos: [mockCombo.id],
@@ -188,6 +191,8 @@ describe('CreatePedidoUseCase', () => {
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
+    expect(result.valor).toEqual(mockPedido.valor);
+    expect(result.status).toEqual(mockPedido.status);
     expect(result).toBeInstanceOf(PedidoEntity);
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
@@ -233,7 +238,7 @@ describe('CreatePedidoUseCase', () => {
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
-    mockPedido.calcularValor();
+    mockPedido.fecharPedido();
     const createParams: ICreatePedido.Params = {
       combos: [mockCombo.id],
       cliente: mockCliente.documento,
@@ -255,6 +260,7 @@ describe('CreatePedidoUseCase', () => {
 
     expect(result).toEqual(mockPedido);
     expect(result.valor).toEqual(mockPedido.valor);
+    expect(result.status).toEqual(mockPedido.status);
     expect(result).toBeInstanceOf(PedidoEntity);
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockClienteRepositorySpy).toHaveBeenCalledTimes(1);
@@ -307,7 +313,7 @@ describe('CreatePedidoUseCase', () => {
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
     mockPedido.addItem([mockItem4]);
-    mockPedido.calcularValor();
+    mockPedido.fecharPedido();
     const createParams: ICreatePedido.Params = {
       combos: [mockCombo.id],
       cliente: mockCliente.documento,
@@ -334,6 +340,7 @@ describe('CreatePedidoUseCase', () => {
 
     expect(result).toEqual(mockPedido);
     expect(result.valor).toEqual(mockPedido.valor);
+    expect(result.status).toEqual(mockPedido.status);
     expect(result).toBeInstanceOf(PedidoEntity);
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockClienteRepositorySpy).toHaveBeenCalledTimes(1);

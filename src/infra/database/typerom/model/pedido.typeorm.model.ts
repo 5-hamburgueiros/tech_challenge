@@ -6,7 +6,7 @@ import {
   Index,
   JoinTable,
   ManyToMany,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
@@ -32,7 +32,7 @@ export class PedidoModelTypeOrm extends AbstractModel {
   @Column({ name: 'Status' })
   status: StatusPedido;
 
-  @OneToMany(() => ClienteModelTypeOrm, (cliente) => cliente)
+  @ManyToOne(() => ClienteModelTypeOrm, (cliente) => cliente)
   public cliente: ClienteModelTypeOrm;
 
   @ManyToMany(() => ItemModelTypeOrm)

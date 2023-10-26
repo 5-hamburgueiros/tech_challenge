@@ -11,6 +11,7 @@ export class CreateTypeOrmAdapter {
     typeOrmEntity.id = params.item.id;
     typeOrmEntity.nome = params.item.nome;
     typeOrmEntity.categoria = params.item.categoria;
+    typeOrmEntity.valor = params.item.valor;
     typeOrmEntity.ingredientes = params.item.ingredientes.map(
       IngredienteModelTypeOrm.FromEntity,
     );

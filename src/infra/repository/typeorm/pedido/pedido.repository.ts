@@ -4,7 +4,6 @@ import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateTypeOrmAdapter } from './adapter';
 
 @Injectable()
 export class PedidoRepositoryTypeOrm implements IPedidoRepository {
@@ -12,10 +11,7 @@ export class PedidoRepositoryTypeOrm implements IPedidoRepository {
     @InjectRepository(PedidoModelTypeOrm)
     private readonly pedidoRepository: Repository<PedidoModelTypeOrm>,
   ) {}
-  async create(params: IPedidoRepository.Create.Params): Promise<PedidoEntity> {
-    const adapter = new CreateTypeOrmAdapter();
-    const data = adapter.command(params);
-    const result = await this.pedidoRepository.save(data);
-    return adapter.result(result);
+  create(params: IPedidoRepository.Create.Params): Promise<PedidoEntity> {
+    return this.pedidoRepository.save(params.pedido);
   }
 }

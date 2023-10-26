@@ -1,4 +1,5 @@
 import { PedidoEntity } from '@/domain/entities';
+import { ClienteNaoLocalizadoException } from '@/domain/exceptions';
 import {
   IClienteRepository,
   IComboRepository,
@@ -32,7 +33,9 @@ export class CreatePedidoUseCase implements ICreatePedido {
         documento: params.cliente,
       });
       if (!cliente) {
-        throw new Error('Cliente não encontrado');
+        throw new ClienteNaoLocalizadoException(
+          'Cliente não localizado para o documento informado',
+        );
       } else {
         pedido.addCliente(cliente);
       }
@@ -52,7 +55,7 @@ export class CreatePedidoUseCase implements ICreatePedido {
       pedido.addCombos(combos);
     }
 
-    pedido.calcularValor();
+    pedido.fecharPedido();
 
     return this.pedidoRepository.create({
       pedido,
