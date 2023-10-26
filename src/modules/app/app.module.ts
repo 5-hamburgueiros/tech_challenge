@@ -1,11 +1,9 @@
 import { typeOrmEntities } from '@/common/typeorm.models';
-import { IExampleRepository } from '@/domain/repository';
 import { Config } from '@/infra/configs/config';
 import { CorrelationService } from '@/infra/correlation/correlation-service';
 import { HttpExceptionFilter } from '@/infra/exception-filters/http-exception-filter';
 import { ValidatorExceptionFilter } from '@/infra/exception-filters/validator-exception-filter';
 import { CorrelationIdMiddleware } from '@/infra/middlewares/correlation/correlation.middleware';
-import { ExampleRepositoryTypeOrm } from '@/infra/repository/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
@@ -14,6 +12,7 @@ import { ClienteModule } from '../cliente/cliente.module';
 import { DatabaseModule } from '../database/database.module';
 import { HealthModule } from '../health/health.module';
 import { IngredienteModule } from '../ingrediente/ingrediente.module';
+import { ItemModule } from '../item/item.module';
 
 @Module({
   imports: [
@@ -34,6 +33,7 @@ import { IngredienteModule } from '../ingrediente/ingrediente.module';
     },
     ClienteModule,
     IngredienteModule,
+    ItemModule,
   ],
   providers: [
     CorrelationService,
@@ -45,10 +45,6 @@ import { IngredienteModule } from '../ingrediente/ingrediente.module';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
-    },
-    {
-      provide: IExampleRepository,
-      useClass: ExampleRepositoryTypeOrm,
     },
   ],
   exports: [CorrelationService],
