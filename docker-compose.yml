@@ -36,7 +36,7 @@ services:
     # Run a command against the development stage of the image
     command: yarn start:dev
     ports:
-      - 3000:3000
+      - 3333:3000
     depends_on:
       - postgres
       - redis

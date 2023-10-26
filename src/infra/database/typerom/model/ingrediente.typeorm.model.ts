@@ -32,8 +32,8 @@ export class IngredienteModelTypeOrm extends AbstractModel {
     model.custo = params.custo;
     model.quantidade = params.quantidade;
     model.valor = params.valor;
-    model.createdAt = params.createdAt;
-    model.updatedAt = params.updatedAt;
+    model.criadoEm = params.criadoEm;
+    model.atualizadoEm = params.atualizadoEm;
     return model;
   }
 }

@@ -41,8 +41,8 @@ export class ItemModelTypeOrm extends AbstractModel {
       IngredienteModelTypeOrm.FromEntity,
     );
     model.valor = params.valor;
-    model.createdAt = params.createdAt;
-    model.updatedAt = params.updatedAt;
+    model.criadoEm = params.criadoEm;
+    model.atualizadoEm = params.atualizadoEm;
     return model;
   }
 }

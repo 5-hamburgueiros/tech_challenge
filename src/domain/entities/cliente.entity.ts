@@ -6,7 +6,7 @@ export class ClienteEntity extends AbstractEntity {
   public documento: string;
 
   constructor(params: ClienteModel.Params) {
-    super(params.id, params.createdAt, params.updatedAt);
+    super(params.id, params.criadoEm, params.atualizadoEm);
     this.nome = params.nome;
     this.email = params.email;
     this.documento = params.documento;
@@ -18,8 +18,8 @@ export class ClienteEntity extends AbstractEntity {
       nome: param.nome,
       email: param.email,
       documento: param.documento,
-      createdAt: param.createdAt,
-      updatedAt: param.updatedAt,
+      criadoEm: param.criadoEm,
+      atualizadoEm: param.atualizadoEm,
     });
   }
 }
@@ -30,7 +30,7 @@ export namespace ClienteModel {
     nome: string;
     email: string;
     documento: string;
-    createdAt?: string;
-    updatedAt?: string;
+    criadoEm?: string;
+    atualizadoEm?: string;
   };
 }

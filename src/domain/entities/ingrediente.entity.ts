@@ -8,7 +8,7 @@ export class IngredienteEntity extends AbstractEntity {
   public readonly custo: number;
 
   constructor(params: IngredienteModel.Params) {
-    super(params.id, params.createdAt, params.updatedAt);
+    super(params.id, params.criadoEm, params.atualizadoEm);
     this.nome = params.nome;
     this.quantidade = params.quantidade;
     this.calorias = params.calorias;
@@ -24,8 +24,8 @@ export class IngredienteEntity extends AbstractEntity {
       calorias: param.calorias,
       valor: param.valor,
       custo: param.custo,
-      createdAt: param.createdAt,
-      updatedAt: param.updatedAt,
+      criadoEm: param.criadoEm,
+      atualizadoEm: param.atualizadoEm,
     });
   }
 }
@@ -38,7 +38,7 @@ export namespace IngredienteModel {
     calorias: number;
     valor: number;
     custo: number;
-    createdAt?: string;
-    updatedAt?: string;
+    criadoEm?: string;
+    atualizadoEm?: string;
   };
 }

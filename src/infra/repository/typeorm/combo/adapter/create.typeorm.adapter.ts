@@ -13,8 +13,8 @@ export class CreateTypeOrmAdapter {
     typeOrmEntity.ativo = params.combo.ativo;
     typeOrmEntity.itens = params.combo.itens.map(ItemModelTypeOrm.FromEntity);
     typeOrmEntity.valor = params.combo.valor;
-    typeOrmEntity.createdAt = params.combo.createdAt;
-    typeOrmEntity.updatedAt = params.combo.updatedAt;
+    typeOrmEntity.criadoEm = params.combo.criadoEm;
+    typeOrmEntity.atualizadoEm = params.combo.atualizadoEm;
     return typeOrmEntity;
   }
 
@@ -33,8 +33,8 @@ export class CreateTypeOrmAdapter {
             ),
           }),
       ),
-      createdAt: params.createdAt,
-      updatedAt: params.updatedAt,
+      criadoEm: params.criadoEm,
+      atualizadoEm: params.atualizadoEm,
     });
   }
 }

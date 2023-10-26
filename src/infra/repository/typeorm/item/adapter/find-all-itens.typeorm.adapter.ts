@@ -13,8 +13,8 @@ export class FindAllItensTypeOrmAdapter {
           ingredientes: item.ingredientes.map(
             IngredienteEntity.FromTypeOrmModel,
           ),
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
+          criadoEm: item.criadoEm,
+          atualizadoEm: item.atualizadoEm,
         }),
     );
   }

@@ -18,8 +18,8 @@ export class FindAllCombosTypeOrmAdapter {
               ),
             }),
           ),
-          createdAt: combo.createdAt,
-          updatedAt: combo.updatedAt,
+          criadoEm: combo.criadoEm,
+          atualizadoEm: combo.atualizadoEm,
         }),
     );
   }

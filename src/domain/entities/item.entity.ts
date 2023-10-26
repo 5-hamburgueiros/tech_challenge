@@ -9,7 +9,7 @@ export class ItemEntity extends AbstractEntity {
   public readonly ingredientes: Array<IngredienteEntity> = [];
 
   constructor(params: ItemModel.Params) {
-    super(params.id, params.createdAt, params.updatedAt);
+    super(params.id, params.criadoEm, params.atualizadoEm);
     this.nome = params.nome;
     this.valor = params.valor;
     this.categoria = params.categoria;
@@ -23,8 +23,8 @@ export class ItemEntity extends AbstractEntity {
       valor: param.valor,
       ingredientes: param.ingredientes,
       categoria: param.categoria,
-      createdAt: param.createdAt,
-      updatedAt: param.updatedAt,
+      criadoEm: param.criadoEm,
+      atualizadoEm: param.atualizadoEm,
     });
   }
 }
@@ -36,7 +36,7 @@ export namespace ItemModel {
     valor: number;
     categoria: CategoriaItem;
     ingredientes?: Array<IngredienteEntity>;
-    createdAt?: string;
-    updatedAt?: string;
+    criadoEm?: string;
+    atualizadoEm?: string;
   };
 }

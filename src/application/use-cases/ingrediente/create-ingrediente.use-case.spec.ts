@@ -34,8 +34,8 @@ describe('CreateIngrendienteUseCase', () => {
       nome: createParams.nome,
       quantidade: createParams.quantidade,
       id: 'fake-id',
-      updatedAt: 'fake-date',
-      createdAt: 'fake-date',
+      atualizadoEm: 'fake-date',
+      criadoEm: 'fake-date',
     });
 
     const mockIngredienteRepositorySpy = jest

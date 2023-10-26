@@ -23,8 +23,8 @@ export class ClienteModelTypeOrm extends AbstractModel {
     model.nome = params.nome;
     model.email = params.email;
     model.documento = params.documento;
-    model.createdAt = params.createdAt;
-    model.updatedAt = params.updatedAt;
+    model.criadoEm = params.criadoEm;
+    model.atualizadoEm = params.atualizadoEm;
     return model;
   }
 }

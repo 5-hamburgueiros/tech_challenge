@@ -8,8 +8,8 @@ export class FindByDocumentTypeOrmAdapter {
       nome: params.nome,
       email: params.email,
       documento: params.documento,
-      createdAt: params.createdAt,
-      updatedAt: params.updatedAt,
+      criadoEm: params.criadoEm,
+      atualizadoEm: params.atualizadoEm,
     });
   }
 }
