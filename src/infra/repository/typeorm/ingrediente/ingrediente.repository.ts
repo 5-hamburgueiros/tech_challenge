@@ -3,7 +3,7 @@ import { IIngredienteRepository } from '@/domain/repository';
 import { IngredienteModelTypeOrm } from '@/infra/database/typerom/model';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 
 @Injectable()
 export class IngredienteRepositoryTypeOrm implements IIngredienteRepository {
@@ -14,17 +14,20 @@ export class IngredienteRepositoryTypeOrm implements IIngredienteRepository {
   async findAll(
     params: IIngredienteRepository.FindAll.Params,
   ): Promise<IIngredienteRepository.FindAll.Result> {
-    const { nome } = params;
+    const { nome, ids } = params;
+    const where = {};
 
     if (nome) {
-      const result = await this.ingredienteRepository.find({
-        where: {
-          nome: ILike(`%${nome}%`),
-        },
+      Object.assign(where, {
+        nome: ILike(`%${nome}%`),
       });
-      return result.map(IngredienteEntity.FromTypeOrmModel);
     }
-    const result = await this.ingredienteRepository.find();
+    if (ids?.length) {
+      Object.assign(where, {
+        id: In(ids),
+      });
+    }
+    const result = await this.ingredienteRepository.findBy(where);
     return result.map(IngredienteEntity.FromTypeOrmModel);
   }
 

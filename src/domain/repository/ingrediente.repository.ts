@@ -22,6 +22,7 @@ export namespace IIngredienteRepository {
   export namespace FindAll {
     export type Params = {
       nome?: string;
+      ids?: Array<string>;
     };
 
     export type Result = Array<IngredienteEntity>;
