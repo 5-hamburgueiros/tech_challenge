@@ -5,9 +5,9 @@ import {
 } from 'typeorm';
 
 export abstract class AbstractModel extends BaseModel {
-  @CreateDateColumn({ name: 'CreatedAt' })
-  createdAt: string;
+  @CreateDateColumn({ name: 'CriadoEm' })
+  criadoEm: string;
 
-  @UpdateDateColumn({ name: 'UpdatedAt' })
-  updatedAt: string;
+  @UpdateDateColumn({ name: 'AtualizadoEm' })
+  atualizadoEm: string;
 }

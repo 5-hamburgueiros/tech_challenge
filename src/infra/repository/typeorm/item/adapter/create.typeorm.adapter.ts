@@ -14,8 +14,8 @@ export class CreateTypeOrmAdapter {
     typeOrmEntity.ingredientes = params.item.ingredientes.map(
       IngredienteModelTypeOrm.FromEntity,
     );
-    typeOrmEntity.createdAt = params.item.createdAt;
-    typeOrmEntity.updatedAt = params.item.updatedAt;
+    typeOrmEntity.criadoEm = params.item.criadoEm;
+    typeOrmEntity.atualizadoEm = params.item.atualizadoEm;
     return typeOrmEntity;
   }
 
@@ -26,8 +26,8 @@ export class CreateTypeOrmAdapter {
       categoria: params.categoria,
       valor: params.valor,
       ingredientes: params.ingredientes.map(IngredienteEntity.FromTypeOrmModel),
-      createdAt: params.createdAt,
-      updatedAt: params.updatedAt,
+      criadoEm: params.criadoEm,
+      atualizadoEm: params.atualizadoEm,
     });
   }
 }

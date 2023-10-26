@@ -11,8 +11,8 @@ export class CreateTypeOrmAdapter {
     typeOrmEntity.nome = params.cliente.nome;
     typeOrmEntity.email = params.cliente.email;
     typeOrmEntity.documento = params.cliente.documento;
-    typeOrmEntity.createdAt = params.cliente.createdAt;
-    typeOrmEntity.updatedAt = params.cliente.updatedAt;
+    typeOrmEntity.criadoEm = params.cliente.criadoEm;
+    typeOrmEntity.atualizadoEm = params.cliente.atualizadoEm;
     return typeOrmEntity;
   }
 
@@ -22,8 +22,8 @@ export class CreateTypeOrmAdapter {
       nome: params.nome,
       email: params.email,
       documento: params.documento,
-      createdAt: params.createdAt,
-      updatedAt: params.updatedAt,
+      criadoEm: params.criadoEm,
+      atualizadoEm: params.atualizadoEm,
     });
   }
 }

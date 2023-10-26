@@ -8,7 +8,7 @@ export class ComboEntity extends AbstractEntity {
   public itens: Array<ItemEntity>;
 
   constructor(params: ComoboModel.Params) {
-    super(params.id, params.createdAt, params.updatedAt);
+    super(params.id, params.criadoEm, params.atualizadoEm);
     this.nome = params.nome;
     this.valor = params.valor;
     this.ativo = params.ativo;
@@ -22,8 +22,8 @@ export class ComboEntity extends AbstractEntity {
       valor: param.valor,
       ativo: param.ativo,
       itens: param.itens,
-      createdAt: param.createdAt,
-      updatedAt: param.updatedAt,
+      criadoEm: param.criadoEm,
+      atualizadoEm: param.atualizadoEm,
     });
   }
 }
@@ -35,7 +35,7 @@ export namespace ComoboModel {
     valor: number;
     ativo: boolean;
     itens: Array<ItemEntity>;
-    createdAt?: string;
-    updatedAt?: string;
+    criadoEm?: string;
+    atualizadoEm?: string;
   };
 }

@@ -38,8 +38,8 @@ export class ComboModelTypeOrm extends AbstractModel {
     model.valor = params.valor;
     model.ativo = params.ativo;
     model.itens = params.itens.map(ItemModelTypeOrm.FromEntity);
-    model.createdAt = params.createdAt;
-    model.updatedAt = params.updatedAt;
+    model.criadoEm = params.criadoEm;
+    model.atualizadoEm = params.atualizadoEm;
     return model;
   }
 }

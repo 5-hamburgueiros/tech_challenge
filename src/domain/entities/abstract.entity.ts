@@ -2,17 +2,17 @@ import { IdGenerator } from '@/common';
 
 export abstract class AbstractEntity {
   public readonly id: string;
-  public readonly createdAt: string;
-  public updatedAt: string;
+  public readonly criadoEm: string;
+  public atualizadoEm: string;
 
-  constructor(id: string, createdAt?: string, updatedAt?: string) {
+  constructor(id: string, criadoEm?: string, atualizadoEm?: string) {
     this.id = id ? id : IdGenerator.Generate();
     const currentDate = new Date();
-    this.createdAt = createdAt || currentDate.toISOString();
-    this.setUpdatedAt(updatedAt);
+    this.criadoEm = criadoEm || currentDate.toISOString();
+    this.setAtualizadoEm(atualizadoEm);
   }
 
-  public setUpdatedAt(updatedAt?: string): void {
-    this.updatedAt = updatedAt || new Date().toISOString();
+  public setAtualizadoEm(atualizadoEm?: string): void {
+    this.atualizadoEm = atualizadoEm || new Date().toISOString();
   }
 }
