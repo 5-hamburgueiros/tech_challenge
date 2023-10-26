@@ -21,7 +21,7 @@ describe('BullConfigService', () => {
           "defaultJobOptions": Object {
             "removeOnComplete": true,
           },
-          "prefix": "Jiraya",
+          "prefix": "Tech Challenge",
         }
       `);
       expect(result).toHaveProperty('createClient');
@@ -41,7 +41,7 @@ describe('BullConfigService', () => {
           "defaultJobOptions": Object {
             "removeOnComplete": true,
           },
-          "prefix": "Jiraya",
+          "prefix": "Tech Challenge",
         }
       `);
       expect(result).toHaveProperty('createClient');

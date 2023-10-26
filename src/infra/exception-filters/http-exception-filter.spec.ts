@@ -1,18 +1,13 @@
 import { DefaultException } from '@/common/exceptions/default.exception';
-import { createMock } from '@golevelup/nestjs-testing';
 import { ArgumentsHost, ContextType, HttpStatus, Logger } from '@nestjs/common';
 import {
   HttpArgumentsHost,
   RpcArgumentsHost,
   WsArgumentsHost,
 } from '@nestjs/common/interfaces';
-import { ExceptionLogger } from '../loggers';
 import { HttpExceptionFilter } from './http-exception-filter';
 
 describe('HttpExceptionFilter', () => {
-  const exceptionLoggerMocFactory = (): ExceptionLogger => {
-    return createMock<ExceptionLogger>({});
-  };
   const httpArgumentsHostMockFactory = (): HttpArgumentsHost => {
     return {
       getRequest: () => {
@@ -63,23 +58,17 @@ describe('HttpExceptionFilter', () => {
   jest.useFakeTimers().setSystemTime(new Date('2022-01-01'));
 
   it('should be called with correct arguments', async () => {
-    const exceptionLoggerMock = exceptionLoggerMocFactory();
     const httpArgumentsHostMock = httpArgumentsHostMockFactory();
     const argumentHostMock = argumentHostMockFactory(httpArgumentsHostMock);
-    const httpExceptionFilter = new HttpExceptionFilter(exceptionLoggerMock);
+    const httpExceptionFilter = new HttpExceptionFilter();
     const switchToHttpSpy = jest.spyOn(argumentHostMock, 'switchToHttp');
     const getResponseSpy = jest.spyOn(httpArgumentsHostMock, 'getResponse');
     const getStatusSpy = jest.spyOn(defaultException, 'getStatus');
-    const exceptionLoggerSpy = jest
-      .spyOn(exceptionLoggerMock, 'log')
-      .mockResolvedValueOnce();
     const loggerErrorSpy = jest.spyOn(Logger, 'error');
     await httpExceptionFilter.catch(defaultException, argumentHostMock);
     expect(switchToHttpSpy).toBeCalledTimes(1);
     expect(getResponseSpy).toBeCalledTimes(1);
     expect(getStatusSpy).toBeCalledTimes(1);
-    expect(exceptionLoggerSpy).toBeCalledTimes(1);
-    expect(exceptionLoggerSpy).toBeCalledWith(defaultException);
     expect(loggerErrorSpy).toBeCalledTimes(1);
     expect(loggerErrorSpy).toHaveBeenCalledWith(
       defaultException.message,

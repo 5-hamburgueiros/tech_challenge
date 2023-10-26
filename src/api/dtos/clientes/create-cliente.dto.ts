@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString } from 'class-validator';
 
-export class CreateExampleDto {
+export class CreateClienteDto {
   @ApiProperty({
     description: 'Random name',
     example: 'Foo Bar',
   })
   @IsString()
-  name: string;
+  nome: string;
 
   @ApiProperty({
     description: 'Random email',
@@ -15,4 +15,11 @@ export class CreateExampleDto {
   })
   @IsEmail()
   email: string;
+
+  @ApiProperty({
+    description: 'Random document',
+    example: '12345678900',
+  })
+  @IsString()
+  documento: string;
 }
