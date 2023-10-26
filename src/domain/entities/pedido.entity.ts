@@ -15,8 +15,6 @@ export class PedidoEntity extends AbstractEntity {
   constructor(params: PedidoModel.Params) {
     super(params.id, params.criadoEm, params.atualizadoEm);
     this.numero = params.numero;
-    this.valor = params.valor;
-    this.status = params.status;
   }
 
   public addCliente(cliente: ClienteEntity): void {
@@ -29,6 +27,21 @@ export class PedidoEntity extends AbstractEntity {
 
   public addItem(itens: ItemEntity[]): void {
     this.itens = itens;
+  }
+
+  public calcularValor(): void {
+    let valor = 0;
+    if (this.combos) {
+      valor += this.combos.reduce((acc, combo) => {
+        return acc + combo.valor;
+      }, 0);
+    }
+    if (this.itens) {
+      valor += this.itens.reduce((acc, item) => {
+        return acc + item.valor;
+      }, 0);
+    }
+    this.valor = valor;
   }
 
   public pagar(): void {
@@ -72,8 +85,6 @@ export class PedidoEntity extends AbstractEntity {
     return new PedidoEntity({
       id: param.id,
       numero: param.numero,
-      valor: param.valor,
-      status: param.status,
       criadoEm: param.criadoEm,
       atualizadoEm: param.atualizadoEm,
     });
@@ -82,10 +93,8 @@ export class PedidoEntity extends AbstractEntity {
 
 export namespace PedidoModel {
   export type Params = {
-    id: string;
+    id?: string;
     numero: number;
-    valor: number;
-    status: StatusPedido;
     criadoEm?: string;
     atualizadoEm?: string;
   };

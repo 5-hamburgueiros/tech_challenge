@@ -4,9 +4,9 @@ export interface IClienteRepository {
   create(
     params: IClienteRepository.Create.Params,
   ): Promise<IClienteRepository.Create.Result>;
-  findByDocument(
-    params: IClienteRepository.FindByDocument.Params,
-  ): Promise<IClienteRepository.FindByDocument.Result>;
+  findByDocumento(
+    params: IClienteRepository.FindByDocumento.Params,
+  ): Promise<IClienteRepository.FindByDocumento.Result>;
 }
 
 export const IClienteRepository = Symbol('IClienteRepository');
@@ -19,9 +19,9 @@ export namespace IClienteRepository {
     export type Result = ClienteEntity;
   }
 
-  export namespace FindByDocument {
+  export namespace FindByDocumento {
     export type Params = {
-      document: string;
+      documento: string;
     };
     export type Result = ClienteEntity;
   }
