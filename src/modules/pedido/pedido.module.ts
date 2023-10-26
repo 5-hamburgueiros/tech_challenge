@@ -1,5 +1,8 @@
 import { PedidoController } from '@/api/controllers/pedido.controller';
-import { CreatePedidoUseCase, FindPedidoById } from '@/application/use-cases';
+import {
+  CreatePedidoUseCase,
+  FindPedidoByIdUseCase,
+} from '@/application/use-cases';
 import {
   IClienteRepository,
   IComboRepository,
@@ -41,7 +44,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     },
     {
       provide: IFindById,
-      useClass: FindPedidoById,
+      useClass: FindPedidoByIdUseCase,
     },
     {
       provide: IItemRepository,

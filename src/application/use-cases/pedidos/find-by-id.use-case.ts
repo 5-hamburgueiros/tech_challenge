@@ -1,14 +1,27 @@
+import { PedidoNaoLocalizadoException } from '@/domain/exceptions';
 import { IPedidoRepository } from '@/domain/repository';
 import { IFindById } from '@/domain/use-cases';
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 @Injectable()
-export class FindPedidoById implements IFindById {
+export class FindPedidoByIdUseCase implements IFindById {
   constructor(
     @Inject(IPedidoRepository)
     private readonly pedidoRepository: IPedidoRepository,
   ) {}
   async execute(params: IFindById.Params): Promise<IFindById.Result> {
-    return this.pedidoRepository.findById({ id: params.id });
+    try {
+      const result = await this.pedidoRepository.findById({ id: params.id });
+      if (!result) {
+        throw new PedidoNaoLocalizadoException('Pedido não localizado');
+      }
+      return result;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }
