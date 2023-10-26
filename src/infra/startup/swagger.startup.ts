@@ -8,7 +8,8 @@ export class SwaggerStartup {
       .setTitle('Tech Challenge - Backend')
       .setExternalDoc('Exportar documentação', '/swagger-json')
       .setDescription('Sistema de gestão de pedidos')
-      .addServer('http://localhost:3000', 'Local')
+      .addServer('http://localhost:3000', 'Development server')
+      .addServer('http://localhost:3333', 'Production server with docker')
       .setVersion(VERSION)
       .build();
 
