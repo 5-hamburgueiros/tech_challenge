@@ -90,7 +90,15 @@ export default {
   //     lines: 75,
   //   },
   // },
-  collectCoverageFrom: ['src/**/*.{ts,js,tsx,jsx}', '!**/node_modules/'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,js,tsx,jsx}',
+    '!src/domain/use-cases/**/*.{ts,js,tsx,jsx}',
+    '!src/api/**/*.{ts,js,tsx,jsx}',
+    '!src/infra/database/**/*',
+    '!src/infra/repository/**/*',
+    '!src/modules/**/*.{ts,js,tsx,jsx}',
+    '!**/node_modules/',
+  ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
@@ -208,6 +216,6 @@ export default {
   // watchman: true,
 
   transform: {
-    '^.+\\.(t|j)sx?$': 'ts-jest',
+    '^.+\\.(t|j)sx?$': '@swc/jest',
   },
 };

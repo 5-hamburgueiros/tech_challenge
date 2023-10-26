@@ -53,7 +53,7 @@ describe('CreateClienteUseCase', () => {
 
     expect(result).toEqual(createdCliente);
     expect(clienteRepository.findByDocumento).toHaveBeenCalledWith({
-      document: mockClienteData.documento,
+      documento: mockClienteData.documento,
     });
     expect(clienteRepository.create).toHaveBeenCalledWith({
       cliente: expect.any(ClienteEntity),
