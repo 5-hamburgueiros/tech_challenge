@@ -22,12 +22,12 @@ export class ClienteRepositoryTypeOrm implements IClienteRepository {
     return adapter.result(result);
   }
 
-  async findByDocument(
-    params: IClienteRepository.FindByDocument.Params,
+  async findByDocumento(
+    params: IClienteRepository.FindByDocumento.Params,
   ): Promise<ClienteEntity> {
     const adapter = new FindByDocumentTypeOrmAdapter();
     const data = await this.clienteRepository.findOneBy({
-      documento: params.document,
+      documento: params.documento,
     });
     if (!data) {
       return null;

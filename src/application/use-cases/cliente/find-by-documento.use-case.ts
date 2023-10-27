@@ -12,8 +12,8 @@ export class FindByDocumentUseCase implements IFindByDocumento {
   ) {}
 
   async execute(params: IFindByDocumento.Params): Promise<ClienteEntity> {
-    const exists = await this.clienteRepository.findByDocument({
-      document: params.documento,
+    const exists = await this.clienteRepository.findByDocumento({
+      documento: params.documento,
     });
     if (!exists) {
       throw new DocumentoCadastradoException(

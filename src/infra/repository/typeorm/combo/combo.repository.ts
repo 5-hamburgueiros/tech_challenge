@@ -3,7 +3,7 @@ import { IComboRepository } from '@/domain/repository';
 import { ComboModelTypeOrm } from '@/infra/database/typerom/model';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CreateTypeOrmAdapter, FindAllCombosTypeOrmAdapter } from './adapter';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ComboRepositoryTypeOrm implements IComboRepository {
   async findAll(
     params: IComboRepository.FindAll.Params,
   ): Promise<IComboRepository.FindAll.Result> {
-    const { nome } = params;
+    const { nome, ids } = params;
     const adapter = new FindAllCombosTypeOrmAdapter();
     const where = {};
     if (nome) {
@@ -23,6 +23,13 @@ export class ComboRepositoryTypeOrm implements IComboRepository {
         nome: ILike(`%${nome}%`),
       });
     }
+
+    if (ids?.length) {
+      Object.assign(where, {
+        id: In(ids),
+      });
+    }
+
     const result = await this.comboRepository.find({
       where,
       relations: ['itens', 'itens.ingredientes'],

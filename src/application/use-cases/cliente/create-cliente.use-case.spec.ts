@@ -43,7 +43,7 @@ describe('CreateClienteUseCase', () => {
       email: mockClienteData.email,
     });
     const clienteRepositoryFindByDocumentSpy = jest
-      .spyOn(clienteRepository, 'findByDocument')
+      .spyOn(clienteRepository, 'findByDocumento')
       .mockResolvedValue(null);
     const clienteRepositoryCreateSpy = jest
       .spyOn(clienteRepository, 'create')
@@ -52,8 +52,8 @@ describe('CreateClienteUseCase', () => {
     const result = await createClienteUseCase.execute(mockClienteData);
 
     expect(result).toEqual(createdCliente);
-    expect(clienteRepository.findByDocument).toHaveBeenCalledWith({
-      document: mockClienteData.documento,
+    expect(clienteRepository.findByDocumento).toHaveBeenCalledWith({
+      documento: mockClienteData.documento,
     });
     expect(clienteRepository.create).toHaveBeenCalledWith({
       cliente: expect.any(ClienteEntity),
@@ -65,7 +65,7 @@ describe('CreateClienteUseCase', () => {
   it('should throw DocumentoCadastradoException if the document already exists', async () => {
     // Mock that an existing client with the same document is found
     const clienteRepositoryFindByDocumentSpy = jest
-      .spyOn(clienteRepository, 'findByDocument')
+      .spyOn(clienteRepository, 'findByDocumento')
       .mockResolvedValue(
         new ClienteEntity({
           id: 'fake-id',
