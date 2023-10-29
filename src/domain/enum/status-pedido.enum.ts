@@ -1,10 +1,10 @@
 export enum StatusPedido {
-  EM_ANDAMENTO = 'Em andamento',
-  AGUARDANDO_PAGAMENTO = 'Aguardando pagamento',
-  PAGO = 'Pago',
-  RECEBIDO = 'Recebido',
-  EM_PREPARACAO = 'Em preparação',
-  PRONTO = 'Pronto',
-  FINALIZADO = 'Finalizado',
-  CANCELADO = 'Cancelado',
+  EM_ANDAMENTO = 'EM_ANDAMENTO',
+  AGUARDANDO_PAGAMENTO = 'AGUARDANDO_PAGAMENTO',
+  PAGO = 'PAGO',
+  RECEBIDO = 'RECEBIDO',
+  EM_PREPARACAO = 'EM_PREPARACAO',
+  PRONTO = 'PRONTO',
+  FINALIZADO = 'FINALIZADO',
+  CANCELADO = 'CANCELADO',
 }
