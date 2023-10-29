@@ -1,4 +1,5 @@
 import { PedidoEntity } from '@/domain/entities';
+import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
 import { ClienteNaoLocalizadoException } from '@/domain/exceptions';
 import {
   IClienteRepository,
@@ -6,6 +7,7 @@ import {
   IItemRepository,
   IPedidoRepository,
 } from '@/domain/repository';
+import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { ICreatePedido } from '@/domain/use-cases';
 import { Inject, Injectable } from '@nestjs/common';
 
@@ -20,6 +22,8 @@ export class CreatePedidoUseCase implements ICreatePedido {
     private readonly itemRepository: IItemRepository,
     @Inject(IComboRepository)
     private readonly comboRepository: IComboRepository,
+    @Inject(IPedidoHistoricoRepository)
+    private readonly pedidoHistoricoRepository: IPedidoHistoricoRepository,
   ) {}
 
   async execute(params: ICreatePedido.Params): Promise<PedidoEntity> {
@@ -27,6 +31,7 @@ export class CreatePedidoUseCase implements ICreatePedido {
     const pedido = new PedidoEntity({
       numero: numeroPedido,
       id: undefined,
+      status: undefined,
     });
     if (params.cliente) {
       const cliente = await this.clienteRepository.findByDocumento({
@@ -57,8 +62,20 @@ export class CreatePedidoUseCase implements ICreatePedido {
 
     pedido.fecharPedido();
 
-    return this.pedidoRepository.create({
+    const pedidoCriado = await this.pedidoRepository.create({
       pedido,
     });
+
+    const historico = new PedidoHistoricoEntity({
+      id: undefined,
+      pedido: pedidoCriado.id,
+      status: pedidoCriado.status,
+    });
+
+    await this.pedidoHistoricoRepository.create({
+      historico,
+    });
+
+    return pedidoCriado;
   }
 }

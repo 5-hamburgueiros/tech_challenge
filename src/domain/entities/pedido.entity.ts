@@ -15,6 +15,7 @@ export class PedidoEntity extends AbstractEntity {
   constructor(params: PedidoModel.Params) {
     super(params.id, params.criadoEm, params.atualizadoEm);
     this.numero = params.numero;
+    this.status = params.status;
   }
 
   public addCliente(cliente: ClienteEntity): void {
@@ -90,6 +91,7 @@ export class PedidoEntity extends AbstractEntity {
     return new PedidoEntity({
       id: param.id,
       numero: param.numero,
+      status: param.status,
       criadoEm: param.criadoEm,
       atualizadoEm: param.atualizadoEm,
     });
@@ -100,6 +102,7 @@ export namespace PedidoModel {
   export type Params = {
     id?: string;
     numero: number;
+    status: StatusPedido;
     criadoEm?: string;
     atualizadoEm?: string;
   };

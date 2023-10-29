@@ -7,13 +7,14 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
   ItemModelTypeOrm,
-  StatusModelTypeOrm,
+  PedidoHistoricoModelTypeOrm,
 } from '.';
 import { AbstractModel } from './abstract.typeorm.model';
 
@@ -43,9 +44,8 @@ export class PedidoModelTypeOrm extends AbstractModel {
   @JoinTable({ name: 'Pedido_Combo' })
   public combos: ComboModelTypeOrm[];
 
-  @ManyToMany(() => StatusModelTypeOrm)
-  @JoinTable({ name: 'Pedido_Status' })
-  public statusHistorico: StatusModelTypeOrm[];
+  @OneToMany(() => PedidoHistoricoModelTypeOrm, (historico) => historico.pedido)
+  statusHistorico: Array<PedidoHistoricoModelTypeOrm>;
 
   static FromEntity(params: PedidoEntity): PedidoModelTypeOrm {
     const model = new PedidoModelTypeOrm();

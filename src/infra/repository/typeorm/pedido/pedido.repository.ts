@@ -29,11 +29,9 @@ export class PedidoRepositoryTypeOrm implements IPedidoRepository {
 
   async updatePayment({
     id,
-    params,
   }: IPedidoRepository.UpdatePayment.Params): Promise<IPedidoRepository.UpdatePayment.Result> {
     return (await this.pedidoRepository.save({
       id,
-      status: params.status,
     })) as any;
   }
 }

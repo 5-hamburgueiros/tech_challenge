@@ -10,11 +10,13 @@ import {
   IItemRepository,
   IPedidoRepository,
 } from '@/domain/repository';
+import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
   ItemModelTypeOrm,
+  PedidoHistoricoModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
 } from '@/infra/database/typerom/model';
@@ -24,6 +26,7 @@ import {
   PedidoRepositoryTypeOrm,
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
+import { PedidoHistoricoRepositoryTypeOrm } from '@/infra/repository/typeorm/pedido-historico';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -36,6 +39,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       ClienteModelTypeOrm,
       ComboModelTypeOrm,
       StatusModelTypeOrm,
+      PedidoHistoricoModelTypeOrm,
     ]),
   ],
   providers: [
@@ -66,6 +70,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: IPagamentoPedido,
       useClass: PaymentPedidoUseCase,
+    },
+    {
+      provide: IPedidoHistoricoRepository,
+      useClass: PedidoHistoricoRepositoryTypeOrm,
     },
   ],
 })

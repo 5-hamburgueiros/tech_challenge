@@ -1,12 +1,9 @@
-import {
-  PedidoModelTypeOrm,
-  StatusModelTypeOrm,
-} from '@/infra/database/typerom/model';
+import { StatusPedido } from '../enum';
 import { AbstractEntity } from './abstract.entity';
 
 export class PedidoHistoricoEntity extends AbstractEntity {
-  pedido: PedidoModelTypeOrm;
-  status: StatusModelTypeOrm;
+  pedido: string;
+  status: StatusPedido;
 
   constructor(params: PedidoHistoricoModel.Params) {
     super(params.id, params.criadoEm, params.atualizadoEm);
@@ -30,8 +27,8 @@ export class PedidoHistoricoEntity extends AbstractEntity {
 export namespace PedidoHistoricoModel {
   export type Params = {
     id: string;
-    pedido: PedidoModelTypeOrm;
-    status: StatusModelTypeOrm;
+    pedido: string;
+    status: StatusPedido;
     criadoEm?: string;
     atualizadoEm?: string;
   };

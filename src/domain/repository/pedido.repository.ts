@@ -1,5 +1,4 @@
 import { PedidoEntity } from '../entities';
-import { IPagamentoPedido } from '../use-cases';
 
 export interface IPedidoRepository {
   create(
@@ -32,7 +31,6 @@ export namespace IPedidoRepository {
   export namespace UpdatePayment {
     export type Params = {
       id: string;
-      params: IPagamentoPedido.Params;
     };
     export type Result = PedidoEntity;
   }

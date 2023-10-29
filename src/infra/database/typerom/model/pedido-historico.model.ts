@@ -1,5 +1,7 @@
 import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
+import { StatusPedido } from '@/domain/enum';
 import {
+  Column,
   Entity,
   Index,
   JoinTable,
@@ -8,9 +10,8 @@ import {
 } from 'typeorm';
 import { AbstractModel } from './abstract.typeorm.model';
 import { PedidoModelTypeOrm } from './pedido.typeorm.model';
-import { StatusModelTypeOrm } from './status.typeorm.model';
 
-@Entity({ name: 'Historico' })
+@Entity({ name: 'Pedido_Historico' })
 @Index(['id'])
 export class PedidoHistoricoModelTypeOrm extends AbstractModel {
   @PrimaryGeneratedColumn('uuid', { name: 'Id' })
@@ -18,11 +19,13 @@ export class PedidoHistoricoModelTypeOrm extends AbstractModel {
 
   @ManyToOne(() => PedidoModelTypeOrm, { nullable: true })
   @JoinTable()
-  pedido: PedidoModelTypeOrm;
+  pedido: string;
 
-  @ManyToOne(() => StatusModelTypeOrm, { nullable: true })
-  @JoinTable()
-  status: StatusModelTypeOrm;
+  @Column({
+    type: 'enum',
+    enum: StatusPedido,
+  })
+  status: StatusPedido;
 
   static FromEntity(
     params: PedidoHistoricoEntity,
