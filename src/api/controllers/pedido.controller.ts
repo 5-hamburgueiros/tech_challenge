@@ -1,8 +1,17 @@
 import { PedidoEntity } from '@/domain/entities';
-import { ICreatePedido, IFindById } from '@/domain/use-cases';
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreatePedidoDto } from '../dtos';
+import { pagamentoPedidoDto } from '../dtos/pagamento-pedido';
 
 @ApiTags('Pedidos')
 @Controller('pedidos')
@@ -12,6 +21,8 @@ export class PedidoController {
     private readonly createPedidoUseCase: ICreatePedido,
     @Inject(IFindById)
     private readonly findPedidoByIdUseCase: IFindById,
+    @Inject(IPagamentoPedido)
+    private readonly pagamentoPedido: IPagamentoPedido,
   ) {}
 
   @Post()
@@ -25,5 +36,14 @@ export class PedidoController {
   @Get(':id')
   async findById(@Param('id') id: string): Promise<PedidoEntity> {
     return this.findPedidoByIdUseCase.execute({ id });
+  }
+
+  @ApiParam({ name: 'id' })
+  @Patch('pagamento/:id')
+  async payment(
+    @Param('id') id: string,
+    @Body() pagamentoPedido: pagamentoPedidoDto,
+  ): Promise<PedidoEntity> {
+    return this.pagamentoPedido.execute(id, pagamentoPedido);
   }
 }

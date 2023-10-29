@@ -46,7 +46,7 @@ export class PedidoEntity extends AbstractEntity {
 
   public fecharPedido(): void {
     this.calcularValor();
-    this.status = StatusPedido.EM_ANDAMENTO;
+    this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
   }
 
   public pagar(): void {

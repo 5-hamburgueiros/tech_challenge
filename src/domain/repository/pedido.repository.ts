@@ -1,4 +1,5 @@
 import { PedidoEntity } from '../entities';
+import { IPagamentoPedido } from '../use-cases';
 
 export interface IPedidoRepository {
   create(
@@ -7,6 +8,9 @@ export interface IPedidoRepository {
   findById(
     params: IPedidoRepository.FindById.Params,
   ): Promise<IPedidoRepository.FindById.Result>;
+  updatePayment(
+    params: IPedidoRepository.UpdatePayment.Params,
+  ): Promise<IPedidoRepository.UpdatePayment.Result>;
 }
 
 export const IPedidoRepository = Symbol('IPedidoRepository');
@@ -21,6 +25,14 @@ export namespace IPedidoRepository {
   export namespace FindById {
     export type Params = {
       id: string;
+    };
+    export type Result = PedidoEntity;
+  }
+
+  export namespace UpdatePayment {
+    export type Params = {
+      id: string;
+      params: IPagamentoPedido.Params;
     };
     export type Result = PedidoEntity;
   }

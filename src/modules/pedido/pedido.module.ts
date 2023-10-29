@@ -2,6 +2,7 @@ import { PedidoController } from '@/api/controllers/pedido.controller';
 import {
   CreatePedidoUseCase,
   FindPedidoByIdUseCase,
+  PaymentPedidoUseCase,
 } from '@/application/use-cases';
 import {
   IClienteRepository,
@@ -9,7 +10,7 @@ import {
   IItemRepository,
   IPedidoRepository,
 } from '@/domain/repository';
-import { ICreatePedido, IFindById } from '@/domain/use-cases';
+import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
@@ -61,6 +62,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: IPedidoRepository,
       useClass: PedidoRepositoryTypeOrm,
+    },
+    {
+      provide: IPagamentoPedido,
+      useClass: PaymentPedidoUseCase,
     },
   ],
 })
