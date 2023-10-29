@@ -1,3 +1,4 @@
+import { StatusPedido } from '@/domain/enum';
 import { PedidoNaoLocalizadoException } from '@/domain/exceptions';
 import { IPedidoRepository } from '@/domain/repository';
 import { IPagamentoPedido } from '@/domain/use-cases';
@@ -22,6 +23,8 @@ export class PaymentPedidoUseCase implements IPagamentoPedido {
       if (!result) {
         throw new PedidoNaoLocalizadoException('Pedido não localizado');
       }
+
+      params.status = StatusPedido.PAGO;
 
       const data = await this.pedidoRepository.updatePayment({ id, params });
 

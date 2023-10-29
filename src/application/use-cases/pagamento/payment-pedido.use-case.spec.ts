@@ -2,7 +2,7 @@ import { PedidoEntity } from '@/domain/entities';
 import { IPedidoRepository } from '@/domain/repository';
 import { createMock } from '@golevelup/nestjs-testing';
 import { InternalServerErrorException } from '@nestjs/common';
-import { FindPedidoByIdUseCase } from './find-by-id.use-case';
+import { FindPedidoByIdUseCase } from '../pedidos/find-by-id.use-case';
 
 describe('FindPedidoById', () => {
   let findPedidoById: FindPedidoByIdUseCase;
