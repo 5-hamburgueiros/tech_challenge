@@ -1,7 +1,9 @@
 import { PedidoEntity } from '@/domain/entities';
+import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
 import { StatusPedido } from '@/domain/enum';
 import { PedidoNaoLocalizadoException } from '@/domain/exceptions';
 import { IPedidoRepository } from '@/domain/repository';
+import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import {
   Inject,
@@ -14,6 +16,8 @@ export class UpdateStatusPedidoUseCase implements IUpdateStatusPedidoUseCase {
   constructor(
     @Inject(IPedidoRepository)
     private readonly pedidoRepository: IPedidoRepository,
+    @Inject(IPedidoHistoricoRepository)
+    private readonly pedidoHistoricoRepository: IPedidoHistoricoRepository,
   ) {}
   async execute(
     params: IUpdateStatusPedidoUseCase.Params,
@@ -26,16 +30,28 @@ export class UpdateStatusPedidoUseCase implements IUpdateStatusPedidoUseCase {
 
       const pedido = new PedidoEntity(result);
 
-      this.handleStatus(pedido);
+      this.handleStatus(pedido, params.status);
 
-      return await this.pedidoRepository.create({ pedido });
+      const data = await this.pedidoRepository.create({ pedido });
+
+      const historico = new PedidoHistoricoEntity({
+        id: undefined,
+        pedido: data.id,
+        status: data.status,
+      });
+
+      await this.pedidoHistoricoRepository.create({
+        historico,
+      });
+
+      return data;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
   }
 
-  private handleStatus(pedido: PedidoEntity): void {
-    switch (pedido.status) {
+  private handleStatus(pedido: PedidoEntity, status: StatusPedido): void {
+    switch (status) {
       case StatusPedido.EM_PREPARACAO:
         pedido.emPreparacao();
         break;
@@ -46,7 +62,7 @@ export class UpdateStatusPedidoUseCase implements IUpdateStatusPedidoUseCase {
         pedido.cancelar();
         break;
       case StatusPedido.FINALIZADO:
-        throw new Error();
+        pedido.finalizar();
         break;
       case StatusPedido.RECEBIDO:
         throw new Error();

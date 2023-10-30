@@ -84,7 +84,22 @@ export class PedidoEntity extends AbstractEntity {
   }
 
   public cancelar(): void {
+    const isValid = [
+      StatusPedido.AGUARDANDO_PAGAMENTO,
+      StatusPedido.EM_PREPARACAO,
+    ].includes(this.status);
+
+    if (!isValid) {
+      throw new Error('Pedido não está aguardando pegamento ou em preparação');
+    }
     this.status = StatusPedido.CANCELADO;
+  }
+
+  public finalizar(): void {
+    if (this.status !== StatusPedido.PRONTO) {
+      throw new Error('Pedido não está pronto');
+    }
+    this.status = StatusPedido.FINALIZADO;
   }
 
   static FromTypeOrmModel(param: PedidoModel.Params): PedidoEntity {
