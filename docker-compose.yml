@@ -31,4 +31,3 @@ services:
       - 3333:3000
     depends_on:
       - postgres
-      - redis
