@@ -18,6 +18,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 })
 export class SeedModule implements OnApplicationBootstrap {
   async onApplicationBootstrap() {
+    Logger.log(`Iniciando Seed`, SeedModule.name);
+    const [, seed] = await IngredienteModelTypeOrm.findAndCount();
+
+    if (seed) {
+      Logger.log(`Seed já realizado`, SeedModule.name);
+      return;
+    }
     const ingredientes = await this.ingredienteSeed();
     const itens = await this.itensSeed(Object.values(ingredientes));
     await this.comboSeed(Object.values(itens));
