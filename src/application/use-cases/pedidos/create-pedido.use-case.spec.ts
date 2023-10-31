@@ -11,6 +11,7 @@ import {
   IItemRepository,
   IPedidoRepository,
 } from '@/domain/repository';
+import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { ICreatePedido } from '@/domain/use-cases';
 import { createMock } from '@golevelup/nestjs-testing';
 import { CreatePedidoUseCase } from './create-pedido.use-case';
@@ -21,18 +22,21 @@ describe('CreatePedidoUseCase', () => {
   let clienteRepository: IClienteRepository;
   let itemRepository: IItemRepository;
   let comboRepository: IComboRepository;
+  let pedidoHistoricoRepository: IPedidoHistoricoRepository;
 
   beforeEach(() => {
     pedidoRepository = createMock<IPedidoRepository>();
     clienteRepository = createMock<IClienteRepository>();
     itemRepository = createMock<IItemRepository>();
     comboRepository = createMock<IComboRepository>();
+    pedidoHistoricoRepository = createMock<IPedidoHistoricoRepository>();
 
     createPedidoUseCase = new CreatePedidoUseCase(
       pedidoRepository,
       clienteRepository,
       itemRepository,
       comboRepository,
+      pedidoHistoricoRepository,
     );
   });
 
@@ -76,6 +80,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: null,
     });
     mockPedido.addCliente(mockCliente);
     mockPedido.addItem([mockItem]);
@@ -116,6 +121,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: null,
     });
     mockPedido.addItem([mockItem]);
     mockPedido.fecharPedido();
@@ -172,6 +178,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: null,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.fecharPedido();
@@ -235,6 +242,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: null,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
@@ -309,6 +317,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: null,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
