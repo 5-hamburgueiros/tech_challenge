@@ -16,6 +16,7 @@ import { IngredienteModule } from '../ingrediente/ingrediente.module';
 import { ItemModule } from '../item/item.module';
 import { PagamentoModule } from '../pagamento/pagamento.module';
 import { PedidoModule } from '../pedido/pedido.module';
+import { SeedModule } from '../seed/seed.module';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { PedidoModule } from '../pedido/pedido.module';
     HealthModule,
 
     // BullModule.forRootAsync({
-    //   useClass: BullConfig,
+    //   useClass: BullConfig, // deve ter o redis para funcionar
     // }),
     {
       module: DatabaseModule,
@@ -40,6 +41,7 @@ import { PedidoModule } from '../pedido/pedido.module';
     ComboModule,
     PedidoModule,
     PagamentoModule,
+    SeedModule,
   ],
   providers: [
     CorrelationService,

@@ -12,7 +12,7 @@ export class IngredienteModelTypeOrm extends AbstractModel {
   @Column({ name: 'Nome' })
   nome: string;
 
-  @Column({ name: 'Quantidade', type: 'float' })
+  @Column({ name: 'Quantidade', type: 'float', nullable: true })
   quantidade: number;
 
   @Column({ name: 'Calorias', type: 'float' })
