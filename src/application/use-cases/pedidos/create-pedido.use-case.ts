@@ -27,7 +27,7 @@ export class CreatePedidoUseCase implements ICreatePedido {
   ) {}
 
   async execute(params: ICreatePedido.Params): Promise<PedidoEntity> {
-    const numeroPedido = 1234;
+    const numeroPedido = await this.pedidoRepository.getNumeroPedido();
     const pedido = new PedidoEntity({
       numero: numeroPedido,
       id: undefined,
