@@ -1,1 +1,1 @@
-export * from './pedido.repository';
+export * from './pedido-historico.repository';

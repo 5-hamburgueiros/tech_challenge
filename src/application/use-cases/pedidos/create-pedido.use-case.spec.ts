@@ -4,7 +4,8 @@ import {
   ItemEntity,
   PedidoEntity,
 } from '@/domain/entities';
-import { CategoriaItem } from '@/domain/enum';
+import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
+import { CategoriaItem, StatusPedido } from '@/domain/enum';
 import {
   IClienteRepository,
   IComboRepository,
@@ -80,7 +81,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
-      status: null,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCliente(mockCliente);
     mockPedido.addItem([mockItem]);
@@ -102,6 +103,16 @@ describe('CreatePedidoUseCase', () => {
 
     const result = await createPedidoUseCase.execute(createParams);
 
+    const mockPedidoHistorico = new PedidoHistoricoEntity({
+      pedido: result.id,
+      status: result.status,
+      id: 'historico1',
+    });
+
+    const mockPedidoHistoricoSpy = jest
+      .spyOn(pedidoHistoricoRepository, 'create')
+      .mockResolvedValueOnce(mockPedidoHistorico);
+
     expect(result).toEqual(mockPedido);
     expect(result.valor).toEqual(mockPedido.valor);
     expect(result.status).toEqual(mockPedido.status);
@@ -110,6 +121,7 @@ describe('CreatePedidoUseCase', () => {
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockClienteRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockItemRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(mockPedidoHistoricoSpy).toHaveBeenCalledTimes(1);
   });
   it('deve criar um pedido apenas com itens sem cliente informado', async () => {
     const mockItem = new ItemEntity({
@@ -121,7 +133,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
-      status: null,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addItem([mockItem]);
     mockPedido.fecharPedido();
@@ -178,7 +190,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
-      status: null,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.fecharPedido();
@@ -242,7 +254,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
-      status: null,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
@@ -317,7 +329,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
-      status: null,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
