@@ -4,13 +4,15 @@ import {
   ItemEntity,
   PedidoEntity,
 } from '@/domain/entities';
-import { CategoriaItem } from '@/domain/enum';
+import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
+import { CategoriaItem, StatusPedido } from '@/domain/enum';
 import {
   IClienteRepository,
   IComboRepository,
   IItemRepository,
   IPedidoRepository,
 } from '@/domain/repository';
+import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { ICreatePedido } from '@/domain/use-cases';
 import { createMock } from '@golevelup/nestjs-testing';
 import { CreatePedidoUseCase } from './create-pedido.use-case';
@@ -21,18 +23,27 @@ describe('CreatePedidoUseCase', () => {
   let clienteRepository: IClienteRepository;
   let itemRepository: IItemRepository;
   let comboRepository: IComboRepository;
+  let pedidoHistoricoRepository: IPedidoHistoricoRepository;
+
+  const mockPedidoHistorico = new PedidoHistoricoEntity({
+    pedido: 'pedidoId1',
+    status: StatusPedido.EM_ANDAMENTO,
+    id: 'historico1',
+  });
 
   beforeEach(() => {
     pedidoRepository = createMock<IPedidoRepository>();
     clienteRepository = createMock<IClienteRepository>();
     itemRepository = createMock<IItemRepository>();
     comboRepository = createMock<IComboRepository>();
+    pedidoHistoricoRepository = createMock<IPedidoHistoricoRepository>();
 
     createPedidoUseCase = new CreatePedidoUseCase(
       pedidoRepository,
       clienteRepository,
       itemRepository,
       comboRepository,
+      pedidoHistoricoRepository,
     );
   });
 
@@ -76,6 +87,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCliente(mockCliente);
     mockPedido.addItem([mockItem]);
@@ -95,6 +107,10 @@ describe('CreatePedidoUseCase', () => {
       .spyOn(itemRepository, 'findAll')
       .mockResolvedValueOnce([mockItem]);
 
+    const mockPedidoHistoricoSpy = jest
+      .spyOn(pedidoHistoricoRepository, 'create')
+      .mockResolvedValueOnce(mockPedidoHistorico);
+
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
@@ -105,6 +121,7 @@ describe('CreatePedidoUseCase', () => {
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockClienteRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockItemRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(mockPedidoHistoricoSpy).toHaveBeenCalledTimes(1);
   });
   it('deve criar um pedido apenas com itens sem cliente informado', async () => {
     const mockItem = new ItemEntity({
@@ -116,6 +133,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addItem([mockItem]);
     mockPedido.fecharPedido();
@@ -132,6 +150,10 @@ describe('CreatePedidoUseCase', () => {
       .spyOn(itemRepository, 'findAll')
       .mockResolvedValueOnce([mockItem]);
 
+    const mockPedidoHistoricoSpy = jest
+      .spyOn(pedidoHistoricoRepository, 'create')
+      .mockResolvedValueOnce(mockPedidoHistorico);
+
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
@@ -141,6 +163,7 @@ describe('CreatePedidoUseCase', () => {
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockItemRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(mockPedidoHistoricoSpy).toHaveBeenCalledTimes(1);
   });
   it('deve criar um pedido apenas com combos sem cliente informado', async () => {
     const mockItem1 = new ItemEntity({
@@ -172,6 +195,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.fecharPedido();
@@ -188,6 +212,10 @@ describe('CreatePedidoUseCase', () => {
       .spyOn(comboRepository, 'findAll')
       .mockResolvedValueOnce([mockCombo]);
 
+    const mockPedidoHistoricoSpy = jest
+      .spyOn(pedidoHistoricoRepository, 'create')
+      .mockResolvedValueOnce(mockPedidoHistorico);
+
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
@@ -197,6 +225,7 @@ describe('CreatePedidoUseCase', () => {
     expect(pedidoRepository.create).toHaveBeenCalledTimes(1);
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockComboRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(mockPedidoHistoricoSpy).toHaveBeenCalledTimes(1);
   });
   it('deve criar um pedido apenas com combos com cliente informado', async () => {
     const mockItem1 = new ItemEntity({
@@ -235,6 +264,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
@@ -256,6 +286,10 @@ describe('CreatePedidoUseCase', () => {
       .spyOn(clienteRepository, 'findByDocumento')
       .mockResolvedValueOnce(mockCliente);
 
+    const mockPedidoHistoricoSpy = jest
+      .spyOn(pedidoHistoricoRepository, 'create')
+      .mockResolvedValueOnce(mockPedidoHistorico);
+
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
@@ -266,6 +300,7 @@ describe('CreatePedidoUseCase', () => {
     expect(mockClienteRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockComboRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(mockPedidoHistoricoSpy).toHaveBeenCalledTimes(1);
   });
   it('deve criar um pedido com combos, itens e cliente informado', async () => {
     const mockItem1 = new ItemEntity({
@@ -309,6 +344,7 @@ describe('CreatePedidoUseCase', () => {
 
     const mockPedido = new PedidoEntity({
       numero: 1234,
+      status: StatusPedido.AGUARDANDO_PAGAMENTO,
     });
     mockPedido.addCombos([mockCombo]);
     mockPedido.addCliente(mockCliente);
@@ -336,6 +372,10 @@ describe('CreatePedidoUseCase', () => {
       .spyOn(clienteRepository, 'findByDocumento')
       .mockResolvedValueOnce(mockCliente);
 
+    const mockPedidoHistoricoSpy = jest
+      .spyOn(pedidoHistoricoRepository, 'create')
+      .mockResolvedValueOnce(mockPedidoHistorico);
+
     const result = await createPedidoUseCase.execute(createParams);
 
     expect(result).toEqual(mockPedido);
@@ -347,5 +387,6 @@ describe('CreatePedidoUseCase', () => {
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockComboRepositorySpy).toHaveBeenCalledTimes(1);
     expect(mockItemRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(mockPedidoHistoricoSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -15,6 +15,7 @@ export class PedidoEntity extends AbstractEntity {
   constructor(params: PedidoModel.Params) {
     super(params.id, params.criadoEm, params.atualizadoEm);
     this.numero = params.numero;
+    this.status = params.status;
   }
 
   public addCliente(cliente: ClienteEntity): void {
@@ -46,7 +47,7 @@ export class PedidoEntity extends AbstractEntity {
 
   public fecharPedido(): void {
     this.calcularValor();
-    this.status = StatusPedido.EM_ANDAMENTO;
+    this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
   }
 
   public pagar(): void {
@@ -83,13 +84,29 @@ export class PedidoEntity extends AbstractEntity {
   }
 
   public cancelar(): void {
+    const isValid = [
+      StatusPedido.AGUARDANDO_PAGAMENTO,
+      StatusPedido.EM_PREPARACAO,
+    ].includes(this.status);
+
+    if (!isValid) {
+      throw new Error('Pedido não está aguardando pegamento ou em preparação');
+    }
     this.status = StatusPedido.CANCELADO;
+  }
+
+  public finalizar(): void {
+    if (this.status !== StatusPedido.PRONTO) {
+      throw new Error('Pedido não está pronto');
+    }
+    this.status = StatusPedido.FINALIZADO;
   }
 
   static FromTypeOrmModel(param: PedidoModel.Params): PedidoEntity {
     return new PedidoEntity({
       id: param.id,
       numero: param.numero,
+      status: param.status,
       criadoEm: param.criadoEm,
       atualizadoEm: param.atualizadoEm,
     });
@@ -100,6 +117,7 @@ export namespace PedidoModel {
   export type Params = {
     id?: string;
     numero: number;
+    status: StatusPedido;
     criadoEm?: string;
     atualizadoEm?: string;
   };

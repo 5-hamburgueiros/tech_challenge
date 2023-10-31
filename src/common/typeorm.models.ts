@@ -3,6 +3,7 @@ import {
   ComboModelTypeOrm,
   IngredienteModelTypeOrm,
   ItemModelTypeOrm,
+  PedidoHistoricoModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
 } from '@/infra/database/typerom/model';
@@ -14,4 +15,5 @@ export const typeOrmEntities = [
   ComboModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
+  PedidoHistoricoModelTypeOrm,
 ];
