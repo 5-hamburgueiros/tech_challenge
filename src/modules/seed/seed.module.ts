@@ -1,13 +1,26 @@
-import { IngredienteModelTypeOrm } from '@/infra/database/typerom/model';
+import { CategoriaItem } from '@/domain/enum';
+import {
+  ComboModelTypeOrm,
+  IngredienteModelTypeOrm,
+  ItemModelTypeOrm,
+} from '@/infra/database/typerom/model';
 import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([IngredienteModelTypeOrm])],
+  imports: [
+    TypeOrmModule.forFeature([
+      IngredienteModelTypeOrm,
+      ItemModelTypeOrm,
+      ComboModelTypeOrm,
+    ]),
+  ],
 })
 export class SeedModule implements OnApplicationBootstrap {
   async onApplicationBootstrap() {
-    await this.ingredienteSeed();
+    const ingredientes = await this.ingredienteSeed();
+    const itens = await this.itensSeed(Object.values(ingredientes));
+    await this.comboSeed(Object.values(itens));
     Logger.log(`Seed finalizado`, SeedModule.name);
   }
   async ingredienteSeed() {
@@ -52,5 +65,50 @@ export class SeedModule implements OnApplicationBootstrap {
     pao.custo = 1;
     pao.valor = 2;
     await pao.save();
+
+    return {
+      alface,
+      bacon,
+      hamburguer,
+      ovo,
+      queijo,
+      pao,
+    };
+  }
+
+  async itensSeed(ingredientes: IngredienteModelTypeOrm[]) {
+    const xBacon = new ItemModelTypeOrm();
+    xBacon.nome = 'X-Bacon';
+    xBacon.valor = 29.9;
+    xBacon.ingredientes = ingredientes;
+    xBacon.categoria = CategoriaItem.Lanche;
+    await xBacon.save();
+
+    const cocaCola = new ItemModelTypeOrm();
+    cocaCola.nome = 'Coca-Cola';
+    cocaCola.valor = 4.9;
+    cocaCola.categoria = CategoriaItem.Bebida;
+    await cocaCola.save();
+
+    const bataFrita = new ItemModelTypeOrm();
+    bataFrita.nome = 'Batata Frita';
+    bataFrita.valor = 5.9;
+    bataFrita.categoria = CategoriaItem.Acompanhamento;
+    await bataFrita.save();
+
+    return {
+      xBacon,
+      cocaCola,
+      bataFrita,
+    };
+  }
+
+  async comboSeed(itens: ItemModelTypeOrm[]) {
+    const combo = new ComboModelTypeOrm();
+    combo.nome = 'X-Bacon + Coca-Cola + Batata Frita';
+    combo.valor = 39.9;
+    combo.ativo = true;
+    combo.itens = itens;
+    await combo.save();
   }
 }
