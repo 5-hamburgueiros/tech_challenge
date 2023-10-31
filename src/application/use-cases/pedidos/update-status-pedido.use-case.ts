@@ -68,7 +68,7 @@ export class UpdateStatusPedidoUseCase implements IUpdateStatusPedidoUseCase {
         pedido.recebido();
         break;
       default:
-        throw new Error();
+        throw new Error('Status não permitido');
     }
   }
 }
