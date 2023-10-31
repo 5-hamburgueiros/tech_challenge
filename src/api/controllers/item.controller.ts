@@ -1,8 +1,21 @@
+import { ItemEntity } from '@/domain/entities';
 import { CategoriaItem } from '@/domain/enum';
+import { IItemService } from '@/domain/service';
 import { ICreateItem, IFindAllItens } from '@/domain/use-cases';
-import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { CreateItemDto } from '../dtos';
+import { ItemModelTypeOrm } from '@/infra/database/typerom/model/item.typeorm.model';
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Get,
+  Inject,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { ApiOkResponsePaginated, CreateItemDto } from '../dtos';
 
 @ApiTags('Itens')
 @Controller('itens')
@@ -11,6 +24,7 @@ export class ItemController {
     @Inject(ICreateItem)
     private readonly createItem: ICreateItem,
     @Inject(IFindAllItens) private readonly findAll: IFindAllItens,
+    @Inject(IItemService) private readonly _itemService: IItemService,
   ) {}
 
   @Post()
@@ -32,14 +46,34 @@ export class ItemController {
     enum: CategoriaItem,
     required: false,
   })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+  })
   @Get()
+  @ApiResponse({ type: Pagination<ItemModelTypeOrm> })
+  @ApiOkResponsePaginated(ItemEntity)
   async list(
     @Query('nome') nome: string,
     @Query('categoria') categoria: CategoriaItem,
-  ) {
-    return this.findAll.execute({
-      categoria,
-      nome,
-    });
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+  ): Promise<Pagination<ItemModelTypeOrm>> {
+    limit = limit > 100 ? 100 : limit;
+    return this._itemService.paginate(
+      {
+        page,
+        limit,
+        route: 'http://localhost:3333/itens',
+      },
+      {
+        categoria,
+        nome,
+      },
+    );
   }
 }

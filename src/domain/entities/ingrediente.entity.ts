@@ -1,5 +1,7 @@
+import { Entity } from 'typeorm';
 import { AbstractEntity } from './abstract.entity';
 
+@Entity()
 export class IngredienteEntity extends AbstractEntity {
   public readonly nome: string;
   public readonly quantidade: number;

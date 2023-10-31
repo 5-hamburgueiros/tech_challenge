@@ -1,9 +1,11 @@
 import { ComboController } from '@/api/controllers/combo.controller';
+import { ComboService } from '@/api/services';
 import {
   CreateComboUseCase,
   FindAllCombosUseCase,
 } from '@/application/use-cases';
 import { IComboRepository, IItemRepository } from '@/domain/repository';
+import { IComboService } from '@/domain/service';
 import { ICreateCombo, IFindAllCombos } from '@/domain/use-cases';
 import {
   ComboModelTypeOrm,
@@ -34,6 +36,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       provide: IFindAllCombos,
       useClass: FindAllCombosUseCase,
     },
+    { provide: IComboService, useClass: ComboService },
   ],
 })
 export class ComboModule {}
