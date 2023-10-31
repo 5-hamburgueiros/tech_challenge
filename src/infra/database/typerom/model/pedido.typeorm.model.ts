@@ -45,7 +45,7 @@ export class PedidoModelTypeOrm extends AbstractModel {
   public combos: ComboModelTypeOrm[];
 
   @OneToMany(() => PedidoHistoricoModelTypeOrm, (historico) => historico.pedido)
-  statusHistorico: Array<PedidoHistoricoModelTypeOrm>;
+  historicoStatus: Array<PedidoHistoricoModelTypeOrm>;
 
   static FromEntity(params: PedidoEntity): PedidoModelTypeOrm {
     const model = new PedidoModelTypeOrm();

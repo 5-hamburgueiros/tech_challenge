@@ -19,7 +19,7 @@ export class PedidoRepositoryTypeOrm implements IPedidoRepository {
       where: {
         id: params.id,
       },
-      relations: ['cliente', 'itens', 'combos'],
+      relations: ['cliente', 'itens', 'combos', 'historicoStatus'],
     });
     return pedido as any;
   }
