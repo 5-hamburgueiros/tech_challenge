@@ -1,19 +1,25 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-const { npm_package_version: VERSION = '0.1.0' } = process.env;
+const { npm_package_version: VERSION = '0.1.0', NODE_ENV } = process.env;
 export class SwaggerStartup {
   static init(app: INestApplication) {
     const config = new DocumentBuilder()
       .setTitle('Tech Challenge - Backend')
       .setExternalDoc('Exportar documentação', '/swagger-json')
       .setDescription('Sistema de gestão de pedidos')
-      .addServer('http://localhost:3000', 'Development server')
-      .addServer('http://localhost:3333', 'Production server with docker')
-      .setVersion(VERSION)
-      .build();
+      .setVersion(VERSION);
 
-    const document = SwaggerModule.createDocument(app, config);
+    if (NODE_ENV == 'production') {
+      config.addServer(
+        'http://localhost:3333',
+        'Production server with docker',
+      );
+    } else {
+      config.addServer('http://localhost:3000', 'Development server');
+    }
+
+    const document = SwaggerModule.createDocument(app, config.build());
     SwaggerModule.setup('swagger', app, document);
   }
 }
