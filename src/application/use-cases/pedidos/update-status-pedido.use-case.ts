@@ -1,7 +1,9 @@
+import { DefaultException } from '@/common/exceptions/default.exception';
 import { PedidoEntity } from '@/domain/entities';
 import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
 import { StatusPedido } from '@/domain/enum';
 import { PedidoNaoLocalizadoException } from '@/domain/exceptions';
+import { StatusNaoPermitidoException } from '@/domain/exceptions/status-nao-permitido.exeception';
 import { IPedidoRepository } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
@@ -46,6 +48,7 @@ export class UpdateStatusPedidoUseCase implements IUpdateStatusPedidoUseCase {
 
       return data;
     } catch (error) {
+      if (error instanceof DefaultException) throw error;
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -68,7 +71,7 @@ export class UpdateStatusPedidoUseCase implements IUpdateStatusPedidoUseCase {
         pedido.recebido();
         break;
       default:
-        throw new Error('Status não permitido');
+        throw new StatusNaoPermitidoException('Status não permitido');
     }
   }
 }

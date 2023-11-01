@@ -44,7 +44,9 @@ export class PedidoController {
   async findById(@Param('id') id: string): Promise<PedidoEntity> {
     return this.findPedidoByIdUseCase.execute({ id });
   }
-
+  @ApiOperation({
+    summary: 'Atualiza o status do pedido (simulação de preparo)',
+  })
   @ApiParam({ name: 'id' })
   @Patch(':id/status')
   async updateStatus(
