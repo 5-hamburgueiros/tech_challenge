@@ -3,16 +3,10 @@ import {
   IngredienteModelTypeOrm,
   ItemModelTypeOrm,
 } from '@/infra/database/typerom/model';
-import { Logger } from '@nestjs/common';
 
 export default async (
   ingredientes: Record<string, IngredienteModelTypeOrm>,
 ) => {
-  const [, mustSeed] = await ItemModelTypeOrm.findAndCount();
-  if (mustSeed) {
-    Logger.log(`Seed já realizado`, 'ItensSeed');
-    return;
-  }
   const xBacon = new ItemModelTypeOrm();
   xBacon.nome = 'X-Bacon';
   xBacon.valor = 29.9;

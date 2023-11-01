@@ -1,12 +1,6 @@
 import { IngredienteModelTypeOrm } from '@/infra/database/typerom/model';
-import { Logger } from '@nestjs/common';
 
 export default async () => {
-  const [, mustSeed] = await IngredienteModelTypeOrm.findAndCount();
-  if (mustSeed) {
-    Logger.log(`Seed já realizado`, 'IngredientesSeed');
-    return;
-  }
   const alface = new IngredienteModelTypeOrm();
   alface.calorias = 0;
   alface.nome = 'Alface crespa';

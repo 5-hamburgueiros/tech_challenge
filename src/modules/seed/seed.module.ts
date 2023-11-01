@@ -20,6 +20,11 @@ import itensSeed from './itens-seed';
 export class SeedModule implements OnApplicationBootstrap {
   async onApplicationBootstrap() {
     Logger.log(`Iniciando Seed`, SeedModule.name);
+    const [, mustSeed] = await IngredienteModelTypeOrm.findAndCount();
+    if (mustSeed) {
+      Logger.log(`Seed já realizado`, SeedModule.name);
+      return;
+    }
     const ingredientes = await ingredientesSeed();
     const itens = await itensSeed(ingredientes);
     await comboSeed(itens);
