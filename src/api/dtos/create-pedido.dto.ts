@@ -6,6 +6,7 @@ export class CreatePedidoDto {
   @ApiProperty({
     description: 'Documento do cliente',
     example: '12345678910',
+    required: false,
   })
   @IsOptional()
   @IsString()
