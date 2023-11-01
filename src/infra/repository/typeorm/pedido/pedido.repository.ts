@@ -2,15 +2,14 @@ import { PedidoEntity } from '@/domain/entities';
 import { IPedidoRepository } from '@/domain/repository';
 import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import { Injectable } from '@nestjs/common';
-import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PedidoRepositoryTypeOrm implements IPedidoRepository {
   constructor(
     @InjectRepository(PedidoModelTypeOrm)
     private readonly pedidoRepository: Repository<PedidoModelTypeOrm>,
-    @InjectDataSource() private dataSource: DataSource,
   ) {}
   async findById(
     params: IPedidoRepository.FindById.Params,
@@ -33,5 +32,10 @@ export class PedidoRepositoryTypeOrm implements IPedidoRepository {
     return (await this.pedidoRepository.save({
       id,
     })) as any;
+  }
+
+  async getNumeroPedido(): Promise<number> {
+    const numeroPedido = await this.pedidoRepository.count();
+    return numeroPedido + 1;
   }
 }

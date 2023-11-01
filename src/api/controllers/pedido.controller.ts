@@ -10,7 +10,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreatePedidoDto } from '../dtos';
 import { UpdateStatusDto } from '../dtos/pagamento-pedido';
 
@@ -28,6 +28,10 @@ export class PedidoController {
     private readonly updateStatusPedidoUseCase: IUpdateStatusPedidoUseCase,
   ) {}
 
+  @ApiOperation({
+    summary:
+      "Para clientes que realizarem pedidos de forma anônima, não deverá passar o campo 'cliente' na requisição",
+  })
   @Post()
   async create(
     @Body() createPedidoDto: CreatePedidoDto,

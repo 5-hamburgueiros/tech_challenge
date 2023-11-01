@@ -10,6 +10,7 @@ export interface IPedidoRepository {
   updatePayment(
     params: IPedidoRepository.UpdatePayment.Params,
   ): Promise<IPedidoRepository.UpdatePayment.Result>;
+  getNumeroPedido(): Promise<number>;
 }
 
 export const IPedidoRepository = Symbol('IPedidoRepository');

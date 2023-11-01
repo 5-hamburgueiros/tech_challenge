@@ -32,7 +32,9 @@ describe('CreatePedidoUseCase', () => {
   });
 
   beforeEach(() => {
-    pedidoRepository = createMock<IPedidoRepository>();
+    pedidoRepository = createMock<IPedidoRepository>({
+      getNumeroPedido: () => Promise.resolve(1234),
+    });
     clienteRepository = createMock<IClienteRepository>();
     itemRepository = createMock<IItemRepository>();
     comboRepository = createMock<IComboRepository>();
