@@ -1,16 +1,23 @@
 import { PedidoEntity } from '@/domain/entities';
+import { StatusPedido } from '@/domain/enum';
+import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
+import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Get,
   Inject,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreatePedidoDto } from '../dtos';
 import { UpdateStatusDto } from '../dtos/pagamento-pedido';
 
@@ -26,6 +33,8 @@ export class PedidoController {
     private readonly pagamentoPedido: IPagamentoPedido,
     @Inject(IUpdateStatusPedidoUseCase)
     private readonly updateStatusPedidoUseCase: IUpdateStatusPedidoUseCase,
+    @Inject(IPedidoService)
+    private readonly pedidoService: IPedidoService,
   ) {}
 
   @ApiOperation({
@@ -37,6 +46,44 @@ export class PedidoController {
     @Body() createPedidoDto: CreatePedidoDto,
   ): Promise<PedidoEntity> {
     return this.createPedidoUseCase.execute(createPedidoDto);
+  }
+
+  @ApiQuery({
+    name: 'documento',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'status',
+    enum: StatusPedido,
+    type: 'array',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+  })
+  @Get()
+  async list(
+    @Query('documento') documento: string,
+    @Query('status') status: StatusPedido,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+  ): Promise<Pagination<PedidoModelTypeOrm>> {
+    return this.pedidoService.paginate(
+      {
+        page,
+        limit,
+        route: 'http://localhost:3333/itens',
+      },
+      {
+        status,
+        documento,
+      },
+    );
   }
 
   @ApiParam({ name: 'id' })

@@ -1,4 +1,5 @@
 import { PedidoController } from '@/api/controllers/pedido.controller';
+import { PedidoService } from '@/api/services';
 import {
   CreatePedidoUseCase,
   FindPedidoByIdUseCase,
@@ -12,6 +13,7 @@ import {
   IPedidoRepository,
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
+import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import {
@@ -80,6 +82,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: IUpdateStatusPedidoUseCase,
       useClass: UpdateStatusPedidoUseCase,
+    },
+
+    {
+      provide: IPedidoService,
+      useClass: PedidoService,
     },
   ],
 })
