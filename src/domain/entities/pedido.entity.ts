@@ -67,9 +67,17 @@ export class PedidoEntity extends AbstractEntity {
     // TODO: lançar evento de pedido pago
   }
 
-  public emPreparacao(): void {
+  public recebido(): void {
     if (this.status !== StatusPedido.PAGO) {
       throw new Error('Pedido não está pago');
+    }
+
+    this.status = StatusPedido.RECEBIDO;
+  }
+
+  public emPreparacao(): void {
+    if (this.status !== StatusPedido.RECEBIDO) {
+      throw new Error('Pedido não foi recebido.');
     }
     this.status = StatusPedido.EM_PREPARACAO;
     // TODO: lançar evento de pedido em preparação
