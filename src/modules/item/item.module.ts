@@ -1,7 +1,9 @@
 import { ItemController } from '@/api/controllers/item.controller';
+import { ItemService } from '@/api/services';
 import { CreateItemUseCase } from '@/application/use-cases/item/create-item.use-case';
 import { FindAllItensUseCase } from '@/application/use-cases/item/find-all-itens.use-case';
 import { IIngredienteRepository, IItemRepository } from '@/domain/repository';
+import { IItemService } from '@/domain/service';
 import { ICreateItem, IFindAllItens } from '@/domain/use-cases';
 import {
   IngredienteModelTypeOrm,
@@ -22,6 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     { provide: IItemRepository, useClass: ItemRepositoryTypeOrm },
     { provide: ICreateItem, useClass: CreateItemUseCase },
     { provide: IFindAllItens, useClass: FindAllItensUseCase },
+    { provide: IItemService, useClass: ItemService },
   ],
 })
 export class ItemModule {}
