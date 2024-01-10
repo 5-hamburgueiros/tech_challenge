@@ -16,9 +16,9 @@ describe('BullConfigService', () => {
       const result = await bullConfigService.createSharedConfiguration();
       expect(result).toBeDefined();
       expect(result).toMatchInlineSnapshot(`
-        Object {
+        {
           "createClient": [Function],
-          "defaultJobOptions": Object {
+          "defaultJobOptions": {
             "removeOnComplete": true,
           },
           "prefix": "Tech Challenge",
@@ -36,9 +36,9 @@ describe('BullConfigService', () => {
       const result = await bullConfigService.createSharedConfiguration();
       expect(result).toBeDefined();
       expect(result).toMatchInlineSnapshot(`
-        Object {
+        {
           "createClient": [Function],
-          "defaultJobOptions": Object {
+          "defaultJobOptions": {
             "removeOnComplete": true,
           },
           "prefix": "Tech Challenge",
