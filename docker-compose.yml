@@ -10,14 +10,6 @@ services:
     ports:
       - '5432:5432'
 
-  backend:
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: build
-    volumes:
-      - ./src:/user/src/app/src
-
   api:
     build:
       dockerfile: Dockerfile
