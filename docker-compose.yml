@@ -1,8 +1,10 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres
-    restart: always
+    image: postgres:16.1-alpine3.19
+    deploy:
+      restart_policy:
+        condition: any
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
@@ -23,3 +25,6 @@ services:
       - 3333:3000
     depends_on:
       - postgres
+    deploy:
+      restart_policy:
+        condition: on-failure
