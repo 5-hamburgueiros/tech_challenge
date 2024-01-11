@@ -1,22 +1,16 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres
-    restart: always
+    image: postgres:16.1-alpine3.19
+    deploy:
+      restart_policy:
+        condition: any
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: postgres
     ports:
       - '5432:5432'
-
-  backend:
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: build
-    volumes:
-      - ./src:/user/src/app/src
 
   api:
     build:
@@ -31,3 +25,6 @@ services:
       - 3333:3000
     depends_on:
       - postgres
+    deploy:
+      restart_policy:
+        condition: on-failure
