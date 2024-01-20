@@ -11,6 +11,17 @@ spec:
       targetPort: 5432
       name: main-db-port
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pvc
+spec:
+  resources:
+    requests:
+      storage: 10Mi
+  accessModes:
+    - ReadWriteOnce
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,3 +47,10 @@ spec:
           envFrom:
             - secretRef:
                 name: main-db-credentials
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-volume
+      volumes:
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: db-pvc
