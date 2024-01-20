@@ -34,7 +34,6 @@ spec:
   selector:
     matchLabels:
       app: api
-  replicas: 1
   template:
     metadata:
       labels:
@@ -46,6 +45,13 @@ spec:
           image: cviniciussdias/grupo52:latest
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: 20m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
           livenessProbe:
             httpGet:
               port: 3000
@@ -83,3 +89,28 @@ spec:
           envFrom:
             - configMapRef:
                 name: api-configmap
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
