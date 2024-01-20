@@ -1,19 +1,28 @@
-import { PedidoEntity } from '@/domain/entities';
 import { IPagamentoPedido } from '@/domain/use-cases';
-import { Controller, Inject, Param, Patch } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Pagamentos')
-@Controller('pedidos/:id/pagamentos')
+@Controller('/pagamentos')
 export class PagamentoController {
+
   constructor(
     @Inject(IPagamentoPedido)
     private readonly pagamentoPedido: IPagamentoPedido,
   ) {}
 
-  @ApiParam({ name: 'id' })
-  @Patch()
-  async payment(@Param('id') id: string): Promise<PedidoEntity> {
-    return this.pagamentoPedido.execute(id);
+  @Post()
+  async payment(
+    @Body() body: any,
+  ): Promise<any> {
+
+    console.log("body", body);
+
+    const externalPaymentId = body?.data?.id;
+    if(externalPaymentId){
+      this.pagamentoPedido.execute(externalPaymentId);
+    }
+
+    return new Promise((res) => res(body));
   }
 }

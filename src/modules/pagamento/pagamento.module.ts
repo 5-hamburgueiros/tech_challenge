@@ -27,6 +27,7 @@ import {
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
 import { PedidoHistoricoRepositoryTypeOrm } from '@/infra/repository/typeorm/pedido-historico';
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -41,6 +42,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       StatusModelTypeOrm,
       PedidoHistoricoModelTypeOrm,
     ]),
+    HttpModule,
   ],
   providers: [
     {
