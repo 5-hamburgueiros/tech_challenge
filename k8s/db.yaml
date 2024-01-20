@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  labels:
+    db: main
+spec:
+  selector:
+    matchLabels:
+      db: main
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        db: main
+      name: db-pod
+    spec:
+      containers:
+        - name: db-container
+          image: postgres:16.1-alpine3.19
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: main-db-credentials
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-db-service
+spec:
+  type: ClusterIP
+  selector:
+    db: main
+  ports:
+    - port: 5432
+      targetPort: 5432
+      name: main-db-port
