@@ -1,33 +1,44 @@
-# Passos iniciais
+# Tech Challenge FIAP - Grupo 52
 
-  
+## Execução em um cluster k8s
 
-### Observação: para Rodar no modo de Desenvolvimento
-Duplicar o ***.env.example*** e colocar como ***.env***
-
+Para executar a aplicação em um cluster Kubernetes, com o `kubectl` corretamente configurado, execute:
 
 ```shell
-
-$  yarn install
-
+kubectl apply -f k8s
 ```
-```shell
 
-$  yarn start:dev
+Com isso, a API estará disponível na porta 30001 do Cluster. Se for em um ambiente local com Docker Desktop ou _minikube_,
+você pode acessar o endereço http://localhost:30001. Em ambientes de nuvem, substitua `localhost` pelo endereço público do cluster.
 
-```
-  
+## Execução para desenvolvimento
 
-# Executando Docker
+Para executar o projeto em modo de desenvolvimento, copie o arquivo ***.env.example*** para ***.env*** e execute os seguintes comandos:
 
 ```shell
-$  docker compose up --build
+yarn install
+```
+```shell
+yarn start:dev
 ```
 
-# Acessando Documentação da aplicação
+Com isso, a API estará disponível na porta 3333 e pode ser acessada pelo endereço http://localhost:3333
 
-http://localhost:3333/swagger
+## Execução em ambiente Docker
 
+Para executar a aplicação usando Docker, basta executar o seguinte comando:
 
-### caso prefira executar no Postman 
-importar o json deste link: http://localhost:3333/swagger-json dentro do Postman.
+```shell
+docker compose up -d
+```
+
+Com isso, a API estará disponível na porta 3333 e pode ser acessada pelo endereço http://localhost:3333
+
+## Documentação
+
+A documentação da aplicação é feita usando Swagger e pode ser acessada no endereço `/swagger` da API.
+Para uso em ferramentas fora do navegador, como Postman ou Insomnia, o endereço `/swagger-json` pode ser utilizado.
+
+Sendo assim, se a aplicação estiver de pé localmente em um cluster kubernetes, via _minikube_ ou Docker Desktop, por exemplo, você pode acessar http://localhost:30001/swagger e http://localhost:30001/swagger-json .
+
+Já se estiver utilizando Docker ou o ambiente de desenvolvimento via `yarn`, pode acessar em http://localhost:3333/swagger e http://localhost:3333/swagger-json . 
