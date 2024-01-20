@@ -6,7 +6,6 @@ data:
   APP_NAME: "TECH_CHALLENGE"
   APP_PORT: "3000"
   NODE_ENV: "production"
-  REDIS_CONNECTION_STRING: "localhost:6379"
   DATABASE_HOST: "main-db-service"
   DATABASE_PORT: "5432"
 ---
