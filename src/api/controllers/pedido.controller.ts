@@ -86,6 +86,11 @@ export class PedidoController {
     );
   }
 
+  @Get('/em_andamento')
+  async inProgress(): Promise<PedidoModelTypeOrm[]> {
+    return this.pedidoService.inProgress();
+  }
+
   @ApiParam({ name: 'id' })
   @Get(':id')
   async findById(@Param('id') id: string): Promise<PedidoEntity> {

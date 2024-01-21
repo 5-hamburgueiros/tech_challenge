@@ -1,3 +1,4 @@
+import { StatusPedido } from '@/domain/enum';
 import { ClienteNaoLocalizadoException } from '@/domain/exceptions';
 import { IPedidoService } from '@/domain/service';
 import {
@@ -53,5 +54,36 @@ export class PedidoService implements IPedidoService {
     queryBuilder.leftJoinAndSelect('pedido.cliente', 'Cliente');
 
     return paginate<PedidoModelTypeOrm>(queryBuilder as any, options);
+  }
+
+  async inProgress(): Promise<PedidoModelTypeOrm[]> {
+    const queryBuilder = this.repository.createQueryBuilder('pedido');
+
+    queryBuilder
+      .select(['pedido', 'pedido.status'])
+      .addSelect(
+        `CASE
+          WHEN pedido.status = 'PRONTO' THEN 1
+          WHEN pedido.status = 'EM_PREPARACAO' THEN 2
+          WHEN pedido.status = 'RECEBIDO' THEN 3
+          ELSE 4
+      END AS ordemPedido`,
+      )
+      .orderBy('pedido.criadoEm', 'ASC')
+      .orderBy('ordemPedido', 'ASC')
+      .andWhere('pedido.status IN (:...status)', {
+        status: [
+          StatusPedido.PRONTO,
+          StatusPedido.EM_PREPARACAO,
+          StatusPedido.RECEBIDO,
+        ],
+      })
+      .getMany();
+
+    queryBuilder.leftJoinAndSelect('pedido.itens', 'Pedido_Item');
+    queryBuilder.leftJoinAndSelect('pedido.combos', 'Pedido_Combo');
+    queryBuilder.leftJoinAndSelect('pedido.cliente', 'Cliente');
+
+    return await queryBuilder.getMany();
   }
 }
