@@ -5,21 +5,25 @@ import {
   FindPedidoByIdUseCase,
   PaymentPedidoUseCase,
 } from '@/application/use-cases';
+import { CriaPagamentoUseCase } from '@/application/use-cases/pagamento/cria-pagamento.use-case';
 import { UpdateStatusPedidoUseCase } from '@/application/use-cases/pedidos/update-status-pedido.use-case';
 import {
   IClienteRepository,
   IComboRepository,
   IItemRepository,
+  IPagamentoRepository,
   IPedidoRepository,
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
   ItemModelTypeOrm,
+  PagamentoModelTypeOrm,
   PedidoHistoricoModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
@@ -27,6 +31,7 @@ import {
 import {
   ClienteRepositoryTypeOrm,
   ItemRepositoryTypeOrm,
+  PagamentoRepositoryTypeOrm,
   PedidoRepositoryTypeOrm,
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
@@ -45,6 +50,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       ComboModelTypeOrm,
       StatusModelTypeOrm,
       PedidoHistoricoModelTypeOrm,
+      PagamentoModelTypeOrm,
     ]),
     HttpModule,
   ],
@@ -85,11 +91,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       provide: IUpdateStatusPedidoUseCase,
       useClass: UpdateStatusPedidoUseCase,
     },
-
     {
       provide: IPedidoService,
       useClass: PedidoService,
-    }
+    },
+    {
+      provide: IPagamentoRepository,
+      useClass: PagamentoRepositoryTypeOrm,
+    },
+    {
+      provide: ICriaPagamento,
+      useClass: CriaPagamentoUseCase,
+    },
   ],
 })
 export class PedidoModule {}

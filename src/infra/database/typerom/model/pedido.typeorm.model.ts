@@ -8,12 +8,14 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
   ItemModelTypeOrm,
+  PagamentoModelTypeOrm,
   PedidoHistoricoModelTypeOrm,
 } from '.';
 import { AbstractModel } from './abstract.typeorm.model';
@@ -46,6 +48,9 @@ export class PedidoModelTypeOrm extends AbstractModel {
 
   @OneToMany(() => PedidoHistoricoModelTypeOrm, (historico) => historico.pedido)
   historicoStatus: Array<PedidoHistoricoModelTypeOrm>;
+
+  @OneToOne(() => PagamentoModelTypeOrm, (pagamento) => pagamento.pedido)
+  pagamento: PagamentoModelTypeOrm;
 
   static FromEntity(params: PedidoEntity): PedidoModelTypeOrm {
     const model = new PedidoModelTypeOrm();

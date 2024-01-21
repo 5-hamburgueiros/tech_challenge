@@ -1,7 +1,6 @@
-import { StatusPagamento, StatusPedido } from '@/domain/enum';
+import { StatusPagamento } from '@/domain/enum';
 import { ErroIntegracaoMercadoPagoException } from '@/domain/exceptions';
 import { IAtualizaPagamento, IFindById } from '@/domain/use-cases';
-import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 
@@ -11,8 +10,6 @@ export class CheckPaymentUseCase implements IAtualizaPagamento {
     private readonly httpService: HttpService,
     @Inject(IFindById)
     private readonly findPedidoByIdUseCase: IFindById,
-    @Inject(IUpdateStatusPedidoUseCase)
-    private readonly updateStatusPedidoUseCase: IUpdateStatusPedidoUseCase,
   ) { }
   async execute(idExternoPagamento: string): Promise<StatusPagamento> {
     try {
@@ -22,7 +19,7 @@ export class CheckPaymentUseCase implements IAtualizaPagamento {
         const idPedido = response['external_reference'];
         if(idPedido){
           const pedido = await this.findPedidoByIdUseCase.execute(idPedido)
-          this.updateStatusPedidoUseCase.execute({id: pedido.id, status: StatusPedido.PAGO})
+          //TODO: atualizacao do pagamento
         }
 
         return StatusPagamento.PAGO;
@@ -33,3 +30,15 @@ export class CheckPaymentUseCase implements IAtualizaPagamento {
     }
   }
 }
+
+/*
+    const historico = new PedidoHistoricoEntity({
+      id: undefined,
+      pedido: pedidoCriado.id,
+      status: pedidoCriado.status,
+    });
+
+    await this.pedidoHistoricoRepository.create({
+      historico,
+    });
+*/

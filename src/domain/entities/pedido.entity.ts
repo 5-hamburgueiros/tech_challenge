@@ -3,6 +3,7 @@ import { AbstractEntity } from './abstract.entity';
 import { ClienteEntity } from './cliente.entity';
 import { ComboEntity } from './combo.entity';
 import { ItemEntity } from './item.entity';
+import { PagamentoEntity } from './pagamento.entity';
 
 export class PedidoEntity extends AbstractEntity {
   public numero: number;
@@ -11,6 +12,7 @@ export class PedidoEntity extends AbstractEntity {
   public cliente?: ClienteEntity;
   public combos?: ComboEntity[];
   public itens?: ItemEntity[];
+  public pagamento?: PagamentoEntity;
 
   constructor(params: PedidoModel.Params) {
     super(params.id, params.criadoEm, params.atualizadoEm);
@@ -115,6 +117,7 @@ export class PedidoEntity extends AbstractEntity {
       id: param.id,
       numero: param.numero,
       status: param.status,
+      pagamento: param.pagamento,
       criadoEm: param.criadoEm,
       atualizadoEm: param.atualizadoEm,
     });
@@ -126,6 +129,7 @@ export namespace PedidoModel {
     id?: string;
     numero: number;
     status: StatusPedido;
+    pagamento?: PagamentoEntity;
     criadoEm?: string;
     atualizadoEm?: string;
   };

@@ -15,9 +15,7 @@ export class PagamentoController {
   async payment(
     @Body() body: any,
   ): Promise<any> {
-
-    console.log("body", body);
-
+    
     const externalPaymentId = body?.data?.id;
     if(externalPaymentId){
       this.pagamentoPedido.execute(externalPaymentId);

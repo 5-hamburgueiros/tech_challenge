@@ -1,7 +1,7 @@
 import { PedidoEntity } from '@/domain/entities';
 import { StatusPedido } from '@/domain/enum';
 import { IPedidoService } from '@/domain/service';
-import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { ICreatePedido, IFindById } from '@/domain/use-cases';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import {
@@ -29,8 +29,6 @@ export class PedidoController {
     private readonly createPedidoUseCase: ICreatePedido,
     @Inject(IFindById)
     private readonly findPedidoByIdUseCase: IFindById,
-    @Inject(IPagamentoPedido)
-    private readonly pagamentoPedido: IPagamentoPedido,
     @Inject(IUpdateStatusPedidoUseCase)
     private readonly updateStatusPedidoUseCase: IUpdateStatusPedidoUseCase,
     @Inject(IPedidoService)
