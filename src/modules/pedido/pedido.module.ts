@@ -11,7 +11,6 @@ import {
   IClienteRepository,
   IComboRepository,
   IItemRepository,
-  IPagamentoRepository,
   IPedidoRepository,
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
@@ -31,7 +30,6 @@ import {
 import {
   ClienteRepositoryTypeOrm,
   ItemRepositoryTypeOrm,
-  PagamentoRepositoryTypeOrm,
   PedidoRepositoryTypeOrm,
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
@@ -94,10 +92,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: IPedidoService,
       useClass: PedidoService,
-    },
-    {
-      provide: IPagamentoRepository,
-      useClass: PagamentoRepositoryTypeOrm,
     },
     {
       provide: ICriaPagamento,

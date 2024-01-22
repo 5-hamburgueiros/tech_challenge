@@ -2,7 +2,7 @@ import { CreatePagamentoMercadoPagoResponseDto } from '@/api/dtos/mercado-pago/c
 import { CreatePagamentoMercadoPagoDto } from '@/api/dtos/mercado-pago/create-pagamento-mercado-pago.dto';
 import { PagamentoEntity } from '@/domain/entities';
 import { ErroIntegracaoMercadoPagoException } from '@/domain/exceptions';
-import { IPagamentoRepository, IPedidoRepository } from '@/domain/repository';
+import { IPedidoRepository } from '@/domain/repository';
 import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
@@ -18,8 +18,6 @@ export class CriaPagamentoUseCase implements ICriaPagamento {
 
   constructor(
     private readonly httpService: HttpService,
-    @Inject(IPagamentoRepository)
-    private readonly pagamentoRepository: IPagamentoRepository,
     @Inject(IPedidoRepository)
     private readonly pedidoRepository: IPedidoRepository,
     private readonly configService: ConfigService

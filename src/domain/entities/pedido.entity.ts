@@ -65,7 +65,6 @@ export class PedidoEntity extends AbstractEntity {
       throw new Error('Pedido não está aguardando pagamento');
     }
     this.status = StatusPedido.PAGO;
-    // TODO: adicionar entidade de pagamento
     // TODO: lançar evento de pedido pago
   }
 

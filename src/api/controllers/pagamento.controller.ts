@@ -1,4 +1,4 @@
-import { IPagamentoPedido } from '@/domain/use-cases';
+import { IAtualizaPagamento } from '@/domain/use-cases';
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -7,8 +7,8 @@ import { ApiTags } from '@nestjs/swagger';
 export class PagamentoController {
 
   constructor(
-    @Inject(IPagamentoPedido)
-    private readonly pagamentoPedido: IPagamentoPedido,
+    @Inject(IAtualizaPagamento)
+    private readonly atualizaPagamento: IAtualizaPagamento,
   ) {}
 
   @Post()
@@ -18,7 +18,7 @@ export class PagamentoController {
     
     const externalPaymentId = body?.data?.id;
     if(externalPaymentId){
-      this.pagamentoPedido.execute(externalPaymentId);
+      this.atualizaPagamento.execute(externalPaymentId);
     }
 
     return new Promise((res) => res(body));

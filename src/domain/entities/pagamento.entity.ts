@@ -34,6 +34,10 @@ export class PagamentoEntity extends AbstractEntity {
   public setIdExterno(idExterno: string){
     this.idExterno = idExterno;
   }
+
+  public setStatus(status: StatusPagamento){
+    this.status = status;
+  }
   
 }
 

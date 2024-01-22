@@ -1,5 +1,6 @@
 import { PagamentoController } from '@/api/controllers/pagamento.controller';
 import {
+  AtualizaPagamentoUseCase,
   CreatePedidoUseCase,
   FindPedidoByIdUseCase,
   PaymentPedidoUseCase,
@@ -9,11 +10,10 @@ import {
   IClienteRepository,
   IComboRepository,
   IItemRepository,
-  IPagamentoRepository,
   IPedidoRepository,
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
-import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { IAtualizaPagamento, ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
 import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import {
   ClienteModelTypeOrm,
@@ -27,8 +27,7 @@ import {
 import {
   ClienteRepositoryTypeOrm,
   ItemRepositoryTypeOrm,
-  PagamentoRepositoryTypeOrm,
-  PedidoRepositoryTypeOrm,
+  PedidoRepositoryTypeOrm
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
 import { PedidoHistoricoRepositoryTypeOrm } from '@/infra/repository/typeorm/pedido-historico';
@@ -88,9 +87,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useClass: CriaPagamentoUseCase
     },
     {
-      provide: IPagamentoRepository,
-      useClass: PagamentoRepositoryTypeOrm
-    },
+      provide: IAtualizaPagamento,
+      useClass: AtualizaPagamentoUseCase
+    }
   ],
 })
 export class PagamentoModule {}
