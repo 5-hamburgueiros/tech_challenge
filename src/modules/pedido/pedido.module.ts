@@ -3,7 +3,7 @@ import { PedidoService } from '@/api/services';
 import {
   CreatePedidoUseCase,
   FindPedidoByIdUseCase,
-  PaymentPedidoUseCase,
+  PagamentoPedidoUseCase,
 } from '@/application/use-cases';
 import { CriaPagamentoUseCase } from '@/application/use-cases/pagamento/cria-pagamento.use-case';
 import { UpdateStatusPedidoUseCase } from '@/application/use-cases/pedidos/update-status-pedido.use-case';
@@ -79,7 +79,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     },
     {
       provide: IPagamentoPedido,
-      useClass: PaymentPedidoUseCase,
+      useClass: PagamentoPedidoUseCase,
     },
     {
       provide: IPedidoHistoricoRepository,
