@@ -49,7 +49,7 @@ export class PedidoModelTypeOrm extends AbstractModel {
   @OneToMany(() => PedidoHistoricoModelTypeOrm, (historico) => historico.pedido)
   historicoStatus: Array<PedidoHistoricoModelTypeOrm>;
 
-  @OneToOne(() => PagamentoModelTypeOrm, (pagamento) => pagamento.pedido)
+  @OneToOne(() => PagamentoModelTypeOrm, (pagamento) => pagamento.pedido, {cascade: true})
   pagamento: PagamentoModelTypeOrm;
 
   static FromEntity(params: PedidoEntity): PedidoModelTypeOrm {
@@ -61,6 +61,7 @@ export class PedidoModelTypeOrm extends AbstractModel {
     model.combos = params.combos.map(ComboModelTypeOrm.FromEntity);
     model.cliente = ClienteModelTypeOrm.FromEntity(params.cliente);
     model.status = params.status;
+    model.pagamento = PagamentoModelTypeOrm.FromEntity(params.pagamento);
     model.criadoEm = params.criadoEm;
     model.atualizadoEm = params.atualizadoEm;
     return model;

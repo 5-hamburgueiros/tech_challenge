@@ -18,6 +18,7 @@ export class PedidoEntity extends AbstractEntity {
     super(params.id, params.criadoEm, params.atualizadoEm);
     this.numero = params.numero;
     this.status = params.status;
+    this.pagamento = params.pagamento;
   }
 
   public addCliente(cliente: ClienteEntity): void {

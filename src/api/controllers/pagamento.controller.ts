@@ -11,6 +11,7 @@ export class PagamentoController {
   constructor(
     @Inject(IAtualizaPagamento)
     private readonly atualizaPagamento: IAtualizaPagamento,
+    @Inject(IPagamentoPedido)
     private readonly pagamentoPedido: IPagamentoPedido,
   ) { }
 
@@ -18,8 +19,9 @@ export class PagamentoController {
   async pagamento(
     @Body() body: any,
   ): Promise<any> {
+    const action = body?.action;
     const externalPaymentId = body?.data?.id;
-    if (externalPaymentId) {
+    if (action === 'payment.created' && externalPaymentId) {
       return this.atualizaPagamento.execute(externalPaymentId);
     }
   }

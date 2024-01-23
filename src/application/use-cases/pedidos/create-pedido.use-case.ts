@@ -79,7 +79,6 @@ export class CreatePedidoUseCase implements ICreatePedido {
       historico,
     });
 
-    //cria pagamento
     const pagamento = await this.criaPagamentoUseCase.execute({pedido: pedidoCriado});
     pedidoCriado.pagamento = pagamento;
 

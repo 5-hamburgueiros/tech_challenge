@@ -13,7 +13,6 @@ export class CreatePagamentoMercadoPagoDto {
   constructor(pedido: PedidoEntity) {
     this.external_reference = pedido.id;
     this.items = this.pegarItens(pedido);
-    //this.total_amount = this.calcularValorTotal(pedido);
     this.total_amount = this.calcularValorTotal(pedido);
 
     const configService = new ConfigService();

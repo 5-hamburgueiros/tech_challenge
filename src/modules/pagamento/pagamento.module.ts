@@ -89,7 +89,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: IAtualizaPagamento,
       useClass: AtualizaPagamentoUseCase
-    }
+    },
   ],
 })
 export class PagamentoModule {}

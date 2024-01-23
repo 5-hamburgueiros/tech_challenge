@@ -15,16 +15,18 @@ export class CriaPagamentoUseCase implements ICriaPagamento {
   private mercadoPagoUserId: string;
   private mercadoBaseURL: string;
   private mercadoPagoPOS: string;
+  private mercadoPagoAccessToken: string;
 
   constructor(
     private readonly httpService: HttpService,
     @Inject(IPedidoRepository)
     private readonly pedidoRepository: IPedidoRepository,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {
-    this.mercadoPagoUserId = this.configService.get('MERCADO_PAGO_USER_ID')
-    this.mercadoBaseURL = this.configService.get('MERCADO_PAGO_BASE_URL')
-    this.mercadoPagoPOS = this.configService.get('MERCADO_PAGO_POS')
+    this.mercadoPagoUserId = this.configService.get('MERCADO_PAGO_USER_ID');
+    this.mercadoBaseURL = this.configService.get('MERCADO_PAGO_BASE_URL');
+    this.mercadoPagoPOS = this.configService.get('MERCADO_PAGO_POS');
+    this.mercadoPagoAccessToken = this.configService.get('MERCADO_PAGO_ACCESS_TOKEN');
   }
 
   async execute(params: ICriaPagamento.Params): Promise<PagamentoEntity> {
@@ -34,9 +36,8 @@ export class CriaPagamentoUseCase implements ICriaPagamento {
       const createPagamentoMercadoPagoDto = new CreatePagamentoMercadoPagoDto(params.pedido);
       const requestConfig = {
         headers: {
-          Authorization: `Bearer ${this.configService.get('MERCADO_PAGO_ACCESS_TOKEN')}`
+          Authorization: `Bearer ${this.mercadoPagoAccessToken}`
         },
-
       };
       const body = JSON.parse(JSON.stringify(createPagamentoMercadoPagoDto));
 
@@ -59,7 +60,6 @@ export class CriaPagamentoUseCase implements ICriaPagamento {
         throw new ErroIntegracaoMercadoPagoException('Erro ao gerar QR Code de pagamento!');
       }
     } catch (erro) {
-      console.log(erro)
       throw new ErroIntegracaoMercadoPagoException('Erro ao gerar QR Code de pagamento!');
     }
   }
