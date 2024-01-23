@@ -1,5 +1,4 @@
 import { ConfigFactory, ConfigObject } from '@nestjs/config';
-import { RedisConfig } from './redis.config';
 import { TypeORMConfig } from './typeorm.config';
 
 export class Config implements IConfig<Config.Result> {
@@ -8,7 +7,6 @@ export class Config implements IConfig<Config.Result> {
 
   constructor() {
     this.configs.push(new TypeORMConfig());
-    this.configs.push(new RedisConfig());
   }
 
   get(): Config.Result {
