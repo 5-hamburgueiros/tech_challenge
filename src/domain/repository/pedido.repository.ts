@@ -1,3 +1,4 @@
+import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import { PedidoEntity } from '../entities';
 
 export interface IPedidoRepository {
@@ -11,6 +12,7 @@ export interface IPedidoRepository {
     params: IPedidoRepository.UpdatePayment.Params,
   ): Promise<IPedidoRepository.UpdatePayment.Result>;
   getNumeroPedido(): Promise<number>;
+  inProgress(): Promise<PedidoModelTypeOrm[]>;
 }
 
 export const IPedidoRepository = Symbol('IPedidoRepository');
