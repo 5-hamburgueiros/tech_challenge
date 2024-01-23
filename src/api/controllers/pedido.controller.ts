@@ -2,6 +2,7 @@ import { PedidoEntity } from '@/domain/entities';
 import { StatusPedido } from '@/domain/enum';
 import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { IInProgressPedidoUseCase } from '@/domain/use-cases/pedidos/in-progress-pedido.use-case';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import {
@@ -33,6 +34,8 @@ export class PedidoController {
     private readonly pagamentoPedido: IPagamentoPedido,
     @Inject(IUpdateStatusPedidoUseCase)
     private readonly updateStatusPedidoUseCase: IUpdateStatusPedidoUseCase,
+    @Inject(IInProgressPedidoUseCase)
+    private readonly inProgressPedidoUseCase: IInProgressPedidoUseCase,
     @Inject(IPedidoService)
     private readonly pedidoService: IPedidoService,
   ) {}
@@ -88,7 +91,7 @@ export class PedidoController {
 
   @Get('/em_andamento')
   async inProgress(): Promise<PedidoModelTypeOrm[]> {
-    return;
+    return await this.inProgressPedidoUseCase.execute();
   }
 
   @ApiParam({ name: 'id' })

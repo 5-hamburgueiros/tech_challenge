@@ -5,6 +5,7 @@ import {
   FindPedidoByIdUseCase,
   PaymentPedidoUseCase,
 } from '@/application/use-cases';
+import { InProgressPedidoUseCase } from '@/application/use-cases/pedidos/in-progress-pedido.use-case';
 import { UpdateStatusPedidoUseCase } from '@/application/use-cases/pedidos/update-status-pedido.use-case';
 import {
   IClienteRepository,
@@ -15,6 +16,7 @@ import {
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { IInProgressPedidoUseCase } from '@/domain/use-cases/pedidos/in-progress-pedido.use-case';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import {
   ClienteModelTypeOrm,
@@ -83,7 +85,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       provide: IUpdateStatusPedidoUseCase,
       useClass: UpdateStatusPedidoUseCase,
     },
-
+    {
+      provide: IInProgressPedidoUseCase,
+      useClass: InProgressPedidoUseCase,
+    },
     {
       provide: IPedidoService,
       useClass: PedidoService,
