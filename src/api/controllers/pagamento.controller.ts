@@ -1,7 +1,7 @@
 import { PedidoEntity } from '@/domain/entities';
 import { IAtualizaPagamento, IPagamentoPedido } from '@/domain/use-cases';
 import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FakeCheckoutDto } from '../dtos/fake-checkout.dto';
 
 @ApiTags('Pagamentos')
@@ -16,6 +16,9 @@ export class PagamentoController {
   ) { }
 
   @Post()
+  @ApiOperation({
+    summary: 'Responsável por escutar os eventos do Mercado Pago'
+  })
   async pagamento(
     @Body() body: any,
   ): Promise<any> {
@@ -28,6 +31,9 @@ export class PagamentoController {
 
   @Post('fake')
   @ApiResponse({ type: PedidoEntity })
+  @ApiOperation({
+    summary: 'Executa fake checkout no pedido',
+  },)
   async fake(
     @Body() body: FakeCheckoutDto,
   ): Promise<any> {
