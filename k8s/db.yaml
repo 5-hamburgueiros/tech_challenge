@@ -21,6 +21,7 @@ spec:
       storage: 10Mi
   accessModes:
     - ReadWriteOnce
+  storageClassName: "aws"
 ---
 apiVersion: apps/v1
 kind: Deployment
