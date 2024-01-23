@@ -55,6 +55,9 @@ describe('InProgressPedido', () => {
     expect(result[0].status).toEqual(StatusPedido.PRONTO);
     expect(result[1].status).toEqual(StatusPedido.EM_PREPARACAO);
     expect(result[2].status).toEqual(StatusPedido.RECEBIDO);
+    expect(result.map((pedido) => pedido.status)).not.toContain(
+      StatusPedido.FINALIZADO,
+    );
     expect(mockPedidoRepositorySpy).toHaveBeenCalledTimes(1);
   });
 });
