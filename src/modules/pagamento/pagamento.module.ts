@@ -13,7 +13,7 @@ import {
   IPedidoRepository,
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
-import { IAtualizaPagamento, ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
 import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import {
   ClienteModelTypeOrm,
@@ -86,10 +86,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       provide: ICriaPagamento,
       useClass: CriaPagamentoUseCase
     },
-    {
-      provide: IAtualizaPagamento,
-      useClass: AtualizaPagamentoUseCase
-    },
+    AtualizaPagamentoUseCase
   ],
 })
 export class PagamentoModule {}

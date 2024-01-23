@@ -4,14 +4,14 @@ import { StatusPagamento } from '@/domain/enum';
 import { ErroIntegracaoMercadoPagoException } from '@/domain/exceptions';
 import { IPedidoRepository } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
-import { IAtualizaPagamento, IFindById } from '@/domain/use-cases';
+import { IFindById } from '@/domain/use-cases';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
-export class AtualizaPagamentoUseCase implements IAtualizaPagamento {
+export class AtualizaPagamentoUseCase {
 
   private mercadoPagoAccessToken: string;
   private mercadoBaseURL: string;

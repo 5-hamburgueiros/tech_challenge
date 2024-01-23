@@ -1,5 +1,6 @@
+import { AtualizaPagamentoUseCase } from '@/application/use-cases';
 import { PedidoEntity } from '@/domain/entities';
-import { IAtualizaPagamento, IPagamentoPedido } from '@/domain/use-cases';
+import { IPagamentoPedido } from '@/domain/use-cases';
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FakeCheckoutDto } from '../dtos/fake-checkout.dto';
@@ -9,8 +10,8 @@ import { FakeCheckoutDto } from '../dtos/fake-checkout.dto';
 export class PagamentoController {
 
   constructor(
-    @Inject(IAtualizaPagamento)
-    private readonly atualizaPagamento: IAtualizaPagamento,
+    @Inject(AtualizaPagamentoUseCase)
+    private readonly atualizaPagamento: AtualizaPagamentoUseCase,
     @Inject(IPagamentoPedido)
     private readonly pagamentoPedido: IPagamentoPedido,
   ) { }
