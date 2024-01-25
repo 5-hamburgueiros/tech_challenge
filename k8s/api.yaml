@@ -89,6 +89,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: api-configmap
+            - secretRef:
+                name: mercado-pago-secret
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler

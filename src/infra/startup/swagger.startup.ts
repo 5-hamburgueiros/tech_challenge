@@ -12,6 +12,14 @@ export class SwaggerStartup {
 
     if (NODE_ENV == 'production') {
       config.addServer(
+        'http://a06c69a4a4a89422aab39ed7f596ecea-335050858.us-east-1.elb.amazonaws.com',
+        'AWS EKS',
+      );
+      config.addServer(
+        'http://localhost:30001',
+        'Production server with kubernetes locally',
+      );
+      config.addServer(
         'http://localhost:3333',
         'Production server with docker',
       );
