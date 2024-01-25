@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 
 @Injectable()
-export class PaymentPedidoUseCase implements IPagamentoPedido {
+export class PagamentoPedidoUseCase implements IPagamentoPedido {
   constructor(
     @Inject(IPedidoRepository)
     private readonly pedidoRepository: IPedidoRepository,

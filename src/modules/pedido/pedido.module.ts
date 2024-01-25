@@ -3,8 +3,9 @@ import { PedidoService } from '@/api/services';
 import {
   CreatePedidoUseCase,
   FindPedidoByIdUseCase,
-  PaymentPedidoUseCase,
+  PagamentoPedidoUseCase,
 } from '@/application/use-cases';
+import { CriaPagamentoUseCase } from '@/application/use-cases/pagamento/cria-pagamento.use-case';
 import { UpdateStatusPedidoUseCase } from '@/application/use-cases/pedidos/update-status-pedido.use-case';
 import {
   IClienteRepository,
@@ -15,11 +16,13 @@ import {
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
   ItemModelTypeOrm,
+  PagamentoModelTypeOrm,
   PedidoHistoricoModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
@@ -31,6 +34,7 @@ import {
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
 import { PedidoHistoricoRepositoryTypeOrm } from '@/infra/repository/typeorm/pedido-historico';
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -44,7 +48,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       ComboModelTypeOrm,
       StatusModelTypeOrm,
       PedidoHistoricoModelTypeOrm,
+      PagamentoModelTypeOrm,
     ]),
+    HttpModule,
   ],
   providers: [
     {
@@ -73,7 +79,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     },
     {
       provide: IPagamentoPedido,
-      useClass: PaymentPedidoUseCase,
+      useClass: PagamentoPedidoUseCase,
     },
     {
       provide: IPedidoHistoricoRepository,
@@ -83,10 +89,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       provide: IUpdateStatusPedidoUseCase,
       useClass: UpdateStatusPedidoUseCase,
     },
-
     {
       provide: IPedidoService,
       useClass: PedidoService,
+    },
+    {
+      provide: ICriaPagamento,
+      useClass: CriaPagamentoUseCase,
     },
   ],
 })

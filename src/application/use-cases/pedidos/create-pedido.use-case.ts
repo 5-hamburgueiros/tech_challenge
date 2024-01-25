@@ -9,6 +9,7 @@ import {
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { ICreatePedido } from '@/domain/use-cases';
+import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -24,6 +25,8 @@ export class CreatePedidoUseCase implements ICreatePedido {
     private readonly comboRepository: IComboRepository,
     @Inject(IPedidoHistoricoRepository)
     private readonly pedidoHistoricoRepository: IPedidoHistoricoRepository,
+    @Inject(ICriaPagamento)
+    private readonly criaPagamentoUseCase: ICriaPagamento,
   ) {}
 
   async execute(params: ICreatePedido.Params): Promise<PedidoEntity> {
@@ -75,6 +78,9 @@ export class CreatePedidoUseCase implements ICreatePedido {
     await this.pedidoHistoricoRepository.create({
       historico,
     });
+
+    const pagamento = await this.criaPagamentoUseCase.execute({pedido: pedidoCriado});
+    pedidoCriado.pagamento = pagamento;
 
     return pedidoCriado;
   }

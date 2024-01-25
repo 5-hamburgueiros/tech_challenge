@@ -1,9 +1,11 @@
 import { PagamentoController } from '@/api/controllers/pagamento.controller';
 import {
+  AtualizaPagamentoUseCase,
   CreatePedidoUseCase,
   FindPedidoByIdUseCase,
-  PaymentPedidoUseCase,
+  PagamentoPedidoUseCase,
 } from '@/application/use-cases';
+import { CriaPagamentoUseCase } from '@/application/use-cases/pagamento/cria-pagamento.use-case';
 import {
   IClienteRepository,
   IComboRepository,
@@ -12,10 +14,12 @@ import {
 } from '@/domain/repository';
 import { IPedidoHistoricoRepository } from '@/domain/repository/pedido-historico.repository';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
+import { ICriaPagamento } from '@/domain/use-cases/pagamento/cria-pagamento.use-case';
 import {
   ClienteModelTypeOrm,
   ComboModelTypeOrm,
   ItemModelTypeOrm,
+  PagamentoModelTypeOrm,
   PedidoHistoricoModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
@@ -23,10 +27,11 @@ import {
 import {
   ClienteRepositoryTypeOrm,
   ItemRepositoryTypeOrm,
-  PedidoRepositoryTypeOrm,
+  PedidoRepositoryTypeOrm
 } from '@/infra/repository/typeorm';
 import { ComboRepositoryTypeOrm } from '@/infra/repository/typeorm/combo';
 import { PedidoHistoricoRepositoryTypeOrm } from '@/infra/repository/typeorm/pedido-historico';
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -40,7 +45,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       ComboModelTypeOrm,
       StatusModelTypeOrm,
       PedidoHistoricoModelTypeOrm,
+      PagamentoModelTypeOrm,
     ]),
+    HttpModule,
   ],
   providers: [
     {
@@ -69,12 +76,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     },
     {
       provide: IPagamentoPedido,
-      useClass: PaymentPedidoUseCase,
+      useClass: PagamentoPedidoUseCase,
     },
     {
       provide: IPedidoHistoricoRepository,
       useClass: PedidoHistoricoRepositoryTypeOrm,
     },
+    {
+      provide: ICriaPagamento,
+      useClass: CriaPagamentoUseCase
+    },
+    AtualizaPagamentoUseCase
   ],
 })
 export class PagamentoModule {}

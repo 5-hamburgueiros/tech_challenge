@@ -3,6 +3,7 @@ import {
   ComboModelTypeOrm,
   IngredienteModelTypeOrm,
   ItemModelTypeOrm,
+  PagamentoModelTypeOrm,
   PedidoHistoricoModelTypeOrm,
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
@@ -16,4 +17,5 @@ export const typeOrmEntities = [
   PedidoModelTypeOrm,
   StatusModelTypeOrm,
   PedidoHistoricoModelTypeOrm,
+  PagamentoModelTypeOrm
 ];
