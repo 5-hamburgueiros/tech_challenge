@@ -28,7 +28,7 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
         categoria,
       });
     }
-    if (ids?.length) {
+    if (ids) {
       Object.assign(where, {
         id: In(ids),
       });

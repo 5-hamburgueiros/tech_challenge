@@ -1,4 +1,5 @@
 import { StatusPedido } from '../enum';
+import { PedidoVazioException } from '../exceptions/pedido-vazio.exception';
 import { AbstractEntity } from './abstract.entity';
 import { ClienteEntity } from './cliente.entity';
 import { ComboEntity } from './combo.entity';
@@ -49,6 +50,10 @@ export class PedidoEntity extends AbstractEntity {
   }
 
   public fecharPedido(): void {
+    if((!this.itens || this.itens.length === 0) && (!this.combos || this.combos.length === 0)){
+      throw new PedidoVazioException('O pedido não possui nenhum item ou combo');
+    }
+
     this.calcularValor();
     this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
   }

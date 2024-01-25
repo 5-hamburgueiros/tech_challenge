@@ -1,4 +1,4 @@
-import { PedidoEntity } from "@/domain/entities";
+import { ComboEntity, PedidoEntity } from "@/domain/entities";
 import { ConfigService } from "@nestjs/config";
 
 export class CreatePagamentoMercadoPagoDto {
@@ -13,7 +13,7 @@ export class CreatePagamentoMercadoPagoDto {
   constructor(pedido: PedidoEntity) {
     this.external_reference = pedido.id;
     this.items = this.pegarItens(pedido);
-    this.total_amount = this.calcularValorTotal(pedido);
+    this.total_amount = this.calcularValorTotal(this.items);
 
     const configService = new ConfigService();
     this.title = configService.get('MERCADO_PAGO_TITULO_COMPRA');
@@ -22,7 +22,10 @@ export class CreatePagamentoMercadoPagoDto {
   }
 
   private pegarItens(pedido: PedidoEntity): CreatePagamentoMercadoPagoItensDto[] {
-    return pedido.itens.map(item => ({
+
+    const createItens: CreatePagamentoMercadoPagoItensDto[] = [];
+
+    const pushParsedItens = item => createItens.push({
       sku_number: item.id,
       category: item.categoria,
       title: item.nome,
@@ -31,11 +34,27 @@ export class CreatePagamentoMercadoPagoDto {
       quantity: 1,
       unit_measure: 'unit',
       total_amount: item.valor
-    }));
+    });
+
+    const pushParsedCombos = (item: ComboEntity) => createItens.push({
+      sku_number: item.id,
+      category: 'combo',
+      title: item.nome,
+      description: item.nome,
+      unit_price: item.valor,
+      quantity: 1,
+      unit_measure: 'unit',
+      total_amount: item.valor
+    });
+
+    pedido.combos?.map(pushParsedCombos);
+    pedido.itens?.map(pushParsedItens);
+
+    return createItens;
   }
 
-  private calcularValorTotal(pedido: PedidoEntity): number {
-    return Number(pedido.itens.reduce((acumulador, atual) => (acumulador + atual.valor), 0.0).toFixed(2));
+  private calcularValorTotal(items: CreatePagamentoMercadoPagoItensDto[]): number {
+    return Number(items.reduce((acumulador, atual) => (acumulador + atual.total_amount), 0.0).toFixed(2));
   }
 }
 
@@ -43,7 +62,7 @@ interface CreatePagamentoMercadoPagoItensDto {
   sku_number: string,
   category: string,
   title: string,
-  description: string,
+  description: string, 
   unit_price: number,
   quantity: number,
   unit_measure: string,

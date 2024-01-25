@@ -24,7 +24,7 @@ export class ComboRepositoryTypeOrm implements IComboRepository {
       });
     }
 
-    if (ids?.length) {
+    if (ids) {
       Object.assign(where, {
         id: In(ids),
       });
