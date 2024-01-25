@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/react.puml
+!include DEVICONS/nodejs.puml
+!include DEVICONS/database.puml
+!include FONTAWESOME/users.puml
+
+
+Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
+System(pedido_api, "Pedidos", "Disponibiliza endpoints para manipulação de recursos da API de pedidos")
+SystemDb(db, "Banco de Dados", "Armazena os dados dos pedidos")
+System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos")
+
+Rel_R(user, pedido_api, "Utiliza", "https")
+Rel_R(pedido_api, db, "Utiliza", "https")
+BiRel_D(pedido_api, payment_Gateway, "Utiliza", "https")
+
+@enduml

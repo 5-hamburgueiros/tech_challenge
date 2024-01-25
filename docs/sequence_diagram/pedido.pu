@@ -1,0 +1,20 @@
+@startuml
+participant Cliente     as customer
+actor       Atendente   as employee
+boundary    Frontend    as system
+entity      Pedido      as order
+entity      Pagamento   as payment
+database    Database    as db
+
+customer -> employee : Faz o pedido de um item ou combo
+employee -> system : Envia o pedido para o sistema
+system -> order : Cria o pedido no sistema
+order -> db : Salva os dados do pedido no banco de dados
+order -> system : Retorna o id do pedido
+system -> employee : Retorna o id do pedido com status de pendente
+employee -> customer : Solicita o pagamento do pedido
+employee -> system : Envia o pagamento para o sistema
+system -> payment : Cria o pagamento no sistema
+payment -> db : Salva os dados do pagamento no banco de dados
+payment -> system : Retorna o id do pagamento
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/react.puml
+!include DEVICONS/nodejs.puml
+' !include DEVICONS/kubernetes.puml
+!include DEVICONS/postgresql.puml
+!include FONTAWESOME/users.puml
+
+
+Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
+
+Boundary(aws, "AWS", "EKS") {
+  System_Boundary(orders, "Pedidos") {
+    Container(order_api, "Pedido Service", "nodejs", "Disponibiliza endpoints para manipulação de pedidos",)
+    ContainerDb(order_db, "DB", "Postgres SQL", "Armazena dados de ingredientes, itens, combos e pedidos")
+  }
+  System_Boundary(menu, "Menu") {
+    Container(menu_api, "Menu Service", "nodejs", "Disponibiliza endpoints para manipulação de ingredientes, itens e combos",)
+    ContainerDb(menu_db, "Menu", "Postgres SQL", "Armazena dados de ingredientes, itens, combos e pedidos")
+  }
+  System_Boundary(observability, "Observabilidade") {
+    ContainerDb(elasticsearch, "ElasticSearch", "db", "Banco de dados utilizado para armazenamento de logs",)
+    ' Container(kibana, "Kibana", "kibana", "Interface gráfica com recursos para visualização de logs e métricas")
+  }
+  SystemQueue(rabbitmq, "RabbitMQ", "Fila de mensagens para comunicação entre serviços",)
+}
+System_Boundary(payment_gateway, "Gateway de Pagamentos") {
+  System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos",)
+}
+
+
+
+Rel_D(order_api, menu_api, "Utiliza", "https")
+
+Rel_L(order_api, elasticsearch, "Utiliza", "https")
+Rel_L(menu_api, elasticsearch, "Utiliza", "https")
+
+Rel_R(menu_api, menu_db, "Leitura/Escrita", "tcp/ip")
+Rel_R(order_api, order_db, "Leitura/Escrita", "tcp/ip")
+
+BiRel(order_api, payment_Gateway, "Utiliza", "https")
+BiRel(order_api, rabbitmq, "Utiliza", "https")
+BiRel_R(menu_api, rabbitmq, "Utiliza", "https")
+
+Rel(user, order_api, "Utiliza", "https")
+@enduml

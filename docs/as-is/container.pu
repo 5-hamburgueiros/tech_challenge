@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/react.puml
+!include DEVICONS/nodejs.puml
+!include DEVICONS/postgresql.puml
+!include FONTAWESOME/users.puml
+
+
+Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
+
+Boundary(aws, "AWS", "EKS") {
+  System_Boundary(orders, "Pedidos") {
+    Container(order_api, "Pedido Service", "nodejs", "Disponibiliza endpoints para manipulação de pedidos",)
+    ContainerDb(order_db, "RDS", "postgresSQL", "Armazena dados de ingredientes, itens, combos e pedidos")
+  }
+}
+System_Boundary(payment_gateway, "Gateway de Pagamentos") {
+  System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos",)
+}
+
+BiRel(order_api, payment_Gateway, "Utiliza", "https")
+Rel(user, order_api, "Utiliza", "https")
+Rel_R(order_api, order_db, "Leitura/Escrita", "tcp/ip")
+@enduml

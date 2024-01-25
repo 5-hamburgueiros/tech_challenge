@@ -44,3 +44,18 @@ Sendo assim, se a aplicação estiver de pé localmente em um cluster kubernetes
 Já se estiver utilizando Docker, pode acessar em http://localhost:3333/swagger e http://localhost:3333/swagger-json .
 
 E se estiver utilizando o ambiente de desenvolvimento via `yarn`, basta acessar em http://localhost:3000/swagger e http://localhost:3000/swagger-json .
+
+
+## C4 Model
+Adotamos o C4 Model para a documentação arquitetural do projeto. A seguir, os diagramas foram gerados utilizando o PlantUML.
+
+### Context Diagram
+Nesse diagrama, podemos ver o contexto da aplicação, com os atores externos e os sistemas externos com os quais a aplicação se comunica. É uma visão de alto nível, que mostra o que a aplicação faz, mas não como ela faz.
+
+![Context Diagram](./out/docs/as-is/context/context.svg)
+
+
+### Container Diagram
+Nesse diagrama, podemos ver os componentes da aplicação e como eles se relacionam. Nesse nível de detalhe, podemos ver como a aplicação é composta e como ela se comunica com os sistemas externos.
+
+![Context Diagram](./out/docs/as-is/container/container.svg)
