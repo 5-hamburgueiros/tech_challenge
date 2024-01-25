@@ -1,3 +1,4 @@
+import { StatusPedido } from '@/domain/enum';
 import { ClienteNaoLocalizadoException } from '@/domain/exceptions';
 import { IPedidoService } from '@/domain/service';
 import {
@@ -30,9 +31,9 @@ export class PedidoService implements IPedidoService {
       .select(['pedido'])
       .addSelect(
         `CASE
-          WHEN pedido.status = 'PRONTO' THEN 1
-          WHEN pedido.status = 'EM_PREPARACAO' THEN 2
-          WHEN pedido.status = 'RECEBIDO' THEN 3
+          WHEN pedido.status = '${StatusPedido.PRONTO}' THEN 1
+          WHEN pedido.status = '${StatusPedido.EM_PREPARACAO}' THEN 2
+          WHEN pedido.status = '${StatusPedido.RECEBIDO}' THEN 3
           ELSE 4
         END AS ordemPedido`,
       )

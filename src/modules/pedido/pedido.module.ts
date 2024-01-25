@@ -83,6 +83,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       provide: IUpdateStatusPedidoUseCase,
       useClass: UpdateStatusPedidoUseCase,
     },
+
     {
       provide: IPedidoService,
       useClass: PedidoService,
