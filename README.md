@@ -59,3 +59,8 @@ Nesse diagrama, podemos ver o contexto da aplicação, com os atores externos e 
 Nesse diagrama, podemos ver os componentes da aplicação e como eles se relacionam. Nesse nível de detalhe, podemos ver como a aplicação é composta e como ela se comunica com os sistemas externos.
 
 ![Context Diagram](./out/docs/as-is/container/container.svg)
+
+### Deployment Diagram
+Nesse diagrama, podemos ver como será a infraestrutura de execução da aplicação
+
+![Context Diagram](./out/docs/as-is/deployment/deployment.svg)

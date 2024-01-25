@@ -7,15 +7,20 @@
 !include DEVICONS/nodejs.puml
 !include DEVICONS/database.puml
 !include FONTAWESOME/users.puml
+AddElementTag("external", $bgColor="#f55")
+AddElementTag("secondary", $bgColor="#08f")
+HIDE_STEREOTYPE()
 
+title Diagrama de Contexto - Pedidos
 
 Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
-System(pedido_api, "Pedidos", "Disponibiliza endpoints para manipulação de recursos da API de pedidos")
-SystemDb(db, "Banco de Dados", "Armazena os dados dos pedidos")
-System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos")
+System(order_api, "Pedidos", "Realiza a gestão de pedidos através de API Rest")
+SystemDb(db, "Banco de Dados", "Armazena os dados dos pedidos", $tags="secondary")
+System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos e notificações", $tags="external")
 
-Rel_R(user, pedido_api, "Utiliza", "https")
-Rel_R(pedido_api, db, "Utiliza", "https")
-BiRel_D(pedido_api, payment_Gateway, "Utiliza", "https")
+BiRel_D(order_api, payment_Gateway, "Utiliza para criar pagamentos e recebe eventos de pagamentos", "Json/https")
+Rel_R(order_api, db, "Leitura e Escrita", "TCP/https")
+Rel(user, order_api, "Utiliza para criação de pedidos", "Json/https")
+
 
 @enduml

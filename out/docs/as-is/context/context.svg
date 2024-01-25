@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="352px" preserveAspectRatio="none" style="width:815px;height:352px;background:#FFFFFF;" version="1.1" viewBox="0 0 815 352" width="815px" zoomAndPan="magnify"><defs/><g><!--MD5=[8fc3522a43f8c7199df5e09e5bb0188e]
-entity user--><g id="elem_user"><rect fill="#08427B" height="149.4844" rx="2.5" ry="2.5" style="stroke:#073B6F;stroke-width:0.5;" width="217" x="7" y="7"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="57" x="87" y="28.1387">«person»</text><image height="48" width="48" x="91.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACbklEQVR4Xu1Wq04FMRS8cj+BT+AXsDgMHwAfQILGXUWQgMQQggRDgsBgSLiWgEIREhRIEAjsMum5dLtzetreXgKE7GTUbh/TOY921CyP/xRH+tPvchCU4yAox0FQjt8gaHF9b2XreGnjYGF1R/+dlfWCsP3uyeTt/aMNcPfwDHF6cDkrBcEPkhLi6OJGTylkjSDEKKFGUK2pRhDiwvvHUBe7iKDN/fOnl1esCBuQJfQX2/DOBqBbz726fWzdymfX93Ba786CYHV6XT0ggbDu1rZP6S9kaU09QUhVmiMIfZIjFgILyiwo438O2sWeIOv0iKAfU5hAAp9G2h4P6l49QYgrD3eAt9kxUfiIIC/53xcoaj1B48NLHu4QGptYmhAeI1EKoQAWZEUahmfHaFCFSuUSdLviKtNH0ZVvGRkC9lByIDSkCfVBKzdaUOM8wJbQDim+TIjZTLImIuJYGbTaZkRQIS2fkHC6u5STBcEeLIfzeSYeFfiFE8MtiID/iXMLaeWo7k4QVreaHmJvhaCQiD4v6oBUw5HCkZ2gaBUIMC199CzTORdqmgqyEqJ19vioYSZclLeHXL1hTBECNAhvMyYiiCW9sQ260VSQdSH46tVFWw7fOBLH9hGYCrI2k9SBGv4xIxAy2chKU997U4J848q+D0sgiWI9KFhQNGRiY8LnmeCvtsRenaBoxiXMq4PYoFtA+Lzpyh5mwgxPcbj8Ki2BXKXISNoo7L3cqYnzp3OI6G1KzAiycrAO/1EQyKvOAf200swLsl7+FYhe78S8oMa1IlQmGkk1EawSNU2hoJ/kICjHQVCOg6AcB0E5fgLPSUakWeua4wAAAABJRU5ErkJggg==" y="30.9688"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="94" x="68.5" y="93.8203">Atentende</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="113.5" y="110.5889"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="193" x="17" y="126.8857">Pessoa que utliza o sistema</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="44.5" y="143.1826">para inputar pedidos</text></g><!--MD5=[f314761308d868bdc82b2d88b3c39d4d]
-entity pedido_api--><g id="elem_pedido_api"><rect fill="#1168BD" height="117.7813" rx="2.5" ry="2.5" style="stroke:#3C7FC0;stroke-width:0.5;" width="219" x="306" y="22.5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="57" x="387" y="43.6387">«system»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="70" x="380.5" y="61.3203">Pedidos</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="413.5" y="78.0889"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="194" x="316.5" y="94.3857">Disponibiliza endpoints para</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="195" x="316" y="110.6826">manipulação de recursos da</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="103" x="364" y="126.9795">API de pedidos</text></g><!--MD5=[7468467f3b6b392f1d176d828c753b77]
-entity db--><g id="elem_db"><path d="M607,36.5 C607,26.5 702.5,26.5 702.5,26.5 C702.5,26.5 798,26.5 798,36.5 L798,126.9844 C798,136.9844 702.5,136.9844 702.5,136.9844 C702.5,136.9844 607,136.9844 607,126.9844 L607,36.5 " fill="#1168BD" style="stroke:#3C7FC0;stroke-width:0.5;"/><path d="M607,36.5 C607,46.5 702.5,46.5 702.5,46.5 C702.5,46.5 798,46.5 798,36.5 " fill="none" style="stroke:#3C7FC0;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="57" x="674" y="61.6387">«system»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="143" x="631" y="79.3203">Banco de Dados</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="700.5" y="96.0889"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="617" y="112.3857">Armazena os dados dos</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="674.5" y="128.6826">pedidos</text></g><!--MD5=[0d88a97ecf64f0229d36a088177a11f1]
-entity payment_Gateway--><g id="elem_payment_Gateway"><rect fill="#999999" height="101.4844" rx="2.5" ry="2.5" style="stroke:#8A8A8A;stroke-width:0.5;" width="206" x="312.5" y="245"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="115" x="358" y="266.1387">«external_system»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="127" x="352" y="283.8203">Mercado Pago</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="413.5" y="300.5889"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="322.5" y="316.8857">Disponibliza api de criação</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109" x="361" y="333.1826">de pagamentos</text></g><!--MD5=[6b13131fe6df42dd4994a27dfa4d536a]
-link user to pedido_api--><g id="link_user_pedido_api"><path d="M224.23,81.5 C248.11,81.5 273.5,81.5 297.72,81.5 " fill="none" id="user-to-pedido_api" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="305.88,81.5,297.88,78.5,297.88,84.5,305.88,81.5" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="45" x="242.5" y="61.6387">Utiliza</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="42" x="244" y="75.6074">[https]</text></g><!--MD5=[d880e275f77a52969500f386238362fc]
-link pedido_api to db--><g id="link_pedido_api_db"><path d="M525.23,81.5 C549.4,81.5 574.92,81.5 598.84,81.5 " fill="none" id="pedido_api-to-db" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="606.89,81.5,598.89,78.5,598.89,84.5,606.89,81.5" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="45" x="543.5" y="61.6387">Utiliza</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="42" x="545" y="75.6074">[https]</text></g><!--MD5=[5e8bb35f87269f31c103002484e20ead]
-link pedido_api to payment_Gateway--><g id="link_pedido_api_payment_Gateway"><path d="M415.5,148.88 C415.5,176.95 415.5,209.36 415.5,236.46 " fill="none" id="pedido_api-payment_Gateway" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="415.5,244.69,418.5,236.69,412.5,236.69,415.5,244.69" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="415.5,140.71,412.5,148.71,418.5,148.71,415.5,140.71" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="45" x="416.5" y="198.1387">Utiliza</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="42" x="418" y="212.1074">[https]</text></g><!--MD5=[0c0620fdc02ce7361ed5f706cead1c6b]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="621px" preserveAspectRatio="none" style="width:587px;height:621px;background:#FFFFFF;" version="1.1" viewBox="0 0 587 621" width="587px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="26.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="264" x="154.5" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="254" x="159.5" y="22.9951">Diagrama de Contexto - Pedidos</text><!--MD5=[8fc3522a43f8c7199df5e09e5bb0188e]
+entity user--><g id="elem_user"><rect fill="#08427B" height="135.5156" rx="2.5" ry="2.5" style="stroke:#073B6F;stroke-width:0.5;" width="217" x="8" y="44.2969"/><image height="48" width="48" x="92.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACbklEQVR4Xu1Wq04FMRS8cj+BT+AXsDgMHwAfQILGXUWQgMQQggRDgsBgSLiWgEIREhRIEAjsMum5dLtzetreXgKE7GTUbh/TOY921CyP/xRH+tPvchCU4yAox0FQjt8gaHF9b2XreGnjYGF1R/+dlfWCsP3uyeTt/aMNcPfwDHF6cDkrBcEPkhLi6OJGTylkjSDEKKFGUK2pRhDiwvvHUBe7iKDN/fOnl1esCBuQJfQX2/DOBqBbz726fWzdymfX93Ba786CYHV6XT0ggbDu1rZP6S9kaU09QUhVmiMIfZIjFgILyiwo438O2sWeIOv0iKAfU5hAAp9G2h4P6l49QYgrD3eAt9kxUfiIIC/53xcoaj1B48NLHu4QGptYmhAeI1EKoQAWZEUahmfHaFCFSuUSdLviKtNH0ZVvGRkC9lByIDSkCfVBKzdaUOM8wJbQDim+TIjZTLImIuJYGbTaZkRQIS2fkHC6u5STBcEeLIfzeSYeFfiFE8MtiID/iXMLaeWo7k4QVreaHmJvhaCQiD4v6oBUw5HCkZ2gaBUIMC199CzTORdqmgqyEqJ19vioYSZclLeHXL1hTBECNAhvMyYiiCW9sQ260VSQdSH46tVFWw7fOBLH9hGYCrI2k9SBGv4xIxAy2chKU997U4J848q+D0sgiWI9KFhQNGRiY8LnmeCvtsRenaBoxiXMq4PYoFtA+Lzpyh5mwgxPcbj8Ki2BXKXISNoo7L3cqYnzp3OI6G1KzAiycrAO/1EQyKvOAf200swLsl7+FYhe78S8oMa1IlQmGkk1EawSNU2hoJ/kICjHQVCOg6AcB0E5fgLPSUakWeua4wAAAABJRU5ErkJggg==" y="54.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="94" x="69.5" y="117.1484">Atentende</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="114.5" y="133.917"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="193" x="18" y="150.2139">Pessoa que utliza o sistema</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="45.5" y="166.5107">para inputar pedidos</text></g><!--MD5=[f451633eb0cf0e906c21d8716c5968f9]
+entity order_api--><g id="elem_order_api"><rect fill="#1168BD" height="87.5156" rx="2.5" ry="2.5" style="stroke:#3C7FC0;stroke-width:0.5;" width="219" x="7" y="287.7969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="70" x="81.5" y="312.6484">Pedidos</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="114.5" y="329.417"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="195" x="17" y="345.7139">Realiza a gestão de pedidos</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133" x="50" y="362.0107">através de API Rest</text></g><!--MD5=[7468467f3b6b392f1d176d828c753b77]
+entity db--><g id="elem_db"><path d="M379,293.2969 C379,283.2969 474.5,283.2969 474.5,283.2969 C474.5,283.2969 570,283.2969 570,293.2969 L570,369.8125 C570,379.8125 474.5,379.8125 474.5,379.8125 C474.5,379.8125 379,379.8125 379,369.8125 L379,293.2969 " fill="#0088FF" style="stroke:#3C7FC0;stroke-width:0.5;"/><path d="M379,293.2969 C379,303.2969 474.5,303.2969 474.5,303.2969 C474.5,303.2969 570,303.2969 570,293.2969 " fill="none" style="stroke:#3C7FC0;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="143" x="403" y="322.1484">Banco de Dados</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="472.5" y="338.917"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="389" y="355.2139">Armazena os dados dos</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="446.5" y="371.5107">pedidos</text></g><!--MD5=[0d88a97ecf64f0229d36a088177a11f1]
+entity payment_Gateway--><g id="elem_payment_Gateway"><rect fill="#FF5555" height="103.8125" rx="2.5" ry="2.5" style="stroke:#8A8A8A;stroke-width:0.5;" width="206" x="13.5" y="511.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="127" x="53" y="536.1484">Mercado Pago</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="114.5" y="552.917"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="23.5" y="569.2139">Disponibliza api de criação</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="53.5" y="585.5107">de pagamentos e</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83" x="75" y="601.8076">notificações</text></g><!--MD5=[2e56dab61f9e26039e6ad351c8abf233]
+link order_api to payment_Gateway--><g id="link_order_api_payment_Gateway"><path d="M116.5,384.2969 C116.5,419.4169 116.5,466.0269 116.5,502.7469 " fill="none" id="order_api-payment_Gateway" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="116.5,510.8969,119.5,502.8969,113.5,502.8969,116.5,510.8969" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="116.5,375.9669,113.5,383.9669,119.5,383.9669,116.5,375.9669" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="118" x="124.5" y="422.4355">Utiliza para criar</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="102" x="132.5" y="436.4043">pagamentos e</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="132" x="117.5" y="450.373">recebe eventos de</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="89" x="141" y="464.3418">pagamentos</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="72" x="149.5" y="478.3105">[Json/https]</text></g><!--MD5=[fe82d0d5e1f964facfa774e1a70ce661]
+link order_api to db--><g id="link_order_api_db"><path d="M226.34,331.7969 C272.3,331.7969 325.44,331.7969 370.72,331.7969 " fill="none" id="order_api-to-db" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="378.79,331.7969,370.79,328.7969,370.79,334.7969,378.79,331.7969" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="116" x="244.5" y="311.9355">Leitura e Escrita</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="68" x="268.5" y="325.9043">[TCP/https]</text></g><!--MD5=[4099d82f149f0256d80cca9f3a039a85]
+link user to order_api--><g id="link_user_order_api"><path d="M116.5,180.3269 C116.5,212.2769 116.5,249.8769 116.5,279.5069 " fill="none" id="user-to-order_api" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="116.5,287.6369,119.5,279.6369,113.5,279.6369,116.5,287.6369" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="137" x="117.5" y="222.4355">Utiliza para criação</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="79" x="148.5" y="236.4043">de pedidos</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="72" x="152" y="250.373">[Json/https]</text></g><!--MD5=[ab581fc11de09868bbcb758f14a80fe5]
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
@@ -15,16 +15,21 @@ link pedido_api to payment_Gateway--><g id="link_pedido_api_payment_Gateway"><pa
 !include DEVICONS/nodejs.puml
 !include DEVICONS/database.puml
 !include FONTAWESOME/users.puml
+AddElementTag("external", $bgColor="#f55")
+AddElementTag("secondary", $bgColor="#08f")
+HIDE_STEREOTYPE()
 
+title Diagrama de Contexto - Pedidos
 
 Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
-System(pedido_api, "Pedidos", "Disponibiliza endpoints para manipulação de recursos da API de pedidos")
-SystemDb(db, "Banco de Dados", "Armazena os dados dos pedidos")
-System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos")
+System(order_api, "Pedidos", "Realiza a gestão de pedidos através de API Rest")
+SystemDb(db, "Banco de Dados", "Armazena os dados dos pedidos", $tags="secondary")
+System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos e notificações", $tags="external")
 
-Rel_R(user, pedido_api, "Utiliza", "https")
-Rel_R(pedido_api, db, "Utiliza", "https")
-BiRel_D(pedido_api, payment_Gateway, "Utiliza", "https")
+BiRel_D(order_api, payment_Gateway, "Utiliza para criar pagamentos e recebe eventos de pagamentos", "Json/https")
+Rel_R(order_api, db, "Leitura e Escrita", "TCP/https")
+Rel(user, order_api, "Utiliza para criação de pedidos", "Json/https")
+
 
 @enduml
 
@@ -1391,16 +1396,67 @@ sprite $users [48x48/16] {
 
 
 skinparam folderBackgroundColor<<FA5 USERS>> White
+skinparam rectangle<<external>> {
+    BackgroundColor #f55
+}
+skinparam database<<external>> {
+    BackgroundColor #f55
+}
+skinparam queue<<external>> {
+    BackgroundColor #f55
+}
+skinparam person<<external>> {
+    BackgroundColor #f55
+}
+skinparam actor<<external>> {
+    StereotypeFontColor #f55
+    FontColor #f55
+    BackgroundColor #f55
+}
+skinparam participant<<external>> {
+    BackgroundColor #f55
+}
+skinparam sequencebox<<external>> {
+    BackgroundColor #f55
+}
 
+skinparam rectangle<<secondary>> {
+    BackgroundColor #08f
+}
+skinparam database<<secondary>> {
+    BackgroundColor #08f
+}
+skinparam queue<<secondary>> {
+    BackgroundColor #08f
+}
+skinparam person<<secondary>> {
+    BackgroundColor #08f
+}
+skinparam actor<<secondary>> {
+    StereotypeFontColor #08f
+    FontColor #08f
+    BackgroundColor #08f
+}
+skinparam participant<<secondary>> {
+    BackgroundColor #08f
+}
+skinparam sequencebox<<secondary>> {
+    BackgroundColor #08f
+}
+
+hide stereotype
+
+title Diagrama de Contexto - Pedidos
 
 rectangle "<$users>\n== Atentende\n\nPessoa que utliza o sistema para inputar pedidos" <<person>> as user 
-  rectangle "== Pedidos\n\nDisponibiliza endpoints para manipulação de recursos da API de pedidos" <<system>> as pedido_api
-  database "== Banco de Dados\n\nArmazena os dados dos pedidos" <<system>> as db
-  rectangle "== Mercado Pago\n\nDisponibliza api de criação de pagamentos" <<external_system>> as payment_Gateway
+  rectangle "== Pedidos\n\nRealiza a gestão de pedidos através de API Rest" <<system>> as order_api
+  database "== Banco de Dados\n\nArmazena os dados dos pedidos" <<secondary>><<system>> as db
+  rectangle "== Mercado Pago\n\nDisponibliza api de criação de pagamentos e notificações" <<external>><<external_system>> as payment_Gateway
 
-user -RIGHT->> pedido_api : **Utiliza**\n//<size:12>[https]</size>//
-pedido_api -RIGHT->> db : **Utiliza**\n//<size:12>[https]</size>//
-pedido_api <<-DOWN->> payment_Gateway : **Utiliza**\n//<size:12>[https]</size>//
+order_api <<-DOWN->> payment_Gateway : **Utiliza para criar pagamentos e recebe eventos de pagamentos**\n//<size:12>[Json/https]</size>//
+order_api -RIGHT->> db : **Leitura e Escrita**\n//<size:12>[TCP/https]</size>//
+user - ->> order_api : **Utiliza para criação de pedidos**\n//<size:12>[Json/https]</size>//
+
 
 @enduml
 
