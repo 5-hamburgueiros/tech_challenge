@@ -1,9 +1,11 @@
 import { AtualizaPagamentoUseCase } from '@/application/use-cases';
 import { PedidoEntity } from '@/domain/entities';
+import { TipoNotificacaoMercadoPago } from '@/domain/enum/tipo-notificacao-mercado-pago.enum';
 import { IPagamentoPedido } from '@/domain/use-cases';
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FakeCheckoutDto } from '../dtos/fake-checkout.dto';
+import { NotificacaoPagamentoMercadoPagoDTO } from '../dtos/mercado-pago/notificacao-pagamento-mercado-pago';
 
 @ApiTags('Pagamentos')
 @Controller('/pagamentos')
@@ -21,11 +23,11 @@ export class PagamentoController {
     summary: 'Responsável por escutar os eventos do Mercado Pago'
   })
   async pagamento(
-    @Body() body: any,
+    @Body() body: NotificacaoPagamentoMercadoPagoDTO,
   ): Promise<any> {
     const action = body?.action;
     const externalPaymentId = body?.data?.id;
-    if (action === 'payment.created' && externalPaymentId) {
+    if (action === TipoNotificacaoMercadoPago.PAYMENT_CREATED && externalPaymentId) {
       return this.atualizaPagamento.execute(externalPaymentId);
     }
   }
