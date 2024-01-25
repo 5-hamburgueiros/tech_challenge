@@ -2,7 +2,6 @@ import { PedidoEntity } from '@/domain/entities';
 import { StatusPedido } from '@/domain/enum';
 import { IPedidoService } from '@/domain/service';
 import { ICreatePedido, IFindById, IPagamentoPedido } from '@/domain/use-cases';
-import { IInProgressPedidoUseCase } from '@/domain/use-cases/pedidos/in-progress-pedido.use-case';
 import { IUpdateStatusPedidoUseCase } from '@/domain/use-cases/pedidos/update-status-pedido.use-case';
 import { PedidoModelTypeOrm } from '@/infra/database/typerom/model';
 import {
@@ -12,6 +11,7 @@ import {
   Get,
   Inject,
   Param,
+  ParseArrayPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -34,8 +34,6 @@ export class PedidoController {
     private readonly pagamentoPedido: IPagamentoPedido,
     @Inject(IUpdateStatusPedidoUseCase)
     private readonly updateStatusPedidoUseCase: IUpdateStatusPedidoUseCase,
-    @Inject(IInProgressPedidoUseCase)
-    private readonly inProgressPedidoUseCase: IInProgressPedidoUseCase,
     @Inject(IPedidoService)
     private readonly pedidoService: IPedidoService,
   ) {}
@@ -72,7 +70,11 @@ export class PedidoController {
   @Get()
   async list(
     @Query('documento') documento: string,
-    @Query('status') status: StatusPedido,
+    @Query(
+      'status',
+      new ParseArrayPipe({ optional: true, items: String, separator: ',' }),
+    )
+    status: Array<StatusPedido>,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ): Promise<Pagination<PedidoModelTypeOrm>> {
@@ -87,11 +89,6 @@ export class PedidoController {
         documento,
       },
     );
-  }
-
-  @Get('/em_andamento')
-  async inProgress(): Promise<PedidoModelTypeOrm[]> {
-    return await this.inProgressPedidoUseCase.execute();
   }
 
   @ApiParam({ name: 'id' })

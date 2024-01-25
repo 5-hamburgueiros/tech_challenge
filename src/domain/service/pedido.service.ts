@@ -12,7 +12,7 @@ export const IPedidoService = Symbol('IPedidoService');
 
 export namespace IPedidoService {
   export type Query = {
-    status: StatusPedido;
+    status: Array<StatusPedido>;
     documento?: string;
   };
 }
