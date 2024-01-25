@@ -1,3 +1,4 @@
+import { StatusPedido } from '@/domain/enum';
 import { ClienteNaoLocalizadoException } from '@/domain/exceptions';
 import { IPedidoService } from '@/domain/service';
 import {
@@ -25,10 +26,23 @@ export class PedidoService implements IPedidoService {
     query: IPedidoService.Query,
   ): Promise<Pagination<PedidoModelTypeOrm>> {
     const queryBuilder = this.repository.createQueryBuilder('pedido');
-    queryBuilder.orderBy('pedido.criadoEm', 'ASC');
+
+    queryBuilder
+      .select(['pedido'])
+      .addSelect(
+        `CASE
+          WHEN pedido.status = '${StatusPedido.PRONTO}' THEN 1
+          WHEN pedido.status = '${StatusPedido.EM_PREPARACAO}' THEN 2
+          WHEN pedido.status = '${StatusPedido.RECEBIDO}' THEN 3
+          ELSE 4
+        END AS ordemPedido`,
+      )
+      .orderBy('pedido.criadoEm', 'ASC')
+      .orderBy('ordemPedido', 'ASC');
+
     if (query.status) {
       queryBuilder
-        .andWhere('pedido.status in (:status)', {
+        .andWhere('pedido.status IN (:...status)', {
           status: query.status,
         })
         .getMany();
