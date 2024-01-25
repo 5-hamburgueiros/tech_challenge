@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Fazer login no Docker Hub
         run: docker login -u cviniciussdias -p ${{ secrets.DOCKER_HUB_TOKEN }}
