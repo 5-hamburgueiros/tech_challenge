@@ -1,3 +1,4 @@
+import { PaymentsMercadoPagoResponseDto, PaymentsStatusMercadoPagoResponseDto } from '@/api/dtos/mercado-pago/create-pagamento-mercado-pago-response.dto copy';
 import { PagamentoEntity, PedidoEntity } from '@/domain/entities';
 import { PedidoHistoricoEntity } from '@/domain/entities/pedido-historico.entity';
 import { StatusPagamento } from '@/domain/enum';
@@ -38,22 +39,27 @@ export class AtualizaPagamentoUseCase {
         },
       };
       const url = `${this.mercadoBaseURL}/v1/payments/${idExternoPagamento}`;
-      const response = await firstValueFrom(this.httpService.get(url, requestConfig));
+      const response = await firstValueFrom(this.httpService.get<PaymentsMercadoPagoResponseDto>(url, requestConfig));
 
       const statusPagamento = response?.data?.status;
       const idPedido = response?.data?.external_reference;
 
       if (statusPagamento && idPedido) {
-        const responsePedido = await this.findPedidoByIdUseCase.execute({id: idPedido});
-        const pedido = new PedidoEntity({...responsePedido});
+        const responsePedido = await this.findPedidoByIdUseCase.execute({ id: idPedido });
+        const pedido = new PedidoEntity({ ...responsePedido });
 
-        if (statusPagamento === 'approved') {
+        if (this.isPagamentoAprovado(statusPagamento)) {
           const pagamento = new PagamentoEntity(pedido.pagamento);
           pedido.pagamento = pagamento;
           pedido.pagamento.pagar();
           pedido.adicionaPagamento();
+        } else if (this.isPagamentoCancelado(statusPagamento)) {
+          const pagamento = new PagamentoEntity(pedido.pagamento);
+          pedido.pagamento = pagamento;
+          pedido.pagamento.cancelar();
+          pedido.cancelar();
         }
-        
+
         const pedidoAtualizado = await this.pedidoRepository.create({ pedido });
         this.adicionaHistorico(pedidoAtualizado);
         return pedidoAtualizado.pagamento.status;
@@ -73,4 +79,15 @@ export class AtualizaPagamentoUseCase {
     await this.pedidoHistoricoRepository.create({ historico });
   }
 
+  private isPagamentoAprovado(status: PaymentsStatusMercadoPagoResponseDto): boolean {
+    return status === PaymentsStatusMercadoPagoResponseDto.APPROVED;
+  }
+
+  private isPagamentoCancelado(status: PaymentsStatusMercadoPagoResponseDto): boolean {
+    return [
+      PaymentsStatusMercadoPagoResponseDto.CANCELLED,
+      PaymentsStatusMercadoPagoResponseDto.REJECTED,
+      PaymentsStatusMercadoPagoResponseDto.REFUNDED,
+    ].includes(status);
+  }
 }

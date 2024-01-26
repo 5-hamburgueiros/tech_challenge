@@ -1,3 +1,4 @@
+import { PaymentsStatusMercadoPagoResponseDto } from '@/api/dtos/mercado-pago/create-pagamento-mercado-pago-response.dto copy';
 import { PagamentoEntity, PedidoEntity } from '@/domain/entities';
 import { StatusPagamento, StatusPedido } from '@/domain/enum';
 import { ErroIntegracaoMercadoPagoException } from '@/domain/exceptions';
@@ -105,7 +106,7 @@ const mockPaidResponseMercadoPagoPayments = {
   "config": {},
   "data": {
     "external_reference": "a46a329d-be7c-4d72-a942-efe1d9bf94dc",
-    "status": "approved",
+    "status": PaymentsStatusMercadoPagoResponseDto.APPROVED,
     "transaction_amount": 40.7,
   }
 };
@@ -117,7 +118,7 @@ const mockNotPaidResponseMercadoPagoPayments = {
   "config": {},
   "data": {
     "external_reference": "a46a329d-be7c-4d72-a942-efe1d9bf94dc",
-    "status": "waiting",
+    "status": PaymentsStatusMercadoPagoResponseDto.CANCELLED,
     "transaction_amount": 40.7,
   }
 };
