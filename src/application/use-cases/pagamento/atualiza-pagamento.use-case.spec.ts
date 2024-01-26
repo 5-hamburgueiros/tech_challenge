@@ -54,7 +54,6 @@ describe('AtualizaPagamentoUseCase', () => {
       .mockResolvedValueOnce(pedidoPago);
     jest.spyOn(pedidoHistoricoRepository, 'create')
       .mockResolvedValueOnce(null);
-    jest.spyOn(pedido, 'adicionaPagamento');
 
     const result = await atualizaPagamentoUseCase.execute(idExterno);
 
@@ -73,7 +72,6 @@ describe('AtualizaPagamentoUseCase', () => {
       .mockResolvedValueOnce(pedido);
     jest.spyOn(pedidoHistoricoRepository, 'create')
       .mockResolvedValueOnce(null);
-    jest.spyOn(pedido, 'adicionaPagamento');
 
     const result = await atualizaPagamentoUseCase.execute(idExterno);
 
