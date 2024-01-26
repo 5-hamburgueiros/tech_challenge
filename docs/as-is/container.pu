@@ -18,7 +18,7 @@ title Diagrama de Container - Pedidos
 
 Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
 
-Boundary(aws, "AWS", "EKS") {
+Boundary(aws, "AWS", "Amazon Web Services") {
   System_Boundary(orders, "Pedidos") {
     Container(order_api, "API Application", "Nodejs, Nestjs", "Disponibiliza endpoints para manipulação de pedidos",)
     ContainerDb(order_db, "Database", "Postgres SQL", "Armazena dados de ingredientes, itens, combos e pedidos", $tags="secondary")

@@ -20,14 +20,12 @@ Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $s
 
 Boundary(internet, "Internet", "Tcp/Ip"){
   System_Ext(web, "Aplicação Web", "SPA", $sprite="laptop", $tags="external")
-  System_Ext(waf, "WAF", "Faz validação e controle de solicitações",$sprite="cloud",$tags="external")
 }
 Boundary(internet_2, "Internet", "Tcp/Ip"){
   System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos", $tags="external")
 }
 
 Boundary(aws, "Amazon Web Services (AWS)", "us-east-1"){
-  Container(api_gateway, "API Gateway", "aws:api-gateway", "Realiza exposição de endpoints para internet",)
   Container(load_balancer, "Load Balancer", "aws:lb", "Faz a distribuição de carga para o cluster de kubernetes")
   Deployment_Node(vpc, "VPC", "aws:vpc", "Rede virtual privada para os recursos da AWS") {
     Deployment_Node(rds, "RDS", "aws:rds", "Banco de dados relacional"){
@@ -39,16 +37,14 @@ Boundary(aws, "Amazon Web Services (AWS)", "us-east-1"){
         Container(service_container, "Service", "Kind: Service")
       }
       Deployment_Node(deployment, "Deployment", "Deployment"){
-        Container(api, "API Application", "Pod: Nodejs", "Disponibiliza endpoints ingredientes, itens, combos e pedidos",)
+        Container(api, "API Application", "Pod: Nodejs, Nestjs", "Disponibiliza endpoints ingredientes, itens, combos e pedidos",)
       }
     }
   }
 }
 
 Rel_D(user, web, "Utiliza o sistema", "Web Browser")
-Rel(web, waf, "Passa por", "Json/https")
-Rel_D(waf, api_gateway, "Redireciona para", "Json/https")
-Rel_R(api_gateway, load_balancer, "Encaminha para", "Json/https")
+Rel_R(web, load_balancer, "Encaminha para", "Json/https")
 Rel(load_balancer, service_container, "Distruibui para", "Json/https")
 Rel_R(service_container, api, "Distruibui para", "Json/https")
 Rel_D(api, rds_db, "Leitura/Escrita")
