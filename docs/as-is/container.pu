@@ -1,0 +1,36 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/react.puml
+!include DEVICONS/nodejs.puml
+!include DEVICONS/postgresql.puml
+!include FONTAWESOME/users.puml
+
+HIDE_STEREOTYPE()
+
+AddElementTag("external", $bgColor="#f55")
+AddElementTag("secondary", $bgColor="#08f")
+
+title Diagrama de Container - Pedidos
+
+
+Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
+
+Boundary(aws, "AWS", "Amazon Web Services") {
+  System_Boundary(orders, "Pedidos") {
+    Container(order_api, "API Application", "Nodejs, Nestjs", "Disponibiliza endpoints para manipulação de pedidos",)
+    ContainerDb(order_db, "Database", "Postgres SQL", "Armazena dados de ingredientes, itens, combos e pedidos", $tags="secondary")
+  }
+}
+System_Boundary(payment_gateway, "Gateway de Pagamentos") {
+  System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos", $tags="external")
+}
+
+Rel(user, order_api, "Utiliza para criação de pedidos", "Json/https")
+BiRel(order_api, payment_Gateway, "Utiliza para criar pagamentos e receber eventos de pagamento", "Json/https")
+Rel_R(order_api, order_db, "Leitura/Escrita", "tcp/ip")
+@enduml
+
+

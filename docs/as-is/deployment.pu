@@ -1,0 +1,53 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/database.puml
+!include FONTAWESOME/cloud.puml
+!include FONTAWESOME/laptop.puml
+!include FONTAWESOME/server.puml
+
+
+HIDE_STEREOTYPE()
+
+AddElementTag("external", $bgColor="#f55")
+AddElementTag("secondary", $bgColor="#08f")
+
+
+title Diagrama de Implantação - Pedidos
+Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
+
+Boundary(internet, "Internet", "Tcp/Ip"){
+  System_Ext(web, "Aplicação Web", "SPA", $sprite="laptop", $tags="external")
+}
+Boundary(internet_2, "Internet", "Tcp/Ip"){
+  System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos", $tags="external")
+}
+
+Boundary(aws, "Amazon Web Services (AWS)", "us-east-1"){
+  Container(load_balancer, "Load Balancer", "aws:lb", "Faz a distribuição de carga para o cluster de kubernetes")
+  Deployment_Node(vpc, "VPC", "aws:vpc", "Rede virtual privada para os recursos da AWS") {
+    Deployment_Node(rds, "RDS", "aws:rds", "Banco de dados relacional"){
+      ContainerDb(rds_db, "Database", "postgresSQL", "Armazena dados de ingredientes, itens, combos e pedidos",$sprite="database" , $tags="secondary")
+    }
+
+    Deployment_Node(k8s, "EKS", "Cluster de Kubernetes", "Orquestrador de containers"){
+      Deployment_Node(service, "Service", "Service"){
+        Container(service_container, "Service", "Kind: Service")
+      }
+      Deployment_Node(deployment, "Deployment", "Deployment"){
+        Container(api, "API Application", "Pod: Nodejs, Nestjs", "Disponibiliza endpoints ingredientes, itens, combos e pedidos",)
+      }
+    }
+  }
+}
+
+Rel_D(user, web, "Utiliza o sistema", "Web Browser")
+Rel_R(web, load_balancer, "Encaminha para", "Json/https")
+Rel(load_balancer, service_container, "Distruibui para", "Json/https")
+Rel_R(service_container, api, "Distruibui para", "Json/https")
+Rel_D(api, rds_db, "Leitura/Escrita")
+BiRel(api, payment_Gateway, "Utiliza", "Json/https")
+' SHOW_LEGEND()
+@enduml
