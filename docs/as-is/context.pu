@@ -19,7 +19,7 @@ SystemDb(db, "Banco de Dados", "Armazena dados de ingredientes, itens, combos e 
 System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos e notificações", $tags="external")
 
 BiRel_D(order_api, payment_Gateway, "Utiliza para criar pagamentos e recebe eventos de pagamentos", "Json/https")
-Rel_R(order_api, db, "Leitura e Escrita", "TCP/https")
+Rel_R(order_api, db, "Leitura e Escrita", "TCP")
 Rel(user, order_api, "Utiliza para criação de pedidos", "Json/https")
 
 
