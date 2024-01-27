@@ -9,7 +9,7 @@ export class NotificacaoPagamentoMercadoPagoDTO {
     example: TipoNotificacaoMercadoPago.PAYMENT_CREATED,
   })
   @IsEnum(TipoNotificacaoMercadoPago)
-  action: string;
+  action: TipoNotificacaoMercadoPago;
 
   @ApiProperty({
     description: 'Versão da API',

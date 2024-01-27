@@ -27,7 +27,8 @@ export class PagamentoController {
   ): Promise<any> {
     const action = body?.action;
     const externalPaymentId = body?.data?.id;
-    if (action === TipoNotificacaoMercadoPago.PAYMENT_CREATED && externalPaymentId) {
+    const isPamento = [TipoNotificacaoMercadoPago.PAYMENT_CREATED, TipoNotificacaoMercadoPago.PAYMENT_UPDATED].includes(action);
+    if (isPamento && externalPaymentId) {
       return this.atualizaPagamento.execute(externalPaymentId);
     }
   }
