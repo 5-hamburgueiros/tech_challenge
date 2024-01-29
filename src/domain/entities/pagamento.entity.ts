@@ -25,7 +25,7 @@ export class PagamentoEntity extends AbstractEntity {
   }
 
   public cancelar(): void {
-    if (this.status !== StatusPagamento.CANCELADO) {
+    if (this.status === StatusPagamento.CANCELADO) {
       throw new Error('Pedido já foi cancelado anteriormente!');
     }
     this.status = StatusPagamento.CANCELADO;

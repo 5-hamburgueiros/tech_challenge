@@ -1,0 +1,26 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/react.puml
+!include DEVICONS/nodejs.puml
+!include DEVICONS/database.puml
+!include FONTAWESOME/users.puml
+AddElementTag("external", $bgColor="#f55")
+AddElementTag("secondary", $bgColor="#08f")
+HIDE_STEREOTYPE()
+
+title Diagrama de Contexto - Pedidos
+
+Person(user, "Atentende", "Pessoa que utliza o sistema para inputar pedidos", $sprite="users")
+System(order_api, "Pedidos", "Realiza a gestão de pedidos através de API Rest")
+SystemDb(db, "Banco de Dados", "Armazena dados de ingredientes, itens, combos e pedidos", $tags="secondary")
+System_Ext(payment_Gateway, "Mercado Pago", "Disponibliza api de criação de pagamentos e notificações", $tags="external")
+
+BiRel_D(order_api, payment_Gateway, "Utiliza para criar pagamentos e recebe eventos de pagamentos", "Json/https")
+Rel_R(order_api, db, "Leitura e Escrita", "TCP")
+Rel(user, order_api, "Utiliza para criação de pedidos", "Json/https")
+
+
+@enduml

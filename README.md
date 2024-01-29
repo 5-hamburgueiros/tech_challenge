@@ -81,3 +81,21 @@ Ao realizar o Pedido é feito a integração com MercadoPago e gerado um QRCode 
 
 Também publicamos a aplicação na Nuvem podem ser acessada por esse endpoint:
 http://a06c69a4a4a89422aab39ed7f596ecea-335050858.us-east-1.elb.amazonaws.com/swagger#
+## C4 Model
+Adotamos o C4 Model para a documentação arquitetural do projeto. A seguir, os diagramas foram gerados utilizando o PlantUML.
+
+### Context Diagram
+Nesse diagrama, podemos ver o contexto da aplicação, com os atores externos e os sistemas externos com os quais a aplicação se comunica. É uma visão de alto nível, que mostra o que a aplicação faz, mas não como ela faz.
+
+![Context Diagram](./out/docs/as-is/context/context.svg)
+
+
+### Container Diagram
+Nesse diagrama, podemos ver os componentes da aplicação e como eles se relacionam. Nesse nível de detalhe, podemos ver como a aplicação é composta e como ela se comunica com os sistemas externos.
+
+![Context Diagram](./out/docs/as-is/container/container.svg)
+
+### Deployment Diagram
+Nesse diagrama, podemos ver como será a infraestrutura de execução da aplicação
+
+![Context Diagram](./out/docs/as-is/deployment/deployment.svg)
