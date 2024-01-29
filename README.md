@@ -46,6 +46,41 @@ Já se estiver utilizando Docker, pode acessar em http://localhost:3333/swagger 
 E se estiver utilizando o ambiente de desenvolvimento via `yarn`, basta acessar em http://localhost:3000/swagger e http://localhost:3000/swagger-json .
 
 
+## Instruções
+Para podermos ter a listagem dos lanches e combos, primeiramente temos de fazer a criação dos seguintes elementos:
+Variáveis:
+|  ambiente | porta |
+|---|---|
+|  Kube |  30001 |
+|  Docker |  3333 |
+|  Local |  3000 |
+1) Ingredientes :  
+- path: `/ingredientes`
+ - body de exemplo: 
+ `http://localhost:${porta}/swagger#/Ingredientes/IngredienteController_create`
+   
+2) Itens:
+- path: `/itens`
+ - body de exemplo: 
+ `http://localhost:${porta}/swagger#/Itens/ItemController_create`
+3) Combos:
+- path: `/combos`
+ - body de exemplo: 
+ `http://localhost:${porta}/swagger#/Combos/ComboController_create`
+
+Com isso já teremos a nossa listagem preparada, agora é só montar o **pedido** e realizar o **pagamento**.
+
+* Temos um fluxo desenhado no Miro: https://miro.com/app/board/uXjVMijxamk=/?moveToWidget=3458764568664341872&cot=14
+
+**Mercado Pago**:
+Ao realizar o Pedido é feito a integração com MercadoPago e gerado um QRCode que é fornecido no response da criação de pedido. Após pagamento do QRCode temos um Webhook que o MercadoPago irá nós notificar com as mudanças de status referente ao pagamento, e ele sendo um status de 'PAGO' todo processo de iniciação do pedido se inicia. Caso contrario o pedido é cancelado.
+
+- Path: `/pagamentos`
+- body de exemplo:
+`http://localhost:${porta}/swagger#/Pagamentos/PagamentoController_pagamento`
+
+Também publicamos a aplicação na Nuvem podem ser acessada por esse endpoint:
+http://a06c69a4a4a89422aab39ed7f596ecea-335050858.us-east-1.elb.amazonaws.com/swagger#
 ## C4 Model
 Adotamos o C4 Model para a documentação arquitetural do projeto. A seguir, os diagramas foram gerados utilizando o PlantUML.
 
