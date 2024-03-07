@@ -1,3 +1,4 @@
+export * from './autenticacao';
 export * from './clientes';
 export * from './combos';
 export * from './ingrediente';

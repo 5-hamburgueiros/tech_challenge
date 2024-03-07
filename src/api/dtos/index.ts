@@ -1,3 +1,4 @@
+export * from './autenticacao';
 export * from './clientes';
 export * from './create-combo.dto';
 export * from './create-ingrediente.dto';

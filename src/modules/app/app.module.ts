@@ -8,6 +8,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AutenticacaoModule } from '../autenticacao/autenticacao.module';
 import { ClienteModule } from '../cliente/cliente.module';
 import { ComboModule } from '../combo/combo.module';
 import { DatabaseModule } from '../database/database.module';
@@ -42,6 +43,7 @@ import { SeedModule } from '../seed/seed.module';
     PedidoModule,
     PagamentoModule,
     SeedModule,
+    AutenticacaoModule,
   ],
   providers: [
     CorrelationService,

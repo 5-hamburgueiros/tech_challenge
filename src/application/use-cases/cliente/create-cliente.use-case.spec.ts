@@ -1,13 +1,17 @@
-import { ClienteEntity } from '@/domain/entities';
+import { ClienteEntity, SignUpEntity } from '@/domain/entities';
 import { DocumentoCadastradoException } from '@/domain/exceptions';
 import { IClienteRepository } from '@/domain/repository';
 import { createMock } from '@golevelup/nestjs-testing';
+import { HttpModule } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
+import { map, of } from 'rxjs';
+import { SignUpUseCase } from '../autenticacao/sign-up.use-case';
 import { CreateClienteUseCase } from './create-cliente.use-case'; // Adjust the import path as needed
 
 describe('CreateClienteUseCase', () => {
   let createClienteUseCase: CreateClienteUseCase;
   let clienteRepository: IClienteRepository;
+  let signup: SignUpUseCase;
 
   const mockClienteData = {
     documento: '1234567890',
@@ -15,11 +19,18 @@ describe('CreateClienteUseCase', () => {
     nome: 'John Doe',
   };
 
+  const createSignup = new SignUpEntity({
+    message: 'User created successfully',
+  });
+
   beforeEach(async () => {
     clienteRepository = createMock<IClienteRepository>();
+    signup = createMock<any>();
     const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
       providers: [
         CreateClienteUseCase,
+        SignUpUseCase,
         {
           provide: IClienteRepository,
           useValue: clienteRepository,
@@ -29,6 +40,7 @@ describe('CreateClienteUseCase', () => {
 
     createClienteUseCase =
       module.get<CreateClienteUseCase>(CreateClienteUseCase);
+    signup = module.get<SignUpUseCase>(SignUpUseCase);
   });
 
   it('should be defined', () => {
@@ -48,6 +60,13 @@ describe('CreateClienteUseCase', () => {
     const clienteRepositoryCreateSpy = jest
       .spyOn(clienteRepository, 'create')
       .mockResolvedValue(createdCliente);
+    const signupSpy = jest.spyOn(signup, 'execute').mockResolvedValue(
+      of('signup').pipe(
+        map((resp) => {
+          return createSignup;
+        }),
+      ),
+    );
 
     const result = await createClienteUseCase.execute(mockClienteData);
 
@@ -60,6 +79,7 @@ describe('CreateClienteUseCase', () => {
     });
     expect(clienteRepositoryFindByDocumentSpy).toHaveBeenCalled();
     expect(clienteRepositoryCreateSpy).toHaveBeenCalled();
+    expect(signupSpy).toHaveBeenCalled();
   });
 
   it('should throw DocumentoCadastradoException if the document already exists', async () => {

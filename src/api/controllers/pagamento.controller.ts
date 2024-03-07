@@ -10,24 +10,26 @@ import { NotificacaoPagamentoMercadoPagoDTO } from '../dtos/mercado-pago/notific
 @ApiTags('Pagamentos')
 @Controller('/pagamentos')
 export class PagamentoController {
-
   constructor(
     @Inject(AtualizaPagamentoUseCase)
     private readonly atualizaPagamento: AtualizaPagamentoUseCase,
     @Inject(IPagamentoPedido)
     private readonly pagamentoPedido: IPagamentoPedido,
-  ) { }
+  ) {}
 
   @Post()
   @ApiOperation({
-    summary: 'Responsável por escutar os eventos do Mercado Pago'
+    summary: 'Responsável por escutar os eventos do Mercado Pago',
   })
   async pagamento(
     @Body() body: NotificacaoPagamentoMercadoPagoDTO,
   ): Promise<any> {
     const action = body?.action;
     const externalPaymentId = body?.data?.id;
-    const isPamento = [TipoNotificacaoMercadoPago.PAYMENT_CREATED, TipoNotificacaoMercadoPago.PAYMENT_UPDATED].includes(action);
+    const isPamento = [
+      TipoNotificacaoMercadoPago.PAYMENT_CREATED,
+      TipoNotificacaoMercadoPago.PAYMENT_UPDATED,
+    ].includes(action);
     if (isPamento && externalPaymentId) {
       return this.atualizaPagamento.execute(externalPaymentId);
     }
@@ -37,10 +39,8 @@ export class PagamentoController {
   @ApiResponse({ type: PedidoEntity })
   @ApiOperation({
     summary: 'Executa fake checkout no pedido',
-  },)
-  async fake(
-    @Body() body: FakeCheckoutDto,
-  ): Promise<any> {
+  })
+  async fake(@Body() body: FakeCheckoutDto): Promise<any> {
     const idPedido = body?.id;
     if (idPedido) {
       return this.pagamentoPedido.execute(idPedido);
