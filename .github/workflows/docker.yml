@@ -1,9 +1,12 @@
 name: Criar e publicar imagem docker
 on:
   push:
-    tags: [ "v[0-9]+.[0-9]+.[0-9]+" ]
+    branches: [ "main" ]
+env:
+  EKS_CLUSTER_NAME: fiap-cluster
+  AWS_REGION: us-east-1
 jobs:
-  build_image:
+  deploy_on_eks:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +21,20 @@ jobs:
         run: echo "version=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
 
       - name: Build da imagem docker
-        run: docker build -t cviniciussdias/grupo52:latest -t cviniciussdias/grupo52:${{ steps.extract_version.outputs.version }} --target production .
+        run: docker build -t cviniciussdias/grupo52:latest --target production .
 
       - name: Push da imagem docker
-        run: docker push --all-tags cviniciussdias/grupo52
+        run: docker push cviniciussdias/grupo52:latest
+
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{env.AWS_REGION}}
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
+
+      - name: Aplicar alterações do k8s
+        run: kubectl apply -f k8s/
