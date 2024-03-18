@@ -1,3 +1,4 @@
+export * from './bad-request.exception';
 export * from './clente-nao-localizado.exception';
 export * from './document-cadastrado.exeception';
 export * from './erro-integracao-mercado-pago.exception';

@@ -11,10 +11,13 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiQuery, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { ApiOkResponsePaginated, CreateComboDto } from '../dtos';
+import { AllowAnonymous } from '../middlewares/auth-guard.strategy';
 
 @ApiTags('Combos')
 @Controller('combos')
@@ -27,6 +30,7 @@ export class ComboController {
     private readonly _comboService: IComboService,
   ) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() dto: CreateComboDto) {
     return this.createCombo.execute({
@@ -49,6 +53,9 @@ export class ComboController {
     name: 'limit',
     required: false,
   })
+  @UseGuards()
+  @AllowAnonymous()
+  @ApiSecurity('bearer')
   @Get()
   @ApiResponse({ type: Pagination<ComboModelTypeOrm> })
   @ApiOkResponsePaginated(ComboEntity)

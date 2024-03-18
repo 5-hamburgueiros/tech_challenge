@@ -16,11 +16,19 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreatePedidoDto } from '../dtos';
 import { UpdateStatusDto } from '../dtos/pagamento-pedido';
+import { AllowAnonymous } from '../middlewares/auth-guard.strategy';
 
 @ApiTags('Pedidos')
 @Controller('pedidos')
@@ -40,6 +48,9 @@ export class PedidoController {
     summary:
       "Para clientes que realizarem pedidos de forma anônima, não deverá passar o campo 'cliente' na requisição",
   })
+  @UseGuards()
+  @AllowAnonymous()
+  @ApiSecurity('bearer')
   @Post()
   async create(
     @Body() createPedidoDto: CreatePedidoDto,
@@ -65,6 +76,9 @@ export class PedidoController {
     name: 'limit',
     required: false,
   })
+  @UseGuards()
+  @AllowAnonymous()
+  @ApiSecurity('bearer')
   @Get()
   async list(
     @Query('documento') documento: string,
@@ -89,6 +103,9 @@ export class PedidoController {
     );
   }
 
+  @UseGuards()
+  @AllowAnonymous()
+  @ApiSecurity('bearer')
   @ApiParam({ name: 'id' })
   @Get(':id')
   async findById(@Param('id') id: string): Promise<PedidoEntity> {

@@ -12,10 +12,13 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiQuery, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { ApiOkResponsePaginated, CreateItemDto } from '../dtos';
+import { AllowAnonymous } from '../middlewares/auth-guard.strategy';
 
 @ApiTags('Itens')
 @Controller('itens')
@@ -27,7 +30,9 @@ export class ItemController {
     @Inject(IItemService) private readonly _itemService: IItemService,
   ) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
+  @ApiSecurity('bearer')
   async create(@Body() dto: CreateItemDto) {
     return this.createItem.execute({
       categoria: dto.categoria,
@@ -54,6 +59,9 @@ export class ItemController {
     name: 'limit',
     required: false,
   })
+  @UseGuards()
+  @AllowAnonymous()
+  @ApiSecurity('bearer')
   @Get()
   @ApiResponse({ type: Pagination<ItemModelTypeOrm> })
   @ApiOkResponsePaginated(ItemEntity)
