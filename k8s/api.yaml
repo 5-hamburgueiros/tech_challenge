@@ -6,9 +6,12 @@ data:
   APP_NAME: "TECH_CHALLENGE"
   APP_PORT: "3000"
   NODE_ENV: "production"
-  DATABASE_HOST: "tech-challenge-rds.cj2c0y24c6xj.us-east-1.rds.amazonaws.com"
+  DATABASE_HOST: "postgres-instance.c6wyo6kz18pz.us-east-1.rds.amazonaws.com"
   DATABASE_PORT: "5432"
   REDIS_CONNECTION_STRING: "localhost:6379"
+  AWS_COGNITO_USER_POOL_ID: "us-east-1_qpURMX2Da"
+  AWS_COGNITO_CLIENT_ID: "3r2vgiucnsfbakbaq1inieefda"
+  AWS_COGNITO_AUTHORITY: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_qpURMX2Da"
 ---
 apiVersion: v1
 kind: Service

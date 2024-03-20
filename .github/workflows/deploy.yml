@@ -2,8 +2,6 @@ name: Criar e publicar imagem docker
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
   EKS_CLUSTER_NAME: fiap-cluster
