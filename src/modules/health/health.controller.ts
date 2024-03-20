@@ -1,3 +1,4 @@
+import { AllowAnonymous } from '@/api/middlewares/auth-guard.strategy';
 import { Controller, Get } from '@nestjs/common';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { HealthCheck } from '@nestjs/terminus';
@@ -8,6 +9,7 @@ export class HealthController {
     return { status: 'Healthy' };
   }
 
+  @AllowAnonymous()
   @Get('/hc')
   @ApiExcludeEndpoint()
   @HealthCheck()
@@ -15,6 +17,7 @@ export class HealthController {
     return this.getStatus();
   }
 
+  @AllowAnonymous()
   @Get('/liveness')
   @ApiExcludeEndpoint()
   @HealthCheck()
