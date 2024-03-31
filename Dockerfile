@@ -25,6 +25,6 @@ RUN yarn install --prod
 
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD [ "node", "dist/main.js" ]
