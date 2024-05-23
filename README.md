@@ -34,6 +34,17 @@ docker compose up -d
 
 Com isso, a API estará disponível na porta 3333 e pode ser acessada pelo endereço http://localhost:3333
 
+## Execução dos testes
+
+Para executar os testes da aplicação, basta executar o seguinte comando:
+
+```shell
+yarn test:ci
+```
+
+Com isso, os testes irão rodar e mostra a cobertura de %.
+![Porcentagem de cobertura dos testes](./out/docs/coverage.png)
+
 ## Documentação
 
 A documentação da aplicação é feita usando Swagger e pode ser acessada no endereço `/swagger` da API.
