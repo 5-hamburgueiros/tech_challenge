@@ -1,7 +1,12 @@
-import { ICreateCliente, IFindByDocumento } from '@/domain/use-cases';
+import {
+  ICreateCliente,
+  IDeleteCliente,
+  IFindByDocumento,
+} from '@/domain/use-cases';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -20,6 +25,8 @@ export class ClienteController {
     private readonly createCliente: ICreateCliente,
     @Inject(IFindByDocumento)
     private readonly findByDocumento: IFindByDocumento,
+    @Inject(IDeleteCliente)
+    private readonly deleteCliente: IDeleteCliente,
   ) {}
 
   @UseGuards()
@@ -36,6 +43,16 @@ export class ClienteController {
   @Get(':documento')
   async findByDocument(@Param('documento') documento: string) {
     return this.findByDocumento.execute({
+      documento,
+    });
+  }
+  @UseGuards()
+  @AllowAnonymous()
+  @ApiSecurity('bearer')
+  @ApiParam({ name: 'documento' })
+  @Delete(':documento')
+  async delete(@Param('documento') documento: string) {
+    return this.deleteCliente.execute({
       documento,
     });
   }

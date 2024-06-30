@@ -1,9 +1,16 @@
 import { ClienteController } from '@/api/controllers/cliente.controller';
-import { FindByDocumentUseCase } from '@/application/use-cases';
+import {
+  DeleteClienteUseCase,
+  FindByDocumentUseCase,
+} from '@/application/use-cases';
 import { SignUpUseCase } from '@/application/use-cases/autenticacao/sign-up.use-case';
 import { CreateClienteUseCase } from '@/application/use-cases/cliente/create-cliente.use-case';
 import { IClienteRepository } from '@/domain/repository';
-import { ICreateCliente, IFindByDocumento } from '@/domain/use-cases';
+import {
+  ICreateCliente,
+  IDeleteCliente,
+  IFindByDocumento,
+} from '@/domain/use-cases';
 import { ClienteModelTypeOrm } from '@/infra/database/typerom/model';
 import { ClienteRepositoryTypeOrm } from '@/infra/repository/typeorm';
 import { HttpModule } from '@nestjs/axios';
@@ -21,6 +28,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: IFindByDocumento,
       useClass: FindByDocumentUseCase,
+    },
+    {
+      provide: IDeleteCliente,
+      useClass: DeleteClienteUseCase,
     },
     {
       provide: IClienteRepository,
