@@ -35,4 +35,8 @@ export class ClienteRepositoryTypeOrm implements IClienteRepository {
     const result = adapter.result(data);
     return result;
   }
+
+  async delete(params: IClienteRepository.DeleteCliente.Params): Promise<void> {
+    await this.clienteRepository.delete({ documento: params.documento });
+  }
 }
