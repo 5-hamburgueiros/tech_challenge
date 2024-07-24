@@ -1,16 +1,16 @@
 import { ClienteNaoLocalizadoException } from '@/domain/exceptions';
 import { IClienteRepository } from '@/domain/repository';
+import { AwsCognitoService } from '@/domain/service';
 import { IDeleteCliente } from '@/domain/use-cases';
 import { Inject, Injectable } from '@nestjs/common';
-import { SignUpUseCase } from '../autenticacao/sign-up.use-case';
 
 @Injectable()
 export class DeleteClienteUseCase implements IDeleteCliente {
   constructor(
     @Inject(IClienteRepository)
     private readonly clienteRepository: IClienteRepository,
-    @Inject(SignUpUseCase)
-    private readonly signup: SignUpUseCase,
+    @Inject(AwsCognitoService)
+    private readonly awsCognitoService: AwsCognitoService,
   ) {}
 
   async execute(params: IDeleteCliente.Params): Promise<void> {
@@ -25,5 +25,6 @@ export class DeleteClienteUseCase implements IDeleteCliente {
     await this.clienteRepository.delete({
       documento: params.documento,
     });
+    await this.awsCognitoService.deleteCliente(params.documento);
   }
 }

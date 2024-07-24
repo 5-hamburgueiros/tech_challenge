@@ -6,6 +6,7 @@ import {
 import { SignUpUseCase } from '@/application/use-cases/autenticacao/sign-up.use-case';
 import { CreateClienteUseCase } from '@/application/use-cases/cliente/create-cliente.use-case';
 import { IClienteRepository } from '@/domain/repository';
+import { AwsCognitoService } from '@/domain/service';
 import {
   ICreateCliente,
   IDeleteCliente,
@@ -38,6 +39,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useClass: ClienteRepositoryTypeOrm,
     },
     SignUpUseCase,
+    AwsCognitoService,
   ],
 })
 export class ClienteModule {}
