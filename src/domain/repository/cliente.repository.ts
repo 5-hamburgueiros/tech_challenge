@@ -7,6 +7,7 @@ export interface IClienteRepository {
   findByDocumento(
     params: IClienteRepository.FindByDocumento.Params,
   ): Promise<IClienteRepository.FindByDocumento.Result>;
+  delete(params: IClienteRepository.DeleteCliente.Params): Promise<void>;
 }
 
 export const IClienteRepository = Symbol('IClienteRepository');
@@ -24,5 +25,10 @@ export namespace IClienteRepository {
       documento: string;
     };
     export type Result = ClienteEntity;
+  }
+  export namespace DeleteCliente {
+    export type Params = {
+      documento: string;
+    };
   }
 }

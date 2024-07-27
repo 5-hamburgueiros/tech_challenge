@@ -43,4 +43,21 @@ export class AwsCognitoService {
       });
     });
   }
+
+  async deleteCliente(documento: string) {
+    const userData = {
+      Username: documento,
+      Pool: this.userPool,
+    };
+    const cognitoUser = new CognitoUser(userData);
+    return new Promise((resolve, reject) => {
+      cognitoUser.deleteUser((err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
 }
